@@ -1,17 +1,20 @@
 import superagent from 'superagent'
+import Promise from 'bluebird'
 
 module.exports = {
-	get: (params, callback) => {
-		superagent
-		.get(params)
-		.query(null)
-		.set('Accept', 'application/json')
-		.end((err, response) => {
-			if (err) {
-				callback(err, null)
-				return
-			}
-            callback(null, response)
+	get: (url, params) => {
+		return new Promise((resolve, reject) => {
+			superagent
+			.get(url)
+			.query(params)
+			.set('Accept', 'application/json')
+			.end((err, response) => {
+				if (err) {
+					reject(err)
+					return
+				}
+	            resolve(response.body)   //resolve(response)
+			})
 		})
 	}
 }
