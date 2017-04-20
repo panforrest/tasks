@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <form action="/api/task" method="post">
+	    <input type="text" name="title" placeholder="Title" /><br />
+	    <input type="submit" value="Submit">
+	</form>
+  </body>
+</html>

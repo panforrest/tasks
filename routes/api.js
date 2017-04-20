@@ -42,7 +42,7 @@ router.get('/:resource/:id', function(req, res, next){
     }
 
     var id = req.params.id
-    controller.getById(id)
+    controller.getById(id)  //THIS IS WRONG FOR NOW
     .then(function(result){
         res.json({
             confirmation: 'success',
@@ -66,9 +66,10 @@ router.post('/:resource', function(req, res, next){
             confirmation: 'fail',
             message: 'invalid resource'
         })
+        return
     }
 
-    controller.create(req.body)
+    controller.post(req.body, false)  //controller.create(req.body)
     .then(function(result){
         res.json({
             confirmation: 'success',

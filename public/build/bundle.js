@@ -22117,6 +22117,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _utils = __webpack_require__(186);
 
+var _view = __webpack_require__(201);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22168,7 +22170,8 @@ var Tasks = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
-        'Tasks container.'
+        'Tasks container.',
+        _react2.default.createElement(_view.CreateTask, null)
       );
     }
   }]);
@@ -22244,6 +22247,10 @@ module.exports = isObject;
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
 var _superagent = __webpack_require__(190);
 
 var _superagent2 = _interopRequireDefault(_superagent);
@@ -22254,10 +22261,22 @@ var _bluebird2 = _interopRequireDefault(_bluebird);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-module.exports = {
+exports.default = { //module.exports = {
 	get: function get(url, params) {
 		return new _bluebird2.default(function (resolve, reject) {
 			_superagent2.default.get(url).query(params).set('Accept', 'application/json').end(function (err, response) {
+				if (err) {
+					reject(err);
+					return;
+				}
+				resolve(response.body); //resolve(response)
+			});
+		});
+	},
+
+	post: function post(url, params) {
+		return new _bluebird2.default(function (resolve, reject) {
+			_superagent2.default.post(url).send(params).set('Accept', 'application/json').end(function (err, response) {
 				if (err) {
 					reject(err);
 					return;
@@ -30138,6 +30157,123 @@ __webpack_require__(198);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
+
+/***/ }),
+/* 200 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+        value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(81);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _utils = __webpack_require__(186);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CreateTask = function (_Component) {
+        _inherits(CreateTask, _Component);
+
+        function CreateTask() {
+                _classCallCheck(this, CreateTask);
+
+                var _this = _possibleConstructorReturn(this, (CreateTask.__proto__ || Object.getPrototypeOf(CreateTask)).call(this));
+
+                _this.state = {
+                        task: {
+                                title: '',
+                                category: '',
+                                description: ''
+                        }
+                };
+                return _this;
+        }
+
+        _createClass(CreateTask, [{
+                key: 'updateTask',
+                value: function updateTask(event) {
+                        console.log('updateTask: ' + event.target.id + ' == ' + event.target.value);
+                        var updated = Object.assign({}, this.state.task);
+                        updated[event.target.id] = event.target.value;
+                        this.setState({
+                                task: updated
+                        });
+                }
+        }, {
+                key: 'submitTask',
+                value: function submitTask(event) {
+                        event.preventDefault();
+                        console.log('submitTask: ' + JSON.stringify(this.state.task));
+                        _utils.APIManager.post('/api/task', this.state.task).then(function (response) {
+                                console.log('TASK CREATED: ' + JSON.stringify(response));
+                        }).catch(function (err) {
+                                console.log('ERROR: ' + JSON.stringify(err));
+                        });
+                }
+        }, {
+                key: 'render',
+                value: function render() {
+                        return _react2.default.createElement(
+                                'div',
+                                null,
+                                _react2.default.createElement(
+                                        'h2',
+                                        null,
+                                        'Create Task'
+                                ),
+                                _react2.default.createElement('input', { onChange: this.updateTask.bind(this), type: 'text', id: 'title', placeholder: 'Title' }),
+                                _react2.default.createElement('br', null),
+                                _react2.default.createElement('input', { onChange: this.updateTask.bind(this), type: 'text', id: 'category', placeholder: 'Category' }),
+                                _react2.default.createElement('br', null),
+                                _react2.default.createElement('input', { onChange: this.updateTask.bind(this), type: 'text', id: 'description', placeholder: 'Description' }),
+                                _react2.default.createElement('br', null),
+                                _react2.default.createElement(
+                                        'button',
+                                        { onClick: this.submitTask.bind(this) },
+                                        'Submit'
+                                )
+                        );
+                }
+        }]);
+
+        return CreateTask;
+}(_react.Component);
+
+exports.default = CreateTask;
+
+/***/ }),
+/* 201 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.CreateTask = undefined;
+
+var _CreateTask = __webpack_require__(200);
+
+var _CreateTask2 = _interopRequireDefault(_CreateTask);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.CreateTask = _CreateTask2.default;
 
 /***/ })
 /******/ ]);

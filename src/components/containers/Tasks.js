@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { APIManager } from '../../utils'
+import { CreateTask } from '../view'
 
 class Tasks extends Component{
     componentDidMount(){
@@ -37,6 +38,7 @@ class Tasks extends Component{
 		return(
 			<div>
 			    Tasks container.
+			    <CreateTask />
 			</div>
 		)
 	}

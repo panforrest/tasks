@@ -40,12 +40,12 @@ module.exports = {
 				if (isRaw == true)
                     resolve(task)
 				else
-				    resolve(task.summary)				
+				    resolve(task.summary())  //resolve(task.summary)				
 			})
 		})
 	},
-
-	post: function(params){
+ 
+	post: function(params, isRaw){  //post: function(params){
 		return new Promise(function(resolve, reject){
 			Task.create(params, function(err, task){
 				if (err){
@@ -56,7 +56,7 @@ module.exports = {
 				if (isRaw == true)
                     resolve(task)
 				else
-				    resolve(task.summary)
+				    resolve(task.summary())  //resolve(task.summary)
 			})
 		})
 	}
