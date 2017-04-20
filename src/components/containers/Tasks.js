@@ -34,11 +34,24 @@ class Tasks extends Component{
 
     }
 
+    createTask(task){
+        // console.log('CREATE TASK: '+JSON.stringify(task))
+        APIManager
+        .post('/api/task', task)
+        .then(response => {
+            console.log('CREATE TASK: '+JSON.stringify(response))
+        })
+        .catch(err => {
+            console.log('ERROR: '+JSON.stringify(err))
+        })
+
+    }
+
 	render(){
 		return(
 			<div>
 			    Tasks container.
-			    <CreateTask />
+			    <CreateTask onSubmitTask={this.createTask.bind(this)}/>
 			</div>
 		)
 	}

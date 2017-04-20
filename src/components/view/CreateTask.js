@@ -25,14 +25,15 @@ class CreateTask extends Component {
     submitTask(event){
     	event.preventDefault()
     	console.log('submitTask: '+JSON.stringify(this.state.task))
-    	APIManager
-    	.post('/api/task', this.state.task)
-    	.then(response => {
-            console.log('TASK CREATED: '+JSON.stringify(response))
-    	})
-    	.catch(err => {
-            console.log('ERROR: '+JSON.stringify(err))
-    	})
+    	// APIManager
+    	// .post('/api/task', this.state.task)
+    	// .then(response => {
+     //        console.log('TASK CREATED: '+JSON.stringify(response))
+    	// })
+    	// .catch(err => {
+     //        console.log('ERROR: '+JSON.stringify(err))
+    	// })
+    	this.props.onSubmitTask(this.state.task)
     }
 
     render(){

@@ -22165,13 +22165,23 @@ var Tasks = function (_Component) {
       });
     }
   }, {
+    key: 'createTask',
+    value: function createTask(task) {
+      // console.log('CREATE TASK: '+JSON.stringify(task))
+      _utils.APIManager.post('/api/task', task).then(function (response) {
+        console.log('CREATE TASK: ' + JSON.stringify(response));
+      }).catch(function (err) {
+        console.log('ERROR: ' + JSON.stringify(err));
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
         null,
         'Tasks container.',
-        _react2.default.createElement(_view.CreateTask, null)
+        _react2.default.createElement(_view.CreateTask, { onSubmitTask: this.createTask.bind(this) })
       );
     }
   }]);
@@ -30166,7 +30176,7 @@ exports.clearImmediate = clearImmediate;
 
 
 Object.defineProperty(exports, "__esModule", {
-        value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -30186,71 +30196,75 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var CreateTask = function (_Component) {
-        _inherits(CreateTask, _Component);
+  _inherits(CreateTask, _Component);
 
-        function CreateTask() {
-                _classCallCheck(this, CreateTask);
+  function CreateTask() {
+    _classCallCheck(this, CreateTask);
 
-                var _this = _possibleConstructorReturn(this, (CreateTask.__proto__ || Object.getPrototypeOf(CreateTask)).call(this));
+    var _this = _possibleConstructorReturn(this, (CreateTask.__proto__ || Object.getPrototypeOf(CreateTask)).call(this));
 
-                _this.state = {
-                        task: {
-                                title: '',
-                                category: '',
-                                description: ''
-                        }
-                };
-                return _this;
-        }
+    _this.state = {
+      task: {
+        title: '',
+        category: '',
+        description: ''
+      }
+    };
+    return _this;
+  }
 
-        _createClass(CreateTask, [{
-                key: 'updateTask',
-                value: function updateTask(event) {
-                        console.log('updateTask: ' + event.target.id + ' == ' + event.target.value);
-                        var updated = Object.assign({}, this.state.task);
-                        updated[event.target.id] = event.target.value;
-                        this.setState({
-                                task: updated
-                        });
-                }
-        }, {
-                key: 'submitTask',
-                value: function submitTask(event) {
-                        event.preventDefault();
-                        console.log('submitTask: ' + JSON.stringify(this.state.task));
-                        _utils.APIManager.post('/api/task', this.state.task).then(function (response) {
-                                console.log('TASK CREATED: ' + JSON.stringify(response));
-                        }).catch(function (err) {
-                                console.log('ERROR: ' + JSON.stringify(err));
-                        });
-                }
-        }, {
-                key: 'render',
-                value: function render() {
-                        return _react2.default.createElement(
-                                'div',
-                                null,
-                                _react2.default.createElement(
-                                        'h2',
-                                        null,
-                                        'Create Task'
-                                ),
-                                _react2.default.createElement('input', { onChange: this.updateTask.bind(this), type: 'text', id: 'title', placeholder: 'Title' }),
-                                _react2.default.createElement('br', null),
-                                _react2.default.createElement('input', { onChange: this.updateTask.bind(this), type: 'text', id: 'category', placeholder: 'Category' }),
-                                _react2.default.createElement('br', null),
-                                _react2.default.createElement('input', { onChange: this.updateTask.bind(this), type: 'text', id: 'description', placeholder: 'Description' }),
-                                _react2.default.createElement('br', null),
-                                _react2.default.createElement(
-                                        'button',
-                                        { onClick: this.submitTask.bind(this) },
-                                        'Submit'
-                                )
-                        );
-                }
-        }]);
+  _createClass(CreateTask, [{
+    key: 'updateTask',
+    value: function updateTask(event) {
+      console.log('updateTask: ' + event.target.id + ' == ' + event.target.value);
+      var updated = Object.assign({}, this.state.task);
+      updated[event.target.id] = event.target.value;
+      this.setState({
+        task: updated
+      });
+    }
+  }, {
+    key: 'submitTask',
+    value: function submitTask(event) {
+      event.preventDefault();
+      console.log('submitTask: ' + JSON.stringify(this.state.task));
+      // APIManager
+      // .post('/api/task', this.state.task)
+      // .then(response => {
+      //        console.log('TASK CREATED: '+JSON.stringify(response))
+      // })
+      // .catch(err => {
+      //        console.log('ERROR: '+JSON.stringify(err))
+      // })
+      this.props.onSubmitTask(this.state.task);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'h2',
+          null,
+          'Create Task'
+        ),
+        _react2.default.createElement('input', { onChange: this.updateTask.bind(this), type: 'text', id: 'title', placeholder: 'Title' }),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement('input', { onChange: this.updateTask.bind(this), type: 'text', id: 'category', placeholder: 'Category' }),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement('input', { onChange: this.updateTask.bind(this), type: 'text', id: 'description', placeholder: 'Description' }),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(
+          'button',
+          { onClick: this.submitTask.bind(this) },
+          'Submit'
+        )
+      );
+    }
+  }]);
 
-        return CreateTask;
+  return CreateTask;
 }(_react.Component);
 
 exports.default = CreateTask;
