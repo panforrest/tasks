@@ -21964,7 +21964,7 @@
 	            // })
 	
 	            _utils.APIManager.get('/api/task', null).then(function (response) {
-	                // console.log(JSON.stringify(response))
+	                console.log(JSON.stringify(response));
 	                _this2.props.tasksReceived(response.results);
 	            }).catch(function (err) {
 	                console.log('ERROR: ' + JSON.stringify(err));
@@ -21983,17 +21983,19 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            // const list = this.props.tasks.map((task, i) => {
-	            //     return(
-	            //         <li key={task._id}>{task.title}</li>
-	            //     )
-	            // })
+	            var list = this.props.tasks.map(function (task, i) {
+	                return _react2.default.createElement(
+	                    'li',
+	                    { key: task.id },
+	                    task.title
+	                );
+	            });
 	
 	            return _react2.default.createElement(
 	                'div',
 	                null,
 	                'Tasks container.',
-	                _react2.default.createElement('ol', null),
+	                list,
 	                _react2.default.createElement(_view.CreateTask, { onSubmitTask: this.createTask.bind(this) })
 	            );
 	        }
@@ -22004,7 +22006,7 @@
 	
 	var stateToProps = function stateToProps(state) {
 	    return {
-	        tasks: state.task
+	        tasks: state.task.list
 	    };
 	};
 	
@@ -32695,55 +32697,55 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var initialState = {
-		// all: null
-	}; // import constants from '../constants'
-	
-	// var initialState = {
-	//     // tasks: {}
-	// 	// list: null
-	
-	// }
-	
-	// export default (state=initialState, action) => {
-	// 	let updated = Object.assign({}, state) 
-	// 	switch (action.type){
-	// 		case constants.TASKS_RECEIVED:
-	// 		    // let updated = Object.assign({}, state)  //var updated = Object.assign({}, state)
-	// 		    console.log('TASKS_RECEIVED: '+JSON.stringify(action.tasks))
-	
-	// 		    return updated
-	
-	// 		default:
-	// 		    return state
-	// 	}
-	// }
-	
+		list: [] //list: null WILL CAUSE: Uncaught TypeError: Cannot read property 'map' of null
+	};
 	
 	exports.default = function () {
 		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
 		var action = arguments[1];
 	
-	
 		var updated = Object.assign({}, state);
-	
 		switch (action.type) {
 			case _constants2.default.TASKS_RECEIVED:
 				console.log('TASKS_RECEIVED: ' + JSON.stringify(action.tasks));
-				// updated['all'] = action.payload
+				updated['list'] = action.tasks; //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
 				return updated;
-	
-			// 		case constants.TASK_CREATED:
-			// //			console.log('TASKS_RECEIVED: '+JSON.stringify(action.tasks))
-			// 			let currentTasks = (updated['all']) ? Object.assign([], updated['all']) : []
-			// 			currentTasks.unshift(action.payload)
-			// 			updated['all'] = currentTasks
-			// 			return updated
 	
 			default:
 				return state;
-	
 		}
 	};
+	
+	// import constants from '../constants'
+	
+	// var initialState = {
+	// 	// all: null
+	// }
+	
+	
+	// export default (state = initialState, action) => {
+	
+	// 	let updated = Object.assign({}, state)
+	
+	// 	switch (action.type){
+	// 		case constants.TASKS_RECEIVED:
+	// 			console.log('TASKS_RECEIVED: '+JSON.stringify(action.tasks))
+	// 			// updated['all'] = action.payload
+	// 			return updated
+	
+	// // 		case constants.TASK_CREATED:
+	// // //			console.log('TASKS_RECEIVED: '+JSON.stringify(action.tasks))
+	// // 			let currentTasks = (updated['all']) ? Object.assign([], updated['all']) : []
+	// // 			currentTasks.unshift(action.payload)
+	// // 			updated['all'] = currentTasks
+	// // 			return updated
+	
+	// 		default:
+	// 			return state
+	
+	// 	}
+	
+	// }
 
 /***/ })
 /******/ ]);
