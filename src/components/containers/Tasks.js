@@ -52,7 +52,7 @@ class Tasks extends Component{
         .post('/api/task', task)
         .then(response => {
             console.log('CREATE TASK: '+JSON.stringify(response))
-            this.props.taskCreated(JSON.stringify(response.result))
+            this.props.taskCreated(response.result)//this.props.taskCreated(JSON.stringify(response.result))
             
         })
         .catch(err => {
@@ -62,17 +62,23 @@ class Tasks extends Component{
     }
 
 	render(){
-        const list = this.props.tasks.map((task, i) => {
-            return(
-                <li key={task.id}>{task.title}</li>
-            )
-        })
+        // const list = this.props.tasks.map((task, i) => {
+        //     return(
+        //         <li key={task.id}>{task.title}</li>
+        //     )
+        // })
 
 		return(
 			<div>
 			    <h2>Tasks</h2>
                 
-                   {list}
+                    { (this.props.tasks.all == null) ? null:
+                        this.props.tasks.all.map((task, i) => {
+                            return (
+                                <li key={task.id}>{task.title}</li>
+                            )
+                        })                     
+                    }
                     
 			    <CreateTask onSubmitTask={this.createTask.bind(this)}/>
                 
@@ -84,7 +90,7 @@ class Tasks extends Component{
 
 const stateToProps = (state) => {
     return {
-        tasks: state.task.list
+        tasks: state.task
         // task: state.task.task
     }
 }

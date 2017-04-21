@@ -29,6 +29,12 @@ export default {   //module.exports = {
             		reject(err)
             		return
             	}
+
+            if (response.body.confirmation != 'success'){  //if (response.confirmation.message != 'success'){  
+                reject({message: response.body.message})          //response.confirmation.message = 
+                return
+            }
+
             	resolve(response.body)  //resolve(response)
             })
 		})

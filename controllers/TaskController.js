@@ -5,7 +5,7 @@ module.exports = {
 	get: function(params, isRaw){
 		return new Promise(function(resolve, reject){//return new Promise(params, function(resolve, reject){
             var filters = {  //var filter = {
-            	sort: {timestamp: 1}    //timestamp: -1
+            	sort: {timestamp: -1}    //timestamp: -1
             }
 
 			Task.find(params, null, filters, function(err, tasks){  //Task.find(params, function(err, tasks){

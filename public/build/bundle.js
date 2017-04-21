@@ -21985,7 +21985,7 @@
 	            // console.log('CREATE TASK: '+JSON.stringify(task))
 	            _utils.APIManager.post('/api/task', task).then(function (response) {
 	                console.log('CREATE TASK: ' + JSON.stringify(response));
-	                _this3.props.taskCreated(JSON.stringify(response.result));
+	                _this3.props.taskCreated(response.result); //this.props.taskCreated(JSON.stringify(response.result))
 	            }).catch(function (err) {
 	                console.log('ERROR: ' + JSON.stringify(err));
 	            });
@@ -21993,13 +21993,11 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var list = this.props.tasks.map(function (task, i) {
-	                return _react2.default.createElement(
-	                    'li',
-	                    { key: task.id },
-	                    task.title
-	                );
-	            });
+	            // const list = this.props.tasks.map((task, i) => {
+	            //     return(
+	            //         <li key={task.id}>{task.title}</li>
+	            //     )
+	            // })
 	
 	            return _react2.default.createElement(
 	                'div',
@@ -22009,7 +22007,13 @@
 	                    null,
 	                    'Tasks'
 	                ),
-	                list,
+	                this.props.tasks.all == null ? null : this.props.tasks.all.map(function (task, i) {
+	                    return _react2.default.createElement(
+	                        'li',
+	                        { key: task.id },
+	                        task.title
+	                    );
+	                }),
 	                _react2.default.createElement(_view.CreateTask, { onSubmitTask: this.createTask.bind(this) })
 	            );
 	        }
@@ -22020,7 +22024,7 @@
 	
 	var stateToProps = function stateToProps(state) {
 	    return {
-	        tasks: state.task.list
+	        tasks: state.task
 	        // task: state.task.task
 	    };
 	};
@@ -22097,6 +22101,13 @@
 						reject(err);
 						return;
 					}
+	
+					if (response.body.confirmation != 'success') {
+						//if (response.confirmation.message != 'success'){  
+						reject({ message: response.body.message }); //response.confirmation.message = 
+						return;
+					}
+	
 					resolve(response.body); //resolve(response)
 				});
 			});
@@ -32718,7 +32729,7 @@
 		// list: []  //list: null WILL CAUSE: Uncaught TypeError: Cannot read property 'map' of null
 		// list: {} //WILL CAUSE THE BUG: Uncaught TypeError: this.props.tasks.map is not a function
 		// task: {} ,
-		list: []
+		all: null
 	};
 	
 	exports.default = function () {
@@ -32729,14 +32740,15 @@
 		switch (action.type) {
 			case _constants2.default.TASKS_RECEIVED:
 				console.log('TASKS_RECEIVED: ' + JSON.stringify(action.tasks));
-				updated['list'] = action.tasks; //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
+				updated['all'] = action.tasks; //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
 				return updated;
 	
 			case _constants2.default.TASK_CREATED:
 				console.log('TASK_CREATED: ' + JSON.stringify(action.task));
-				var updatedList = Object.assign([], updated.list);
-				updatedList.push(action.task);
-				updated['list'] = updatedList;
+				var currentTasks = updated['all'] ? Object.assign([], updated['all']) : [];
+				currentTasks.unshift(action.task); //currentTask.unshift(action.task)
+				updated['all'] = currentTasks; //updated['all'] = currentTask
+	
 				return updated;
 	
 			default:

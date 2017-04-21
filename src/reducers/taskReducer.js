@@ -4,7 +4,7 @@ var initialState = {
 	// list: []  //list: null WILL CAUSE: Uncaught TypeError: Cannot read property 'map' of null
 	// list: {} //WILL CAUSE THE BUG: Uncaught TypeError: this.props.tasks.map is not a function
 	// task: {} ,
-	list:[]
+	all: null
 }
 
 export default (state=initialState, action) => {
@@ -12,14 +12,15 @@ export default (state=initialState, action) => {
 	switch (action.type){
 		case constants.TASKS_RECEIVED:
 		    console.log('TASKS_RECEIVED: '+JSON.stringify(action.tasks))
-            updated['list'] = action.tasks  //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
+            updated['all'] = action.tasks  //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
 		    return updated
 
 		case constants.TASK_CREATED:
 		    console.log('TASK_CREATED: '+JSON.stringify(action.task))  
-		    let updatedList = Object.assign([], updated.list)
-		    updatedList.push(action.task)
-		    updated['list'] = updatedList
+		    let currentTasks = (updated['all']) ? Object.assign([], updated['all']) : []
+		    currentTasks.unshift(action.task)  //currentTask.unshift(action.task)
+		    updated['all'] = currentTasks  //updated['all'] = currentTask
+
 		    return updated  
 
 		default:
