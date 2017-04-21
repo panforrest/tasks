@@ -21926,7 +21926,14 @@
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // { (this.props.tasks.all == null) ? null:
+	//     this.props.tasks.all.map((task, i) => {
+	//         return (
+	//             <li key={task.id}>{task.title}</li>
+	//         )
+	//     })                     
+	// }
+	
 	
 	// import { taskReducer } from '../../reducers'
 	
@@ -21964,7 +21971,7 @@
 	            // })
 	
 	            _utils.APIManager.get('/api/task', null).then(function (response) {
-	                console.log(JSON.stringify(response));
+	                // console.log(JSON.stringify(response))
 	                _this2.props.tasksReceived(response.results);
 	            }).catch(function (err) {
 	                console.log('ERROR: ' + JSON.stringify(err));
@@ -21973,9 +21980,12 @@
 	    }, {
 	        key: 'createTask',
 	        value: function createTask(task) {
+	            var _this3 = this;
+	
 	            // console.log('CREATE TASK: '+JSON.stringify(task))
 	            _utils.APIManager.post('/api/task', task).then(function (response) {
 	                console.log('CREATE TASK: ' + JSON.stringify(response));
+	                _this3.props.taskCreated(JSON.stringify(response.result));
 	            }).catch(function (err) {
 	                console.log('ERROR: ' + JSON.stringify(err));
 	            });
@@ -21983,11 +21993,13 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            // const list = this.props.tasks.map((task, i) => {
-	            //     return(
-	            //         <li key={task.id}>{task.title}</li>
-	            //     )
-	            // })
+	            var list = this.props.tasks.map(function (task, i) {
+	                return _react2.default.createElement(
+	                    'li',
+	                    { key: task.id },
+	                    task.title
+	                );
+	            });
 	
 	            return _react2.default.createElement(
 	                'div',
@@ -21997,17 +22009,7 @@
 	                    null,
 	                    'Tasks'
 	                ),
-	                _react2.default.createElement(
-	                    'ol',
-	                    null,
-	                    this.props.tasks.all == null ? null : this.props.tasks.all.map(function (task, i) {
-	                        return _react2.default.createElement(
-	                            'li',
-	                            { key: task.id },
-	                            task.title
-	                        );
-	                    })
-	                ),
+	                list,
 	                _react2.default.createElement(_view.CreateTask, { onSubmitTask: this.createTask.bind(this) })
 	            );
 	        }
@@ -22018,7 +22020,8 @@
 	
 	var stateToProps = function stateToProps(state) {
 	    return {
-	        tasks: state.task
+	        tasks: state.task.list
+	        // task: state.task.task
 	    };
 	};
 	
@@ -22026,6 +22029,9 @@
 	    return {
 	        tasksReceived: function tasksReceived(tasks) {
 	            return dispatch(_actions2.default.tasksReceived(tasks));
+	        },
+	        taskCreated: function taskCreated(task) {
+	            return dispatch(_actions2.default.taskCreated(task));
 	        }
 	    };
 	};
@@ -32710,7 +32716,9 @@
 	
 	var initialState = {
 		// list: []  //list: null WILL CAUSE: Uncaught TypeError: Cannot read property 'map' of null
-		// list: {} //WILL CAUSE THE BUG: Uncaught TypeError: this.props.tasks.map is not a function 
+		// list: {} //WILL CAUSE THE BUG: Uncaught TypeError: this.props.tasks.map is not a function
+		// task: {} ,
+		list: []
 	};
 	
 	exports.default = function () {
@@ -32721,7 +32729,14 @@
 		switch (action.type) {
 			case _constants2.default.TASKS_RECEIVED:
 				console.log('TASKS_RECEIVED: ' + JSON.stringify(action.tasks));
-				updated['all'] = action.tasks; //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
+				updated['list'] = action.tasks; //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
+				return updated;
+	
+			case _constants2.default.TASK_CREATED:
+				console.log('TASK_CREATED: ' + JSON.stringify(action.task));
+				var updatedList = Object.assign([], updated.list);
+				updatedList.push(action.task);
+				updated['list'] = updatedList;
 				return updated;
 	
 			default:

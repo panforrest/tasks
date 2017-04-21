@@ -1,3 +1,10 @@
+                    // { (this.props.tasks.all == null) ? null:
+                    //     this.props.tasks.all.map((task, i) => {
+                    //         return (
+                    //             <li key={task.id}>{task.title}</li>
+                    //         )
+                    //     })                     
+                    // }
 import React, { Component } from 'react'
 import { APIManager } from '../../utils'
 import { CreateTask } from '../view'
@@ -29,7 +36,7 @@ class Tasks extends Component{
     	APIManager
     	.get('/api/task', null)
     	.then( response => {
-    		console.log(JSON.stringify(response))
+    		// console.log(JSON.stringify(response))
             this.props.tasksReceived(response.results)
 
     	})
@@ -45,6 +52,7 @@ class Tasks extends Component{
         .post('/api/task', task)
         .then(response => {
             console.log('CREATE TASK: '+JSON.stringify(response))
+            this.props.taskCreated(JSON.stringify(response.result))
             
         })
         .catch(err => {
@@ -54,24 +62,18 @@ class Tasks extends Component{
     }
 
 	render(){
-        // const list = this.props.tasks.map((task, i) => {
-        //     return(
-        //         <li key={task.id}>{task.title}</li>
-        //     )
-        // })
+        const list = this.props.tasks.map((task, i) => {
+            return(
+                <li key={task.id}>{task.title}</li>
+            )
+        })
 
 		return(
 			<div>
 			    <h2>Tasks</h2>
-                <ol>
-                    { (this.props.tasks.all == null) ? null:
-                        this.props.tasks.all.map((task, i) => {
-                            return (
-                                <li key={task.id}>{task.title}</li>
-                            )
-                        })                     
-                    }
-                </ol>    
+                
+                   {list}
+                    
 			    <CreateTask onSubmitTask={this.createTask.bind(this)}/>
                 
                 
@@ -82,13 +84,15 @@ class Tasks extends Component{
 
 const stateToProps = (state) => {
     return {
-        tasks: state.task
+        tasks: state.task.list
+        // task: state.task.task
     }
 }
 
 const dispatchToProps = (dispatch) => {
     return {
-        tasksReceived: (tasks) => dispatch(actions.tasksReceived(tasks))
+        tasksReceived: (tasks) => dispatch(actions.tasksReceived(tasks)),
+        taskCreated: (task) => dispatch(actions.taskCreated(task))
     }
 }
 
