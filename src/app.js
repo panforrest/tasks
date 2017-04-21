@@ -1,16 +1,17 @@
+// Provider store=currentStore()>
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { Home } from './components/layout'
+import { Provider } from 'react-redux'
+import store from './stores'
 
-class App extends Component {
-	render(){
-		return(
-			<div>
-			    React entry point.
-			    <Home />
-			</div>
-		)
-	}
-}
+const app = (
+	<Provider store={ store.configureStore() }>
+		<div>
+		    React entry point.
+		    <Home />
+		</div>
+	</Provider>		
+)
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(app, document.getElementById('root'))

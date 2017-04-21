@@ -14,7 +14,7 @@ router.get('/:resource', function(req, res, next){
     	return
     }
 
-    controller.get(req.query)
+    controller.get(req.query, false)  //controller.get(req.query)
     .then(function(results){
         res.json({
         	confirmation: 'success',
