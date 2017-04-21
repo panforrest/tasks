@@ -6,9 +6,6 @@ import actions from '../../actions'
 // import { taskReducer } from '../../reducers'
  
 class Tasks extends Component{
-
-    
-
     componentDidMount(){
     	// console.log('componentDidMount: ')
     	// APIManager.get('/api/task', function(err, results){
@@ -57,19 +54,26 @@ class Tasks extends Component{
     }
 
 	render(){
-        const list = this.props.tasks.map((task, i) => {
-            return(
-                <li key={task.id}>{task.title}</li>
-            )
-        })
+        // const list = this.props.tasks.map((task, i) => {
+        //     return(
+        //         <li key={task.id}>{task.title}</li>
+        //     )
+        // })
 
 		return(
 			<div>
-			    Tasks container.
-                
-                    {list}
-               
+			    <h2>Tasks</h2>
+                <ol>
+                    { (this.props.tasks.all == null) ? null:
+                        this.props.tasks.all.map((task, i) => {
+                            return (
+                                <li key={task.id}>{task.title}</li>
+                            )
+                        })                     
+                    }
+                </ol>    
 			    <CreateTask onSubmitTask={this.createTask.bind(this)}/>
+                
                 
 			</div>
 		)
@@ -78,7 +82,7 @@ class Tasks extends Component{
 
 const stateToProps = (state) => {
     return {
-        tasks: state.task.list
+        tasks: state.task
     }
 }
 

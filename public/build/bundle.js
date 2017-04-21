@@ -21983,19 +21983,31 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var list = this.props.tasks.map(function (task, i) {
-	                return _react2.default.createElement(
-	                    'li',
-	                    { key: task.id },
-	                    task.title
-	                );
-	            });
+	            // const list = this.props.tasks.map((task, i) => {
+	            //     return(
+	            //         <li key={task.id}>{task.title}</li>
+	            //     )
+	            // })
 	
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                'Tasks container.',
-	                list,
+	                _react2.default.createElement(
+	                    'h2',
+	                    null,
+	                    'Tasks'
+	                ),
+	                _react2.default.createElement(
+	                    'ol',
+	                    null,
+	                    this.props.tasks.all == null ? null : this.props.tasks.all.map(function (task, i) {
+	                        return _react2.default.createElement(
+	                            'li',
+	                            { key: task.id },
+	                            task.title
+	                        );
+	                    })
+	                ),
 	                _react2.default.createElement(_view.CreateTask, { onSubmitTask: this.createTask.bind(this) })
 	            );
 	        }
@@ -22006,7 +22018,7 @@
 	
 	var stateToProps = function stateToProps(state) {
 	    return {
-	        tasks: state.task.list
+	        tasks: state.task
 	    };
 	};
 	
@@ -32697,7 +32709,8 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var initialState = {
-		list: [] //list: null WILL CAUSE: Uncaught TypeError: Cannot read property 'map' of null
+		// list: []  //list: null WILL CAUSE: Uncaught TypeError: Cannot read property 'map' of null
+		// list: {} //WILL CAUSE THE BUG: Uncaught TypeError: this.props.tasks.map is not a function 
 	};
 	
 	exports.default = function () {
@@ -32708,7 +32721,7 @@
 		switch (action.type) {
 			case _constants2.default.TASKS_RECEIVED:
 				console.log('TASKS_RECEIVED: ' + JSON.stringify(action.tasks));
-				updated['list'] = action.tasks; //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
+				updated['all'] = action.tasks; //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
 				return updated;
 	
 			default:
