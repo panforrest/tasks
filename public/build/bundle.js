@@ -32622,14 +32622,15 @@
 		tasksReceived: function tasksReceived(tasks) {
 			return {
 				type: _constants2.default.TASKS_RECEIVED,
-				tasks: tasks
+				payload: tasks
 			};
 		},
 	
 		taskCreated: function taskCreated(task) {
+			console.log('TASK_CREATED: ' + JSON.stringify(task));
 			return {
 				type: _constants2.default.TASK_CREATED,
-				task: task
+				payload: task
 			};
 		}
 	};
@@ -32762,7 +32763,7 @@
 				return updated;
 	
 			case _constants2.default.TASK_CREATED:
-				console.log('TASK_CREATED: ' + JSON.stringify(action.task));
+				// console.log('TASK_CREATED: '+JSON.stringify(action.payload))  
 				var currentTasks = updated['all'] ? Object.assign([], updated['all']) : [];
 				currentTasks.unshift(action.payload); //currentTask.unshift(action.task)
 				updated['all'] = currentTasks; //updated['all'] = currentTask

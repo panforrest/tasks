@@ -30,14 +30,15 @@ export default {
 	tasksReceived: (tasks) => {
 		return {
 			type: constants.TASKS_RECEIVED,
-			tasks: tasks
+			payload: tasks
 		}
 	},
 
 	taskCreated: (task) => {
+		console.log('TASK_CREATED: '+JSON.stringify(task))
 		return {
 			type: constants.TASK_CREATED,
-			task: task
+			payload: task
 		}
 	}
 }
