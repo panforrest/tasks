@@ -32938,9 +32938,9 @@
 	
 	    _createClass(Categories, [{
 	        key: 'selectedCategory',
-	        value: function selectedCategory(event) {
+	        value: function selectedCategory(category, event) {
 	            event.preventDefault();
-	            console.log('selectedCategory: ' + event.target.id); //+JSON.stringify(this.props.task.category)
+	            console.log('selectedCategory: ' + category); //+JSON.stringify(this.props.task.category)
 	        }
 	    }, {
 	        key: 'render',
@@ -32962,7 +32962,7 @@
 	                        { key: category },
 	                        _react2.default.createElement(
 	                            'a',
-	                            { id: category, onClick: _this2.selectedCategory.bind(_this2), href: '#', style: { color: color } },
+	                            { onClick: _this2.selectedCategory.bind(_this2, category), href: '#', style: { color: color } },
 	                            category
 	                        )
 	                    );

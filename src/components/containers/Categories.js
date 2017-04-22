@@ -5,9 +5,9 @@ import { connect } from 'react-redux'
 import actions from '../../actions'
 
 class Categories extends Component {
-    selectedCategory(event){
+    selectedCategory(category, event){
     	event.preventDefault()
-    	console.log('selectedCategory: '+event.target.id) //+JSON.stringify(this.props.task.category)
+    	console.log('selectedCategory: '+category) //+JSON.stringify(this.props.task.category)
     }
 
 	render(){
@@ -18,7 +18,7 @@ class Categories extends Component {
                             const color = (category == this.props.tasks.selectedCategory) ? 'red' : '#333'
                             return (
                                 <li key={category}>
-                                    <a id={category} onClick={this.selectedCategory.bind(this)} href="#" style={{color: color}}>{category}</a>
+                                    <a onClick={this.selectedCategory.bind(this, category)} href="#" style={{color: color}}>{category}</a>
                                 </li>
                             )    
                         }) 
