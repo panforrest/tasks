@@ -21960,9 +21960,12 @@
 	            //            console.log(JSON.stringify(err))
 	            // 	})
 	            // })
+	            //state loading
 	            this.props.fetchTasks(null).then(function (results) {
-	                console.log(JSON.stringify(results));
+	                //stop loading
+	                // console.log(JSON.stringify(results))
 	            }).catch(function (err) {
+	                //stop loading
 	                alert(err);
 	            });
 	
@@ -32591,15 +32594,16 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var getRequest = function getRequest(path, params) {
+	var getRequest = function getRequest(path, params, actionType) {
 		//const getRequest: (path, params) => {	
 		return function (dispatch) {
 			return _utils.APIManager.get(path, params).then(function (response) {
 				console.log('GET: ' + JSON.stringify(response));
+				var payload = response.results || response.result;
 	
 				dispatch({
-					type: _constants2.default.TASKS_RECEIVED,
-					tasks: response.results
+					type: actionType,
+					payload: payload
 				});
 			}).catch(function (err) {
 				console.log('ERR: ' + JSON.stringify(err));
@@ -32611,7 +32615,7 @@
 	
 		fetchTasks: function fetchTasks(params) {
 			return function (dispatch) {
-				return dispatch(getRequest('/api/task', params));
+				return dispatch(getRequest('/api/task', params, _constants2.default.TASKS_RECEIVED));
 			};
 		},
 	
@@ -32754,13 +32758,13 @@
 		switch (action.type) {
 			case _constants2.default.TASKS_RECEIVED:
 				// console.log('TASKS_RECEIVED: '+JSON.stringify(action.tasks))
-				updated['all'] = action.tasks; //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
+				updated['all'] = action.payload; //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
 				return updated;
 	
 			case _constants2.default.TASK_CREATED:
 				console.log('TASK_CREATED: ' + JSON.stringify(action.task));
 				var currentTasks = updated['all'] ? Object.assign([], updated['all']) : [];
-				currentTasks.unshift(action.task); //currentTask.unshift(action.task)
+				currentTasks.unshift(action.payload); //currentTask.unshift(action.task)
 				updated['all'] = currentTasks; //updated['all'] = currentTask
 	
 				return updated;

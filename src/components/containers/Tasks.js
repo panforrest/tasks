@@ -25,11 +25,14 @@ class Tasks extends Component{
      //            console.log(JSON.stringify(err))
     	// 	})
     	// })
+        //state loading
         this.props.fetchTasks(null)
         .then(results => {
-            console.log(JSON.stringify(results))
+            //stop loading
+            // console.log(JSON.stringify(results))
         })
         .catch(err => {
+            //stop loading
             alert(err)
         })
 

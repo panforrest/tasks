@@ -1,15 +1,16 @@
 import constants from '../constants'
 import { APIManager } from '../utils'
 
-const getRequest = (path, params) => {	//const getRequest: (path, params) => {	
+const getRequest = (path, params, actionType) => {	//const getRequest: (path, params) => {	
 	return (dispatch) => 
 		APIManager.get(path, params)
 		.then( response => {
             console.log('GET: '+JSON.stringify(response))
-            
+            const payload = response.results || response.result
+
 	        dispatch({
-				type: constants.TASKS_RECEIVED,
-				tasks: response.results
+				type: actionType,
+				payload: payload
 			})
 		})
 		.catch( err => {
@@ -22,7 +23,7 @@ export default {
 
     fetchTasks: (params) => {
         return (dispatch) => {
-        	return dispatch(getRequest('/api/task', params))
+        	return dispatch(getRequest('/api/task', params, constants.TASKS_RECEIVED))
         }
     },
 
