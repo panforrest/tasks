@@ -32695,6 +32695,13 @@
 			return function (dispatch) {
 				return dispatch(postRequest('/api/task', params, _constants2.default.TASK_CREATED));
 			};
+		},
+	
+		selectCategory: function selectCategory(category) {
+			return {
+				type: _constants2.default.CATEGORY_SELECTED,
+				payload: category
+			};
 		}
 	
 		// taskCreated: (task) => {
@@ -32843,41 +32850,15 @@
 	
 				return updated;
 	
+			case _constants2.default.CATEGORY_SELECTED:
+				// let updated = 
+				console.log('CATEGORY_SELECTED: ' + JSON.stringify(action.payload));
+				return updated;
+	
 			default:
 				return state;
 		}
 	};
-	
-	// import constants from '../constants'
-	
-	// var initialState = {
-	// 	// all: null
-	// }
-	
-	
-	// export default (state = initialState, action) => {
-	
-	// 	let updated = Object.assign({}, state)
-	
-	// 	switch (action.type){
-	// 		case constants.TASKS_RECEIVED:
-	// 			console.log('TASKS_RECEIVED: '+JSON.stringify(action.tasks))
-	// 			// updated['all'] = action.payload
-	// 			return updated
-	
-	// // 		case constants.TASK_CREATED:
-	// // //			console.log('TASKS_RECEIVED: '+JSON.stringify(action.tasks))
-	// // 			let currentTasks = (updated['all']) ? Object.assign([], updated['all']) : []
-	// // 			currentTasks.unshift(action.payload)
-	// // 			updated['all'] = currentTasks
-	// // 			return updated
-	
-	// 		default:
-	// 			return state
-	
-	// 	}
-	
-	// }
 
 /***/ }),
 /* 281 */
@@ -32890,7 +32871,8 @@
 	});
 	exports.default = {
 		TASKS_RECEIVED: 'TASKS_RECEIVED',
-		TASK_CREATED: 'TASK_CREATED'
+		TASK_CREATED: 'TASK_CREATED',
+		CATEGORY_SELECTED: 'CATEGORY_SELECTED'
 	};
 
 /***/ }),
@@ -32900,7 +32882,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -32928,65 +32910,69 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var Categories = function (_Component) {
-	    _inherits(Categories, _Component);
+	  _inherits(Categories, _Component);
 	
-	    function Categories() {
-	        _classCallCheck(this, Categories);
+	  function Categories() {
+	    _classCallCheck(this, Categories);
 	
-	        return _possibleConstructorReturn(this, (Categories.__proto__ || Object.getPrototypeOf(Categories)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (Categories.__proto__ || Object.getPrototypeOf(Categories)).apply(this, arguments));
+	  }
+	
+	  _createClass(Categories, [{
+	    key: 'selectedCategory',
+	    value: function selectedCategory(category, event) {
+	      event.preventDefault();
+	      console.log('selectedCategory: ' + category); //+JSON.stringify(this.props.task.category)
+	      this.props.selectCategory(category);
 	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
 	
-	    _createClass(Categories, [{
-	        key: 'selectedCategory',
-	        value: function selectedCategory(category, event) {
-	            event.preventDefault();
-	            console.log('selectedCategory: ' + category); //+JSON.stringify(this.props.task.category)
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this2 = this;
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          'Categories'
+	        ),
+	        this.props.tasks.categories.map(function (category, i) {
+	          var color = category == _this2.props.tasks.selectedCategory ? 'red' : '#333';
+	          return _react2.default.createElement(
+	            'li',
+	            { key: category },
+	            _react2.default.createElement(
+	              'a',
+	              { onClick: _this2.selectedCategory.bind(_this2, category), href: '#', style: { color: color } },
+	              category
+	            )
+	          );
+	        })
+	      );
+	    }
+	  }]);
 	
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(
-	                    'h2',
-	                    null,
-	                    'Categories'
-	                ),
-	                this.props.tasks.categories.map(function (category, i) {
-	                    var color = category == _this2.props.tasks.selectedCategory ? 'red' : '#333';
-	                    return _react2.default.createElement(
-	                        'li',
-	                        { key: category },
-	                        _react2.default.createElement(
-	                            'a',
-	                            { onClick: _this2.selectedCategory.bind(_this2, category), href: '#', style: { color: color } },
-	                            category
-	                        )
-	                    );
-	                })
-	            );
-	        }
-	    }]);
-	
-	    return Categories;
+	  return Categories;
 	}(_react.Component);
 	
 	var stateToProps = function stateToProps(state) {
-	    return {
-	        tasks: state.task
-	    };
+	  return {
+	    tasks: state.task,
+	    selectedCategory: state.task.selectedCategory
+	  };
 	};
 	
-	// const dispatchToProps = (dispatch) => {
-	// 	return {
-	// 		fetchTasks: (tasks) => dispatch(actions.fetchTasks(tasks))
-	// 	}
-	// }
+	var dispatchToProps = function dispatchToProps(dispatch) {
+	  return {
+	    selectCategory: function selectCategory(category) {
+	      return dispatch(_actions2.default.selectCategory(category));
+	    }
+	  };
+	};
 	
-	exports.default = (0, _reactRedux.connect)(stateToProps)(Categories);
+	exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Categories);
 
 /***/ })
 /******/ ]);

@@ -8,6 +8,7 @@ class Categories extends Component {
     selectedCategory(category, event){
     	event.preventDefault()
     	console.log('selectedCategory: '+category) //+JSON.stringify(this.props.task.category)
+    	this.props.selectCategory(category)
     }
 
 	render(){
@@ -30,14 +31,15 @@ class Categories extends Component {
 
 const stateToProps = (state) => {
 	return {
-		tasks: state.task
+		tasks: state.task,
+		selectedCategory: state.task.selectedCategory
 	}
 }
 
-// const dispatchToProps = (dispatch) => {
-// 	return {
-// 		fetchTasks: (tasks) => dispatch(actions.fetchTasks(tasks))
-// 	}
-// }
+const dispatchToProps = (dispatch) => {
+	return {
+		selectCategory: (category) => dispatch(actions.selectCategory(category))
+	}
+}
 
-export default connect(stateToProps)(Categories)
+export default connect(stateToProps, dispatchToProps)(Categories)
