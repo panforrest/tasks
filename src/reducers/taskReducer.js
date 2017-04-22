@@ -11,7 +11,7 @@ export default (state=initialState, action) => {
 	let updated = Object.assign({}, state) 
 	switch (action.type){
 		case constants.TASKS_RECEIVED:
-		    console.log('TASKS_RECEIVED: '+JSON.stringify(action.tasks))
+		    // console.log('TASKS_RECEIVED: '+JSON.stringify(action.tasks))
             updated['all'] = action.tasks  //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
 		    return updated
 

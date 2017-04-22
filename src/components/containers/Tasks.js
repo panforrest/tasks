@@ -1,10 +1,3 @@
-                    // { (this.props.tasks.all == null) ? null:
-                    //     this.props.tasks.all.map((task, i) => {
-                    //         return (
-                    //             <li key={task.id}>{task.title}</li>
-                    //         )
-                    //     })                     
-                    // }
 import React, { Component } from 'react'
 import { APIManager } from '../../utils'
 import { CreateTask } from '../view'
@@ -32,17 +25,19 @@ class Tasks extends Component{
      //            console.log(JSON.stringify(err))
     	// 	})
     	// })
+        this.props.fetchTasks(null)
+        
 
-    	APIManager
-    	.get('/api/task', null)
-    	.then( response => {
-    		// console.log(JSON.stringify(response))
-            this.props.tasksReceived(response.results)
+    	// APIManager
+    	// .get('/api/task', null)
+    	// .then( response => {
+    	// 	// console.log(JSON.stringify(response))
+     //        this.props.tasksReceived(response.results)
 
-    	})
-    	.catch( err => {
-    		console.log('ERROR: '+JSON.stringify(err))
-    	})
+    	// })
+    	// .catch( err => {
+    	// 	console.log('ERROR: '+JSON.stringify(err))
+    	// })
 
     }
 
@@ -97,6 +92,7 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
     return {
+        fetchTasks: (params) => dispatch(actions.fetchTasks(params)),
         tasksReceived: (tasks) => dispatch(actions.tasksReceived(tasks)),
         taskCreated: (task) => dispatch(actions.taskCreated(task))
     }

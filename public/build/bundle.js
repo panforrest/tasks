@@ -58,7 +58,7 @@
 	
 	var _reactRedux = __webpack_require__(236);
 	
-	var _stores = __webpack_require__(278);
+	var _stores = __webpack_require__(277);
 	
 	var _stores2 = _interopRequireDefault(_stores);
 	
@@ -21926,14 +21926,7 @@
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // { (this.props.tasks.all == null) ? null:
-	//     this.props.tasks.all.map((task, i) => {
-	//         return (
-	//             <li key={task.id}>{task.title}</li>
-	//         )
-	//     })                     
-	// }
-	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	// import { taskReducer } from '../../reducers'
 	
@@ -21949,8 +21942,6 @@
 	    _createClass(Tasks, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            var _this2 = this;
-	
 	            // console.log('componentDidMount: ')
 	            // APIManager.get('/api/task', function(err, results){
 	            //        if (err) {
@@ -21969,23 +21960,28 @@
 	            //            console.log(JSON.stringify(err))
 	            // 	})
 	            // })
+	            this.props.fetchTasks(null);
 	
-	            _utils.APIManager.get('/api/task', null).then(function (response) {
-	                // console.log(JSON.stringify(response))
-	                _this2.props.tasksReceived(response.results);
-	            }).catch(function (err) {
-	                console.log('ERROR: ' + JSON.stringify(err));
-	            });
+	            // APIManager
+	            // .get('/api/task', null)
+	            // .then( response => {
+	            // 	// console.log(JSON.stringify(response))
+	            //        this.props.tasksReceived(response.results)
+	
+	            // })
+	            // .catch( err => {
+	            // 	console.log('ERROR: '+JSON.stringify(err))
+	            // })
 	        }
 	    }, {
 	        key: 'createTask',
 	        value: function createTask(task) {
-	            var _this3 = this;
+	            var _this2 = this;
 	
 	            // console.log('CREATE TASK: '+JSON.stringify(task))
 	            _utils.APIManager.post('/api/task', task).then(function (response) {
 	                console.log('CREATE TASK: ' + JSON.stringify(response));
-	                _this3.props.taskCreated(response.result); //this.props.taskCreated(JSON.stringify(response.result))
+	                _this2.props.taskCreated(response.result); //this.props.taskCreated(JSON.stringify(response.result))
 	            }).catch(function (err) {
 	                console.log('ERROR: ' + JSON.stringify(err));
 	            });
@@ -22031,6 +22027,9 @@
 	
 	var dispatchToProps = function dispatchToProps(dispatch) {
 	    return {
+	        fetchTasks: function fetchTasks(params) {
+	            return dispatch(_actions2.default.fetchTasks(params));
+	        },
 	        tasksReceived: function tasksReceived(tasks) {
 	            return dispatch(_actions2.default.tasksReceived(tasks));
 	        },
@@ -32580,13 +32579,38 @@
 		value: true
 	});
 	
-	var _constants = __webpack_require__(277);
+	var _constants = __webpack_require__(281);
 	
 	var _constants2 = _interopRequireDefault(_constants);
 	
+	var _utils = __webpack_require__(186);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var getRequest = function getRequest(path, params) {
+		//const getRequest: (path, params) => {	
+		return function (dispatch) {
+			return _utils.APIManager.get(path, params).then(function (response) {
+				console.log('GET: ' + JSON.stringify(response));
+	
+				dispatch({
+					type: _constants2.default.TASKS_RECEIVED,
+					tasks: response.results
+				});
+			}).catch(function (err) {
+				console.log('ERR: ' + JSON.stringify(err));
+			});
+		};
+	};
+	
 	exports.default = {
+	
+		fetchTasks: function fetchTasks(params) {
+			return function (dispatch) {
+				return dispatch(getRequest('/api/task', params));
+			};
+		},
+	
 		tasksReceived: function tasksReceived(tasks) {
 			return {
 				type: _constants2.default.TASKS_RECEIVED,
@@ -32604,20 +32628,6 @@
 
 /***/ }),
 /* 277 */
-/***/ (function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.default = {
-		TASKS_RECEIVED: 'TASKS_RECEIVED',
-		TASK_CREATED: 'TASK_CREATED'
-	};
-
-/***/ }),
-/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32628,11 +32638,11 @@
 	
 	var _redux = __webpack_require__(249);
 	
-	var _reduxThunk = __webpack_require__(279);
+	var _reduxThunk = __webpack_require__(278);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
-	var _reducers = __webpack_require__(280);
+	var _reducers = __webpack_require__(279);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -32663,7 +32673,7 @@
 	};
 
 /***/ }),
-/* 279 */
+/* 278 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -32691,7 +32701,7 @@
 	exports['default'] = thunk;
 
 /***/ }),
-/* 280 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32701,7 +32711,7 @@
 	});
 	exports.taskReducer = undefined;
 	
-	var _taskReducer = __webpack_require__(281);
+	var _taskReducer = __webpack_require__(280);
 	
 	var _taskReducer2 = _interopRequireDefault(_taskReducer);
 	
@@ -32710,7 +32720,7 @@
 	exports.taskReducer = _taskReducer2.default;
 
 /***/ }),
-/* 281 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32719,7 +32729,7 @@
 		value: true
 	});
 	
-	var _constants = __webpack_require__(277);
+	var _constants = __webpack_require__(281);
 	
 	var _constants2 = _interopRequireDefault(_constants);
 	
@@ -32739,7 +32749,7 @@
 		var updated = Object.assign({}, state);
 		switch (action.type) {
 			case _constants2.default.TASKS_RECEIVED:
-				console.log('TASKS_RECEIVED: ' + JSON.stringify(action.tasks));
+				// console.log('TASKS_RECEIVED: '+JSON.stringify(action.tasks))
 				updated['all'] = action.tasks; //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
 				return updated;
 	
@@ -32786,6 +32796,20 @@
 	// 	}
 	
 	// }
+
+/***/ }),
+/* 281 */
+/***/ (function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = {
+		TASKS_RECEIVED: 'TASKS_RECEIVED',
+		TASK_CREATED: 'TASK_CREATED'
+	};
 
 /***/ })
 /******/ ]);
