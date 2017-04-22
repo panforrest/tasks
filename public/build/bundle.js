@@ -32900,7 +32900,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -32928,56 +32928,63 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var Categories = function (_Component) {
-	  _inherits(Categories, _Component);
+	    _inherits(Categories, _Component);
 	
-	  function Categories() {
-	    _classCallCheck(this, Categories);
+	    function Categories() {
+	        _classCallCheck(this, Categories);
 	
-	    return _possibleConstructorReturn(this, (Categories.__proto__ || Object.getPrototypeOf(Categories)).apply(this, arguments));
-	  }
-	
-	  _createClass(Categories, [{
-	    key: 'render',
-	
-	    // componentDidMount(){
-	    // 	// console.log('componentDidMount: ')
-	    // 	this.props.fetchTasks(null)
-	    // 	.then(results => {
-	
-	    // 	})
-	    // 	.catch(err => {
-	    // 		alert(err)
-	    // 	})
-	
-	    // }
-	
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          'Categories'
-	        ),
-	        this.props.tasks.categories.map(function (category, i) {
-	          return _react2.default.createElement(
-	            'li',
-	            { key: category },
-	            category
-	          );
-	        })
-	      );
+	        return _possibleConstructorReturn(this, (Categories.__proto__ || Object.getPrototypeOf(Categories)).apply(this, arguments));
 	    }
-	  }]);
 	
-	  return Categories;
+	    _createClass(Categories, [{
+	        key: 'render',
+	
+	        // componentDidMount(){
+	        // 	// console.log('componentDidMount: ')
+	        // 	this.props.fetchTasks(null)
+	        // 	.then(results => {
+	
+	        // 	})
+	        // 	.catch(err => {
+	        // 		alert(err)
+	        // 	})
+	
+	        // }
+	
+	        value: function render() {
+	            var _this2 = this;
+	
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'h2',
+	                    null,
+	                    'Categories'
+	                ),
+	                this.props.tasks.categories.map(function (category, i) {
+	                    var color = category == _this2.props.tasks.selectedCategory ? 'red' : '#333';
+	                    return _react2.default.createElement(
+	                        'li',
+	                        { key: category },
+	                        _react2.default.createElement(
+	                            'a',
+	                            { href: '#', style: { color: color } },
+	                            category
+	                        )
+	                    );
+	                })
+	            );
+	        }
+	    }]);
+	
+	    return Categories;
 	}(_react.Component);
 	
 	var stateToProps = function stateToProps(state) {
-	  return {
-	    tasks: state.task
-	  };
+	    return {
+	        tasks: state.task
+	    };
 	};
 	
 	// const dispatchToProps = (dispatch) => {

@@ -22,8 +22,13 @@ class Categories extends Component {
 	        <div>
 	            <h2>Categories</h2>
                     { this.props.tasks.categories.map((category, i) => {
-                          return <li key={category}>{category}</li>
-                      }) 
+                            const color = (category == this.props.tasks.selectedCategory) ? 'red' : '#333'
+                            return (
+                                <li key={category}>
+                                    <a href="#" style={{color: color}}>{category}</a>
+                                </li>
+                            )    
+                        }) 
                     }
 	        </div>
 	    )    
