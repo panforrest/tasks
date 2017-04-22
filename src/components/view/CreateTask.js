@@ -41,9 +41,14 @@ class CreateTask extends Component {
     		<div>
     		    <h2>Create Task</h2>
     		    <input onChange={this.updateTask.bind(this)} type="text" id="title" placeholder="Title" /><br />
-    		    <input onChange={this.updateTask.bind(this)} type="text" id="category" placeholder="Category" /><br />
     		    <input onChange={this.updateTask.bind(this)} type="text" id="description" placeholder="Description" /><br />
-    		    <button onClick={this.submitTask.bind(this)}>Submit</button>
+    		    <select id="category" onChange={this.updateTask.bind(this)}>
+                    <option value="delivery">Delivery</option>
+                    <option value="dog walking">Dog walking</option>
+                    <option value="house cleaning">House Cleaning</option>
+                </select>
+                <br />
+                <button onClick={this.submitTask.bind(this)}>Submit</button>
     		</div>
     	)
     }

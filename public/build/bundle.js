@@ -21983,15 +21983,22 @@
 	    }, {
 	        key: 'createTask',
 	        value: function createTask(task) {
-	            var _this2 = this;
-	
 	            // console.log('CREATE TASK: '+JSON.stringify(task))
-	            _utils.APIManager.post('/api/task', task).then(function (response) {
-	                console.log('CREATE TASK: ' + JSON.stringify(response));
-	                _this2.props.taskCreated(response.result); //this.props.taskCreated(JSON.stringify(response.result))
+	            this.props.submitTask(task).then(function (result) {
+	                // console.log(JSON.stringify(result))
 	            }).catch(function (err) {
 	                console.log('ERROR: ' + JSON.stringify(err));
 	            });
+	            // APIManager
+	            // .post('/api/task', task)
+	            // .then(response => {
+	            //     console.log('CREATE TASK: '+JSON.stringify(response))
+	            //     this.props.taskCreated(response.result)//this.props.taskCreated(JSON.stringify(response.result))
+	
+	            // })
+	            // .catch(err => {
+	            //     console.log('ERROR: '+JSON.stringify(err))
+	            // })
 	        }
 	    }, {
 	        key: 'render',
@@ -22014,7 +22021,9 @@
 	                    return _react2.default.createElement(
 	                        'li',
 	                        { key: task.id },
-	                        task.title
+	                        task.title,
+	                        ', ',
+	                        task.category
 	                    );
 	                }),
 	                _react2.default.createElement(_view.CreateTask, { onSubmitTask: this.createTask.bind(this) })
@@ -22040,9 +22049,10 @@
 	        tasksReceived: function tasksReceived(tasks) {
 	            return dispatch(_actions2.default.tasksReceived(tasks));
 	        },
-	        taskCreated: function taskCreated(task) {
-	            return dispatch(_actions2.default.taskCreated(task));
+	        submitTask: function submitTask(task) {
+	            return dispatch(_actions2.default.submitTask(task));
 	        }
+	        // taskCreated: (params) => dispatch(actions.taskCreated(params))
 	    };
 	};
 	
@@ -30197,9 +30207,27 @@
 	        ),
 	        _react2.default.createElement('input', { onChange: this.updateTask.bind(this), type: 'text', id: 'title', placeholder: 'Title' }),
 	        _react2.default.createElement('br', null),
-	        _react2.default.createElement('input', { onChange: this.updateTask.bind(this), type: 'text', id: 'category', placeholder: 'Category' }),
-	        _react2.default.createElement('br', null),
 	        _react2.default.createElement('input', { onChange: this.updateTask.bind(this), type: 'text', id: 'description', placeholder: 'Description' }),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(
+	          'select',
+	          { id: 'category', onChange: this.updateTask.bind(this) },
+	          _react2.default.createElement(
+	            'option',
+	            { value: 'delivery' },
+	            'Delivery'
+	          ),
+	          _react2.default.createElement(
+	            'option',
+	            { value: 'dog walking' },
+	            'Dog walking'
+	          ),
+	          _react2.default.createElement(
+	            'option',
+	            { value: 'house cleaning' },
+	            'House Cleaning'
+	          )
+	        ),
 	        _react2.default.createElement('br', null),
 	        _react2.default.createElement(
 	          'button',
@@ -32603,7 +32631,26 @@
 	
 				dispatch({
 					type: actionType,
-					payload: payload
+					payload: payload,
+					params: params
+				});
+			}).catch(function (err) {
+				console.log('ERR: ' + JSON.stringify(err));
+			});
+		};
+	};
+	
+	var postRequest = function postRequest(path, params, actionType) {
+		//const getRequest: (path, params) => {	
+		return function (dispatch) {
+			return _utils.APIManager.post(path, params).then(function (response) {
+				// console.log('POST: '+JSON.stringify(response))
+				var payload = response.results || response.result;
+	
+				dispatch({
+					type: actionType,
+					payload: payload,
+					params: params
 				});
 			}).catch(function (err) {
 				console.log('ERR: ' + JSON.stringify(err));
@@ -32626,13 +32673,19 @@
 			};
 		},
 	
-		taskCreated: function taskCreated(task) {
-			console.log('TASK_CREATED: ' + JSON.stringify(task));
-			return {
-				type: _constants2.default.TASK_CREATED,
-				payload: task
+		submitTask: function submitTask(params) {
+			return function (dispatch) {
+				return dispatch(postRequest('/api/task', params, _constants2.default.TASK_CREATED));
 			};
 		}
+	
+		// taskCreated: (task) => {
+		// 	console.log('TASK_CREATED: '+JSON.stringify(task))
+		// 	return {
+		// 		type: constants.TASK_CREATED,
+		// 		payload: task
+		// 	}
+		// }
 	};
 
 /***/ }),

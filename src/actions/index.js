@@ -10,13 +10,31 @@ const getRequest = (path, params, actionType) => {	//const getRequest: (path, pa
 
 	        dispatch({
 				type: actionType,
-				payload: payload
+				payload: payload,
+                params: params
 			})
 		})
 		.catch( err => {
             console.log('ERR: '+JSON.stringify(err))
 		})	
+}
 
+const postRequest = (path, params, actionType) => {	//const getRequest: (path, params) => {	
+	return (dispatch) => 
+		APIManager.post(path, params)
+		.then( response => {
+            // console.log('POST: '+JSON.stringify(response))
+            const payload = response.results || response.result
+
+	        dispatch({
+				type: actionType,
+				payload: payload,
+				params: params
+			})
+		})
+		.catch( err => {
+            console.log('ERR: '+JSON.stringify(err))
+		})	
 }
 
 export default {
@@ -34,11 +52,17 @@ export default {
 		}
 	},
 
-	taskCreated: (task) => {
-		console.log('TASK_CREATED: '+JSON.stringify(task))
-		return {
-			type: constants.TASK_CREATED,
-			payload: task
+	submitTask: (params) => {
+		return (dispatch) => {
+			return dispatch(postRequest('/api/task', params, constants.TASK_CREATED))
 		}
 	}
+
+	// taskCreated: (task) => {
+	// 	console.log('TASK_CREATED: '+JSON.stringify(task))
+	// 	return {
+	// 		type: constants.TASK_CREATED,
+	// 		payload: task
+	// 	}
+	// }
 }

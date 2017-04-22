@@ -51,16 +51,23 @@ class Tasks extends Component{
 
     createTask(task){
         // console.log('CREATE TASK: '+JSON.stringify(task))
-        APIManager
-        .post('/api/task', task)
-        .then(response => {
-            console.log('CREATE TASK: '+JSON.stringify(response))
-            this.props.taskCreated(response.result)//this.props.taskCreated(JSON.stringify(response.result))
-            
+        this.props.submitTask(task)
+        .then(result => {
+            // console.log(JSON.stringify(result))
         })
         .catch(err => {
             console.log('ERROR: '+JSON.stringify(err))
         })
+        // APIManager
+        // .post('/api/task', task)
+        // .then(response => {
+        //     console.log('CREATE TASK: '+JSON.stringify(response))
+        //     this.props.taskCreated(response.result)//this.props.taskCreated(JSON.stringify(response.result))
+            
+        // })
+        // .catch(err => {
+        //     console.log('ERROR: '+JSON.stringify(err))
+        // })
 
     }
 
@@ -78,7 +85,7 @@ class Tasks extends Component{
                     { (this.props.tasks.all == null) ? null:
                         this.props.tasks.all.map((task, i) => {
                             return (
-                                <li key={task.id}>{task.title}</li>
+                                <li key={task.id}>{task.title}, {task.category}</li>
                             )
                         })                     
                     }
@@ -102,7 +109,8 @@ const dispatchToProps = (dispatch) => {
     return {
         fetchTasks: (params) => dispatch(actions.fetchTasks(params)),
         tasksReceived: (tasks) => dispatch(actions.tasksReceived(tasks)),
-        taskCreated: (task) => dispatch(actions.taskCreated(task))
+        submitTask: (task) => dispatch(actions.submitTask(task))
+        // taskCreated: (params) => dispatch(actions.taskCreated(params))
     }
 }
 
