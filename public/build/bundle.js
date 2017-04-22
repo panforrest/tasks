@@ -21847,7 +21847,8 @@
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // <Categories />
+	
 	
 	var Home = function (_Component) {
 		_inherits(Home, _Component);
@@ -21864,8 +21865,20 @@
 				return _react2.default.createElement(
 					'div',
 					null,
-					'Home layout.',
-					_react2.default.createElement(_containers.Tasks, null)
+					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-4' },
+							_react2.default.createElement(_containers.Categories, null)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-8' },
+							_react2.default.createElement(_containers.Tasks, null)
+						)
+					)
 				);
 			}
 		}]);
@@ -21884,15 +21897,20 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.Tasks = undefined;
+	exports.Categories = exports.Tasks = undefined;
 	
 	var _Tasks = __webpack_require__(185);
 	
 	var _Tasks2 = _interopRequireDefault(_Tasks);
 	
+	var _Categories = __webpack_require__(282);
+	
+	var _Categories2 = _interopRequireDefault(_Categories);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.Tasks = _Tasks2.default;
+	exports.Categories = _Categories2.default;
 
 /***/ }),
 /* 185 */
@@ -32626,7 +32644,7 @@
 		//const getRequest: (path, params) => {	
 		return function (dispatch) {
 			return _utils.APIManager.get(path, params).then(function (response) {
-				console.log('GET: ' + JSON.stringify(response));
+				// console.log('GET: '+JSON.stringify(response))
 				var payload = response.results || response.result;
 	
 				dispatch({
@@ -32801,7 +32819,9 @@
 		// list: []  //list: null WILL CAUSE: Uncaught TypeError: Cannot read property 'map' of null
 		// list: {} //WILL CAUSE THE BUG: Uncaught TypeError: this.props.tasks.map is not a function
 		// task: {} ,
-		all: null
+		all: null,
+		selectedCategory: 'delivery',
+		categories: ['delivery', 'dog walking', 'house cleaning']
 	};
 	
 	exports.default = function () {
@@ -32872,6 +32892,98 @@
 		TASKS_RECEIVED: 'TASKS_RECEIVED',
 		TASK_CREATED: 'TASK_CREATED'
 	};
+
+/***/ }),
+/* 282 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _utils = __webpack_require__(186);
+	
+	var _view = __webpack_require__(234);
+	
+	var _reactRedux = __webpack_require__(236);
+	
+	var _actions = __webpack_require__(276);
+	
+	var _actions2 = _interopRequireDefault(_actions);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Categories = function (_Component) {
+	  _inherits(Categories, _Component);
+	
+	  function Categories() {
+	    _classCallCheck(this, Categories);
+	
+	    return _possibleConstructorReturn(this, (Categories.__proto__ || Object.getPrototypeOf(Categories)).apply(this, arguments));
+	  }
+	
+	  _createClass(Categories, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      // console.log('componentDidMount: ')
+	      this.props.fetchTasks(null).then(function (results) {}).catch(function (err) {
+	        alert(err);
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          'Categories'
+	        ),
+	        this.props.tasks.all == null ? null : this.props.tasks.all.map(function (task, i) {
+	          return _react2.default.createElement(
+	            'li',
+	            { key: task.id },
+	            task.category
+	          );
+	        })
+	      );
+	    }
+	  }]);
+	
+	  return Categories;
+	}(_react.Component);
+	
+	var stateToProps = function stateToProps(state) {
+	  return {
+	    tasks: state.task
+	  };
+	};
+	
+	var dispatchToProps = function dispatchToProps(dispatch) {
+	  return {
+	    fetchTasks: function fetchTasks(tasks) {
+	      return dispatch(_actions2.default.fetchTasks(tasks));
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Categories);
 
 /***/ })
 /******/ ]);

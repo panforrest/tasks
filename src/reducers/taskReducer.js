@@ -4,7 +4,13 @@ var initialState = {
 	// list: []  //list: null WILL CAUSE: Uncaught TypeError: Cannot read property 'map' of null
 	// list: {} //WILL CAUSE THE BUG: Uncaught TypeError: this.props.tasks.map is not a function
 	// task: {} ,
-	all: null
+	all: null,
+	selectedCategory: 'delivery',
+	categories: [
+	    'delivery',
+	    'dog walking',
+	    'house cleaning'
+	]
 }
 
 export default (state=initialState, action) => {
