@@ -32937,15 +32937,20 @@
 	  }
 	
 	  _createClass(Categories, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      // console.log('componentDidMount: ')
-	      this.props.fetchTasks(null).then(function (results) {}).catch(function (err) {
-	        alert(err);
-	      });
-	    }
-	  }, {
 	    key: 'render',
+	
+	    // componentDidMount(){
+	    // 	// console.log('componentDidMount: ')
+	    // 	this.props.fetchTasks(null)
+	    // 	.then(results => {
+	
+	    // 	})
+	    // 	.catch(err => {
+	    // 		alert(err)
+	    // 	})
+	
+	    // }
+	
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
@@ -32955,11 +32960,11 @@
 	          null,
 	          'Categories'
 	        ),
-	        this.props.tasks.all == null ? null : this.props.tasks.all.map(function (task, i) {
+	        this.props.tasks.categories.map(function (category, i) {
 	          return _react2.default.createElement(
 	            'li',
-	            { key: task.id },
-	            task.category
+	            { key: category },
+	            category
 	          );
 	        })
 	      );
@@ -32975,15 +32980,13 @@
 	  };
 	};
 	
-	var dispatchToProps = function dispatchToProps(dispatch) {
-	  return {
-	    fetchTasks: function fetchTasks(tasks) {
-	      return dispatch(_actions2.default.fetchTasks(tasks));
-	    }
-	  };
-	};
+	// const dispatchToProps = (dispatch) => {
+	// 	return {
+	// 		fetchTasks: (tasks) => dispatch(actions.fetchTasks(tasks))
+	// 	}
+	// }
 	
-	exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Categories);
+	exports.default = (0, _reactRedux.connect)(stateToProps)(Categories);
 
 /***/ })
 /******/ ]);
