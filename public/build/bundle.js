@@ -21960,7 +21960,11 @@
 	            //            console.log(JSON.stringify(err))
 	            // 	})
 	            // })
-	            this.props.fetchTasks(null);
+	            this.props.fetchTasks(null).then(function (results) {
+	                console.log(JSON.stringify(results));
+	            }).catch(function (err) {
+	                alert(err);
+	            });
 	
 	            // APIManager
 	            // .get('/api/task', null)

@@ -26,7 +26,12 @@ class Tasks extends Component{
     	// 	})
     	// })
         this.props.fetchTasks(null)
-        
+        .then(results => {
+            console.log(JSON.stringify(results))
+        })
+        .catch(err => {
+            alert(err)
+        })
 
     	// APIManager
     	// .get('/api/task', null)
