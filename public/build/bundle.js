@@ -32937,20 +32937,13 @@
 	    }
 	
 	    _createClass(Categories, [{
+	        key: 'selectedCategory',
+	        value: function selectedCategory(event) {
+	            event.preventDefault();
+	            console.log('selectedCategory: ' + event.target.id); //+JSON.stringify(this.props.task.category)
+	        }
+	    }, {
 	        key: 'render',
-	
-	        // componentDidMount(){
-	        // 	// console.log('componentDidMount: ')
-	        // 	this.props.fetchTasks(null)
-	        // 	.then(results => {
-	
-	        // 	})
-	        // 	.catch(err => {
-	        // 		alert(err)
-	        // 	})
-	
-	        // }
-	
 	        value: function render() {
 	            var _this2 = this;
 	
@@ -32969,7 +32962,7 @@
 	                        { key: category },
 	                        _react2.default.createElement(
 	                            'a',
-	                            { href: '#', style: { color: color } },
+	                            { id: category, onClick: _this2.selectedCategory.bind(_this2), href: '#', style: { color: color } },
 	                            category
 	                        )
 	                    );
