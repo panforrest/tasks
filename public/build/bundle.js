@@ -58,7 +58,7 @@
 	
 	var _reactRedux = __webpack_require__(236);
 	
-	var _stores = __webpack_require__(277);
+	var _stores = __webpack_require__(279);
 	
 	var _stores2 = _interopRequireDefault(_stores);
 	
@@ -21903,7 +21903,7 @@
 	
 	var _Tasks2 = _interopRequireDefault(_Tasks);
 	
-	var _Categories = __webpack_require__(282);
+	var _Categories = __webpack_require__(278);
 	
 	var _Categories2 = _interopRequireDefault(_Categories);
 	
@@ -21979,7 +21979,7 @@
 	            // 	})
 	            // })
 	            //state loading
-	            this.props.fetchTasks(null).then(function (results) {
+	            this.props.fetchTasks({ category: this.props.tasks.selectedCategory }).then(function (results) {
 	                //stop loading
 	                // console.log(JSON.stringify(results))
 	            }).catch(function (err) {
@@ -22054,7 +22054,8 @@
 	
 	var stateToProps = function stateToProps(state) {
 	    return {
-	        tasks: state.task
+	        tasks: state.task,
+	        selectedCategory: state.task.selectedCategory
 	        // task: state.task.task
 	    };
 	};
@@ -22069,6 +22070,9 @@
 	        },
 	        submitTask: function submitTask(task) {
 	            return dispatch(_actions2.default.submitTask(task));
+	        },
+	        selectCategory: function selectCategory(category) {
+	            return dispatch(_actions2.default.selectCategory(category));
 	        }
 	        // taskCreated: (params) => dispatch(actions.taskCreated(params))
 	    };
@@ -30180,7 +30184,7 @@
 	    _this.state = {
 	      task: {
 	        title: '',
-	        category: '',
+	        category: 'delivery',
 	        description: ''
 	      }
 	    };
@@ -32632,7 +32636,7 @@
 		value: true
 	});
 	
-	var _constants = __webpack_require__(281);
+	var _constants = __webpack_require__(277);
 	
 	var _constants2 = _interopRequireDefault(_constants);
 	
@@ -32715,153 +32719,6 @@
 
 /***/ }),
 /* 277 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _redux = __webpack_require__(249);
-	
-	var _reduxThunk = __webpack_require__(278);
-	
-	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
-	
-	var _reducers = __webpack_require__(279);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var store;
-	
-	exports.default = {
-	    configureStore: function configureStore() {
-	        //createStore: () => {
-	
-	        var reducers = (0, _redux.combineReducers)({ //var reducers = combineReducer(
-	
-	            task: _reducers.taskReducer
-	
-	        });
-	
-	        store = (0, _redux.createStore)( //createStore({
-	
-	        reducers, (0, _redux.applyMiddleware)(_reduxThunk2.default));
-	
-	        return store;
-	    }, //}
-	
-	    currentStore: function currentStore() {
-	
-	        return store;
-	    }
-	
-	};
-
-/***/ }),
-/* 278 */
-/***/ (function(module, exports) {
-
-	'use strict';
-	
-	exports.__esModule = true;
-	function createThunkMiddleware(extraArgument) {
-	  return function (_ref) {
-	    var dispatch = _ref.dispatch,
-	        getState = _ref.getState;
-	    return function (next) {
-	      return function (action) {
-	        if (typeof action === 'function') {
-	          return action(dispatch, getState, extraArgument);
-	        }
-	
-	        return next(action);
-	      };
-	    };
-	  };
-	}
-	
-	var thunk = createThunkMiddleware();
-	thunk.withExtraArgument = createThunkMiddleware;
-	
-	exports['default'] = thunk;
-
-/***/ }),
-/* 279 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.taskReducer = undefined;
-	
-	var _taskReducer = __webpack_require__(280);
-	
-	var _taskReducer2 = _interopRequireDefault(_taskReducer);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.taskReducer = _taskReducer2.default;
-
-/***/ }),
-/* 280 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _constants = __webpack_require__(281);
-	
-	var _constants2 = _interopRequireDefault(_constants);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var initialState = {
-		// list: []  //list: null WILL CAUSE: Uncaught TypeError: Cannot read property 'map' of null
-		// list: {} //WILL CAUSE THE BUG: Uncaught TypeError: this.props.tasks.map is not a function
-		// task: {} ,
-		all: null,
-		selectedCategory: 'delivery',
-		categories: ['delivery', 'dog walking', 'house cleaning']
-	};
-	
-	exports.default = function () {
-		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-		var action = arguments[1];
-	
-		var updated = Object.assign({}, state);
-		switch (action.type) {
-			case _constants2.default.TASKS_RECEIVED:
-				// console.log('TASKS_RECEIVED: '+JSON.stringify(action.tasks))
-				updated['all'] = action.payload; //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
-				return updated;
-	
-			case _constants2.default.TASK_CREATED:
-				// console.log('TASK_CREATED: '+JSON.stringify(action.payload))  
-				var currentTasks = updated['all'] ? Object.assign([], updated['all']) : [];
-				currentTasks.unshift(action.payload); //currentTask.unshift(action.task)
-				updated['all'] = currentTasks; //updated['all'] = currentTask
-	
-				return updated;
-	
-			case _constants2.default.CATEGORY_SELECTED:
-				// let updated = 
-				console.log('CATEGORY_SELECTED: ' + JSON.stringify(action.payload));
-				return updated;
-	
-			default:
-				return state;
-		}
-	};
-
-/***/ }),
-/* 281 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -32876,7 +32733,7 @@
 	};
 
 /***/ }),
-/* 282 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32922,7 +32779,7 @@
 	    key: 'selectedCategory',
 	    value: function selectedCategory(category, event) {
 	      event.preventDefault();
-	      console.log('selectedCategory: ' + category); //+JSON.stringify(this.props.task.category)
+	      // console.log('selectedCategory: '+category) //+JSON.stringify(this.props.task.category)
 	      this.props.selectCategory(category);
 	    }
 	  }, {
@@ -32973,6 +32830,154 @@
 	};
 	
 	exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Categories);
+
+/***/ }),
+/* 279 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _redux = __webpack_require__(249);
+	
+	var _reduxThunk = __webpack_require__(280);
+	
+	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+	
+	var _reducers = __webpack_require__(281);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var store;
+	
+	exports.default = {
+	    configureStore: function configureStore() {
+	        //createStore: () => {
+	
+	        var reducers = (0, _redux.combineReducers)({ //var reducers = combineReducer(
+	
+	            task: _reducers.taskReducer
+	
+	        });
+	
+	        store = (0, _redux.createStore)( //createStore({
+	
+	        reducers, (0, _redux.applyMiddleware)(_reduxThunk2.default));
+	
+	        return store;
+	    }, //}
+	
+	    currentStore: function currentStore() {
+	
+	        return store;
+	    }
+	
+	};
+
+/***/ }),
+/* 280 */
+/***/ (function(module, exports) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	function createThunkMiddleware(extraArgument) {
+	  return function (_ref) {
+	    var dispatch = _ref.dispatch,
+	        getState = _ref.getState;
+	    return function (next) {
+	      return function (action) {
+	        if (typeof action === 'function') {
+	          return action(dispatch, getState, extraArgument);
+	        }
+	
+	        return next(action);
+	      };
+	    };
+	  };
+	}
+	
+	var thunk = createThunkMiddleware();
+	thunk.withExtraArgument = createThunkMiddleware;
+	
+	exports['default'] = thunk;
+
+/***/ }),
+/* 281 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.taskReducer = undefined;
+	
+	var _taskReducer = __webpack_require__(282);
+	
+	var _taskReducer2 = _interopRequireDefault(_taskReducer);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.taskReducer = _taskReducer2.default;
+
+/***/ }),
+/* 282 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _constants = __webpack_require__(277);
+	
+	var _constants2 = _interopRequireDefault(_constants);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var initialState = {
+		// list: []  //list: null WILL CAUSE: Uncaught TypeError: Cannot read property 'map' of null
+		// list: {} //WILL CAUSE THE BUG: Uncaught TypeError: this.props.tasks.map is not a function
+		// task: {} ,
+		all: null,
+		selectedCategory: 'dog walking',
+		categories: ['delivery', 'dog walking', 'house cleaning']
+	};
+	
+	exports.default = function () {
+		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+		var action = arguments[1];
+	
+		var updated = Object.assign({}, state);
+		switch (action.type) {
+			case _constants2.default.TASKS_RECEIVED:
+				// console.log('TASKS_RECEIVED: '+JSON.stringify(action.tasks))
+				updated['all'] = action.payload; //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
+				return updated;
+	
+			case _constants2.default.TASK_CREATED:
+				// console.log('TASK_CREATED: '+JSON.stringify(action.payload))  
+				var currentTasks = updated['all'] ? Object.assign([], updated['all']) : [];
+				currentTasks.unshift(action.payload); //currentTask.unshift(action.task)
+				updated['all'] = currentTasks; //updated['all'] = currentTask
+	
+				return updated;
+	
+			case _constants2.default.CATEGORY_SELECTED:
+				// let updated = 
+				// console.log('CATEGORY_SELECTED: '+action.payload) 
+				updated['selectedCategory'] = action.payload; //this triggers re-render of the components
+				return updated;
+	
+			default:
+				return state;
+		}
+	};
 
 /***/ })
 /******/ ]);

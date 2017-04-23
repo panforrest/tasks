@@ -26,7 +26,7 @@ class Tasks extends Component{
     	// 	})
     	// })
         //state loading
-        this.props.fetchTasks(null)
+        this.props.fetchTasks({category: this.props.tasks.selectedCategory})
         .then(results => {
             //stop loading
             // console.log(JSON.stringify(results))
@@ -100,7 +100,8 @@ class Tasks extends Component{
 
 const stateToProps = (state) => {
     return {
-        tasks: state.task
+        tasks: state.task,
+        selectedCategory: state.task.selectedCategory
         // task: state.task.task
     }
 }
@@ -109,7 +110,8 @@ const dispatchToProps = (dispatch) => {
     return {
         fetchTasks: (params) => dispatch(actions.fetchTasks(params)),
         tasksReceived: (tasks) => dispatch(actions.tasksReceived(tasks)),
-        submitTask: (task) => dispatch(actions.submitTask(task))
+        submitTask: (task) => dispatch(actions.submitTask(task)),
+        selectCategory: (category) => dispatch(actions.selectCategory(category))
         // taskCreated: (params) => dispatch(actions.taskCreated(params))
     }
 }

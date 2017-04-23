@@ -5,7 +5,7 @@ var initialState = {
 	// list: {} //WILL CAUSE THE BUG: Uncaught TypeError: this.props.tasks.map is not a function
 	// task: {} ,
 	all: null,
-	selectedCategory: 'delivery',
+	selectedCategory: 'dog walking',
 	categories: [
 	    'delivery',
 	    'dog walking',
@@ -31,7 +31,8 @@ export default (state=initialState, action) => {
 
 		case constants.CATEGORY_SELECTED:
 		    // let updated = 
-		    console.log('CATEGORY_SELECTED: '+JSON.stringify(action.payload))  
+		    // console.log('CATEGORY_SELECTED: '+action.payload) 
+		    updated['selectedCategory'] = action.payload //this triggers re-render of the components
             return updated
 
 		default:

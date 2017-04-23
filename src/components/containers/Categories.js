@@ -7,7 +7,7 @@ import actions from '../../actions'
 class Categories extends Component {
     selectedCategory(category, event){
     	event.preventDefault()
-    	console.log('selectedCategory: '+category) //+JSON.stringify(this.props.task.category)
+    	// console.log('selectedCategory: '+category) //+JSON.stringify(this.props.task.category)
     	this.props.selectCategory(category)
     }
 
