@@ -27,7 +27,7 @@ router.post('/task',function(req, res, next){
     })
     .catch(function(err){
         console.log('ERROR: '+err)
-    }
+    })
 })
 
 
