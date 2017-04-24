@@ -25,7 +25,7 @@ export default (state=initialState, action) => {
                 updated[value] = action.payload
             })
 
-            updated['delivery'] = action.payload  //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
+            // updated['delivery'] = action.payload  //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
 		    console.log('TASKS_RECEIVED: '+JSON.stringify(updated))
 		    return updated
 

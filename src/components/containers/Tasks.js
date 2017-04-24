@@ -26,6 +26,9 @@ class Tasks extends Component{
     	// 	})
     	// })
         //state loading
+        if (this.props.tasks[this.props.tasks.selectedCategory] != null)
+            return
+
         this.props.fetchTasks({category: this.props.tasks.selectedCategory})
         .then(results => {
             //stop loading
@@ -51,6 +54,10 @@ class Tasks extends Component{
 
     componentDidUpdate(){
         console.log('componentDidUpdate: '+this.props.tasks.selectedCategory)
+
+        if (this.props.tasks[this.props.tasks.selectedCategory] != null)
+            return
+        
         this.props.fetchTasks({category: this.props.tasks.selectedCategory})
         .then(results => {
         })            
@@ -113,7 +120,7 @@ class Tasks extends Component{
 const stateToProps = (state) => {
     return {
         tasks: state.task,
-        selectedCategory: state.task.selectedCategory
+        // selectedCategory: state.task.selectedCategory
         // task: state.task.task
     }
 }
@@ -123,7 +130,7 @@ const dispatchToProps = (dispatch) => {
         fetchTasks: (params) => dispatch(actions.fetchTasks(params)),
         tasksReceived: (tasks) => dispatch(actions.tasksReceived(tasks)),
         submitTask: (task) => dispatch(actions.submitTask(task)),
-        selectCategory: (category) => dispatch(actions.selectCategory(category))
+        // selectCategory: (category) => dispatch(actions.selectCategory(category))
         // taskCreated: (params) => dispatch(actions.taskCreated(params))
     }
 }

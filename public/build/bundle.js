@@ -21979,6 +21979,8 @@
 	            // 	})
 	            // })
 	            //state loading
+	            if (this.props.tasks[this.props.tasks.selectedCategory] != null) return;
+	
 	            this.props.fetchTasks({ category: this.props.tasks.selectedCategory }).then(function (results) {
 	                //stop loading
 	                // console.log(JSON.stringify(results))
@@ -22002,6 +22004,9 @@
 	        key: 'componentDidUpdate',
 	        value: function componentDidUpdate() {
 	            console.log('componentDidUpdate: ' + this.props.tasks.selectedCategory);
+	
+	            if (this.props.tasks[this.props.tasks.selectedCategory] != null) return;
+	
 	            this.props.fetchTasks({ category: this.props.tasks.selectedCategory }).then(function (results) {}).catch(function (err) {
 	                //stop loading
 	                alert(err);
@@ -22064,9 +22069,7 @@
 	
 	var stateToProps = function stateToProps(state) {
 	    return {
-	        tasks: state.task,
-	        selectedCategory: state.task.selectedCategory
-	        // task: state.task.task
+	        tasks: state.task
 	    };
 	};
 	
@@ -22080,11 +22083,7 @@
 	        },
 	        submitTask: function submitTask(task) {
 	            return dispatch(_actions2.default.submitTask(task));
-	        },
-	        selectCategory: function selectCategory(category) {
-	            return dispatch(_actions2.default.selectCategory(category));
 	        }
-	        // taskCreated: (params) => dispatch(actions.taskCreated(params))
 	    };
 	};
 	
@@ -32974,7 +32973,7 @@
 					updated[value] = action.payload;
 				});
 	
-				updated['delivery'] = action.payload; //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
+				// updated['delivery'] = action.payload  //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
 				console.log('TASKS_RECEIVED: ' + JSON.stringify(updated));
 				return updated;
 	
