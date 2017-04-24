@@ -33002,9 +33002,9 @@
 	
 			case _constants2.default.TASK_CREATED:
 				// console.log('TASK_CREATED: '+JSON.stringify(action.payload))  
-				var currentTasks = updated['all'] ? Object.assign([], updated['all']) : [];
+				var currentTasks = updated[action.payload.category] ? Object.assign([], updated[action.payload.category]) : [];
 				currentTasks.unshift(action.payload); //currentTask.unshift(action.task)
-				updated['all'] = currentTasks; //updated['all'] = currentTask
+				updated[action.payload.category] = currentTasks; //updated['all'] = currentTask
 	
 				return updated;
 	
