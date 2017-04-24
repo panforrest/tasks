@@ -21954,12 +21954,27 @@
 	    function Tasks() {
 	        _classCallCheck(this, Tasks);
 	
-	        return _possibleConstructorReturn(this, (Tasks.__proto__ || Object.getPrototypeOf(Tasks)).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, (Tasks.__proto__ || Object.getPrototypeOf(Tasks)).call(this));
+	
+	        _this.getTask = _this.getTasks.bind(_this);
+	        return _this;
 	    }
 	
 	    _createClass(Tasks, [{
+	        key: 'getTasks',
+	        value: function getTasks() {
+	            console.log('getTasks: ' + this.props.tasks.selectedCategory);
+	            if (this.props.tasks[this.props.tasks.selectedCategory] != null) return;
+	
+	            this.props.fetchTasks({ category: this.props.tasks.selectedCategory }).then(function (results) {}).catch(function (err) {
+	                alert(err);
+	            });
+	        }
+	    }, {
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
+	            // console.log('componentDidUpdate: '+this.props.tasks.selectedCategory)        
+	            this.getTask();
 	            // console.log('componentDidMount: ')
 	            // APIManager.get('/api/task', function(err, results){
 	            //        if (err) {
@@ -21979,15 +21994,18 @@
 	            // 	})
 	            // })
 	            //state loading
-	            if (this.props.tasks[this.props.tasks.selectedCategory] != null) return;
+	            // if (this.props.tasks[this.props.tasks.selectedCategory] != null)
+	            //     return
 	
-	            this.props.fetchTasks({ category: this.props.tasks.selectedCategory }).then(function (results) {
-	                //stop loading
-	                // console.log(JSON.stringify(results))
-	            }).catch(function (err) {
-	                //stop loading
-	                alert(err);
-	            });
+	            // this.props.fetchTasks({category: this.props.tasks.selectedCategory})
+	            // .then(results => {
+	            //     //stop loading
+	            //     // console.log(JSON.stringify(results))
+	            // })
+	            // .catch(err => {
+	            //     //stop loading
+	            //     alert(err)
+	            // })
 	
 	            // APIManager
 	            // .get('/api/task', null)
@@ -22003,14 +22021,19 @@
 	    }, {
 	        key: 'componentDidUpdate',
 	        value: function componentDidUpdate() {
-	            console.log('componentDidUpdate: ' + this.props.tasks.selectedCategory);
+	            // console.log('componentDidUpdate: '+this.props.tasks.selectedCategory)
+	            this.getTask();
 	
-	            if (this.props.tasks[this.props.tasks.selectedCategory] != null) return;
+	            // if (this.props.tasks[this.props.tasks.selectedCategory] != null)
+	            //     return
 	
-	            this.props.fetchTasks({ category: this.props.tasks.selectedCategory }).then(function (results) {}).catch(function (err) {
-	                //stop loading
-	                alert(err);
-	            });
+	            // this.props.fetchTasks({category: this.props.tasks.selectedCategory})
+	            // .then(results => {
+	            // })            
+	            // .catch(err => {
+	            //     //stop loading
+	            //     alert(err)
+	            // })
 	        }
 	    }, {
 	        key: 'createTask',
