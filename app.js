@@ -20,6 +20,7 @@ mongoose.connect(process.env.DB_URL, function(err, res){
 
 var routes = require('./routes/index');
 var api = require('./routes/api');
+var twilio = require('./routes/twilio');
 
 var app = express();
 
@@ -37,6 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/api', api);
+app.use('/twilio', twilio);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
