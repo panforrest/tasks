@@ -21999,11 +21999,21 @@
 	            // })
 	        }
 	    }, {
+	        key: 'componentDidUpdate',
+	        value: function componentDidUpdate() {
+	            console.log('componentDidUpdate: ' + this.props.tasks.selectedCategory);
+	            this.props.fetchTasks({ category: this.props.tasks.selectedCategory }).then(function (results) {}).catch(function (err) {
+	                //stop loading
+	                alert(err);
+	            });
+	        }
+	    }, {
 	        key: 'createTask',
 	        value: function createTask(task) {
 	            // console.log('CREATE TASK: '+JSON.stringify(task))
 	            this.props.submitTask(task).then(function (result) {
 	                // console.log(JSON.stringify(result))
+	                return;
 	            }).catch(function (err) {
 	                console.log('ERROR: ' + JSON.stringify(err));
 	            });

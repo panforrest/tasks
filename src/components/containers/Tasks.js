@@ -49,11 +49,23 @@ class Tasks extends Component{
 
     }
 
+    componentDidUpdate(){
+        console.log('componentDidUpdate: '+this.props.tasks.selectedCategory)
+        this.props.fetchTasks({category: this.props.tasks.selectedCategory})
+        .then(results => {
+        })            
+        .catch(err => {
+            //stop loading
+            alert(err)
+        })
+    }
+
     createTask(task){
         // console.log('CREATE TASK: '+JSON.stringify(task))
         this.props.submitTask(task)
         .then(result => {
             // console.log(JSON.stringify(result))
+            return
         })
         .catch(err => {
             console.log('ERROR: '+JSON.stringify(err))
