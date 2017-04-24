@@ -9,7 +9,8 @@ router.get('/task',function(req, res, next){
 })
 
 router.post('/task',function(req, res, next){
-	res.render('index', {title: 'Express'})  //res.send('')
+	// res.render('index', {title: 'Express'})  //res.send('')
+	console.log('TWILIO: '+JSON.stringify(req.body))
 	res.send('Hello!')
 })
 
