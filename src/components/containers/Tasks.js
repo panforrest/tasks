@@ -57,7 +57,7 @@ class Tasks extends Component{
 
         if (this.props.tasks[this.props.tasks.selectedCategory] != null)
             return
-        
+
         this.props.fetchTasks({category: this.props.tasks.selectedCategory})
         .then(results => {
         })            
@@ -101,8 +101,8 @@ class Tasks extends Component{
 			<div>
 			    <h2>Tasks</h2>
                 
-                    { (this.props.tasks.all == null) ? null:
-                        this.props.tasks.all.map((task, i) => {
+                    { (this.props.tasks[this.props.tasks.selectedCategory] == null) ? null:
+                        this.props.tasks[this.props.tasks.selectedCategory] .map((task, i) => {
                             return (
                                 <li key={task.id}>{task.title}, {task.category}</li>
                             )

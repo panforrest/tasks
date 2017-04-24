@@ -22050,7 +22050,7 @@
 	                    null,
 	                    'Tasks'
 	                ),
-	                this.props.tasks.all == null ? null : this.props.tasks.all.map(function (task, i) {
+	                this.props.tasks[this.props.tasks.selectedCategory] == null ? null : this.props.tasks[this.props.tasks.selectedCategory].map(function (task, i) {
 	                    return _react2.default.createElement(
 	                        'li',
 	                        { key: task.id },
