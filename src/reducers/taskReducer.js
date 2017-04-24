@@ -17,8 +17,16 @@ export default (state=initialState, action) => {
 	let updated = Object.assign({}, state) 
 	switch (action.type){
 		case constants.TASKS_RECEIVED:
-		    // console.log('TASKS_RECEIVED: '+JSON.stringify(action.tasks))
-            updated['all'] = action.payload  //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
+		    console.log('TASKS_RECEIVED: '+JSON.stringify(action.params))
+
+            const keys = Object.keys(action.params)
+            keys.forEach((key, i) => {
+                const value = action.params[key] //delivery, dog walking
+                updated[value] = action.payload
+            })
+
+            updated['delivery'] = action.payload  //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
+		    console.log('TASKS_RECEIVED: '+JSON.stringify(updated))
 		    return updated
 
 		case constants.TASK_CREATED:

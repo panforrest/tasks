@@ -32966,8 +32966,16 @@
 		var updated = Object.assign({}, state);
 		switch (action.type) {
 			case _constants2.default.TASKS_RECEIVED:
-				// console.log('TASKS_RECEIVED: '+JSON.stringify(action.tasks))
-				updated['all'] = action.payload; //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
+				console.log('TASKS_RECEIVED: ' + JSON.stringify(action.params));
+	
+				var keys = Object.keys(action.params);
+				keys.forEach(function (key, i) {
+					var value = action.params[key]; //delivery, dog walking
+					updated[value] = action.payload;
+				});
+	
+				updated['delivery'] = action.payload; //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
+				console.log('TASKS_RECEIVED: ' + JSON.stringify(updated));
 				return updated;
 	
 			case _constants2.default.TASK_CREATED:
