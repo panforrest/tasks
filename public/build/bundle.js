@@ -58,7 +58,7 @@
 	
 	var _reactRedux = __webpack_require__(236);
 	
-	var _stores = __webpack_require__(279);
+	var _stores = __webpack_require__(280);
 	
 	var _stores2 = _interopRequireDefault(_stores);
 	
@@ -21870,13 +21870,18 @@
 						{ className: 'row' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'col-md-4' },
+							{ className: 'col-md-2' },
 							_react2.default.createElement(_containers.Categories, null)
 						),
 						_react2.default.createElement(
 							'div',
 							{ className: 'col-md-8' },
 							_react2.default.createElement(_containers.Tasks, null)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-2' },
+							_react2.default.createElement(_containers.Account, null)
 						)
 					)
 				);
@@ -21897,7 +21902,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.Categories = exports.Tasks = undefined;
+	exports.Account = exports.Categories = exports.Tasks = undefined;
 	
 	var _Tasks = __webpack_require__(185);
 	
@@ -21907,10 +21912,15 @@
 	
 	var _Categories2 = _interopRequireDefault(_Categories);
 	
+	var _Account = __webpack_require__(279);
+	
+	var _Account2 = _interopRequireDefault(_Account);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.Tasks = _Tasks2.default;
 	exports.Categories = _Categories2.default;
+	exports.Account = _Account2.default;
 
 /***/ }),
 /* 185 */
@@ -30169,15 +30179,20 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.CreateTask = undefined;
+	exports.Authenticate = exports.CreateTask = undefined;
 	
 	var _CreateTask = __webpack_require__(235);
 	
 	var _CreateTask2 = _interopRequireDefault(_CreateTask);
 	
+	var _Authenticate = __webpack_require__(284);
+	
+	var _Authenticate2 = _interopRequireDefault(_Authenticate);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.CreateTask = _CreateTask2.default;
+	exports.Authenticate = _Authenticate2.default;
 
 /***/ }),
 /* 235 */
@@ -32873,13 +32888,143 @@
 	    value: true
 	});
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(236);
+	
+	var _actions = __webpack_require__(276);
+	
+	var _actions2 = _interopRequireDefault(_actions);
+	
+	var _utils = __webpack_require__(186);
+	
+	var _view = __webpack_require__(234);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Account = function (_Component) {
+	    _inherits(Account, _Component);
+	
+	    function Account() {
+	        _classCallCheck(this, Account);
+	
+	        var _this = _possibleConstructorReturn(this, (Account.__proto__ || Object.getPrototypeOf(Account)).call(this));
+	
+	        _this.state = {
+	            profile: {}
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(Account, [{
+	        key: 'updateUser',
+	        value: function updateUser(event) {
+	            // console.log('updateUser: '+event.target.id+' == '+event.target.value)
+	            var updated = Object.assign({}, this.state.profile);
+	            updated[event.target.id] = event.target.value;
+	            this.setState({
+	                profile: updated
+	            });
+	        }
+	    }, {
+	        key: 'submitUser',
+	        value: function submitUser(event) {
+	            console.log('submitUser: ' + JSON.stringify(this.state.profile));
+	            _utils.APIManager.post('/api/profile', this.state.profile).then(function (response) {
+	                console.log('CREATED USER: ' + JSON.stringify(response));
+	            }).catch(function (err) {
+	                console.log(JSON.stringify(err));
+	            });
+	
+	            //THIS APIMANAGER CALL CANNOT CONSOLE LOG CREATED USER BECAUSE APIMANAGER IS USING PROMISE
+	            // APIManager.post('/api/profile', this.state.profile, (err, response) => {
+	            // 	if (err) {
+	            // 		alert(err)
+	            // 		return
+	            // 	}
+	            // 	console.log('CREATED USER: '+JSON.stringify(response))
+	            // })
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'h2',
+	                    null,
+	                    'Account'
+	                ),
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    'Sign Up'
+	                ),
+	                _react2.default.createElement('input', { onChange: this.updateUser.bind(this), type: 'text', placeholder: 'Username', id: 'username' }),
+	                _react2.default.createElement('br', null),
+	                _react2.default.createElement('input', { onChange: this.updateUser.bind(this), type: 'text', placeholder: 'Password', id: 'password' }),
+	                _react2.default.createElement('br', null),
+	                _react2.default.createElement('input', { onChange: this.updateUser.bind(this), type: 'text', placeholder: 'Phone', id: 'phone' }),
+	                _react2.default.createElement('br', null),
+	                _react2.default.createElement('input', { onChange: this.updateUser.bind(this), type: 'text', placeholder: 'Email', id: 'email' }),
+	                _react2.default.createElement('br', null),
+	                _react2.default.createElement(
+	                    'button',
+	                    { onClick: this.submitUser.bind(this) },
+	                    'Join'
+	                ),
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    'Login'
+	                ),
+	                _react2.default.createElement('input', { onChange: this.updateUser.bind(this), type: 'text', placeholder: 'Username', id: 'username' }),
+	                _react2.default.createElement('br', null),
+	                _react2.default.createElement('input', { onChange: this.updateUser.bind(this), type: 'text', placeholder: 'Password', id: 'password' }),
+	                _react2.default.createElement('br', null),
+	                _react2.default.createElement(
+	                    'button',
+	                    { onClick: this.submitUser.bind(this) },
+	                    'Login'
+	                ),
+	                _react2.default.createElement(_view.Authenticate, null)
+	            );
+	        }
+	    }]);
+	
+	    return Account;
+	}(_react.Component);
+	
+	exports.default = Account;
+
+/***/ }),
+/* 280 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
 	var _redux = __webpack_require__(249);
 	
-	var _reduxThunk = __webpack_require__(280);
+	var _reduxThunk = __webpack_require__(281);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
-	var _reducers = __webpack_require__(281);
+	var _reducers = __webpack_require__(282);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -32910,7 +33055,7 @@
 	};
 
 /***/ }),
-/* 280 */
+/* 281 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -32938,7 +33083,7 @@
 	exports['default'] = thunk;
 
 /***/ }),
-/* 281 */
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32948,7 +33093,7 @@
 	});
 	exports.taskReducer = undefined;
 	
-	var _taskReducer = __webpack_require__(282);
+	var _taskReducer = __webpack_require__(283);
 	
 	var _taskReducer2 = _interopRequireDefault(_taskReducer);
 	
@@ -32957,7 +33102,7 @@
 	exports.taskReducer = _taskReducer2.default;
 
 /***/ }),
-/* 282 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33018,6 +33163,51 @@
 				return state;
 		}
 	};
+
+/***/ }),
+/* 284 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Authenticate = function (_Component) {
+		_inherits(Authenticate, _Component);
+	
+		function Authenticate() {
+			_classCallCheck(this, Authenticate);
+	
+			return _possibleConstructorReturn(this, (Authenticate.__proto__ || Object.getPrototypeOf(Authenticate)).apply(this, arguments));
+		}
+	
+		_createClass(Authenticate, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement('div', null);
+			}
+		}]);
+	
+		return Authenticate;
+	}(_react.Component);
+	
+	exports.default = Authenticate;
 
 /***/ })
 /******/ ]);

@@ -12,6 +12,8 @@ router.get('/task',function(req, res, next){
 router.post('/task',function(req, res, next){
 	// res.render('index', {title: 'Express'})  //res.send('')
 	console.log('TWILIO: '+JSON.stringify(req.body))
+    //TWILIO: {"ToCountry":"US","ToState":"NJ","SmsMessageSid":"SM31b8171aaa44742d29379496a3e69d09","NumMedia":"0","ToCity":"ELIZABETH","FromZip":"07080","SmsSid":"SM31b8171aaa44742d29379496a3e69d09","FromState":"NJ","SmsStatus":"received","FromCity":"ELIZABETH","Body":"Task from conference nast","FromCountry":"US","To":"+19088458522","ToZip":"07201","NumSegments":"1","MessageSid":"SM31b8171aaa44742d29379496a3e69d09","AccountSid":"AC4b99f76eaaec3adff9b44c733bdc00b6","From":"+19089061042","ApiVersion":"2010-04-01"}
+    
 
     var message = req.body['Body']
     var task = {
@@ -19,6 +21,8 @@ router.post('/task',function(req, res, next){
     	category: 'delivery',
     	description: message
     }
+
+    var from = req.body('From') //phone # of sender
 
     controllers.task.post(task, false)
     .then(function(result){

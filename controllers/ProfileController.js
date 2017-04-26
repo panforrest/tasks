@@ -46,7 +46,7 @@ module.exports = {
 
     post: function(params, isRaw){
         return new Promise(function(resolve, reject){
-            Profile.create(params, function(profile){
+            Profile.create(params, function(err, profile){
                 if (err) {
                     reject(err)
                     return
