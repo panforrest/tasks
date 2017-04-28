@@ -30368,12 +30368,14 @@
 	    }, {
 	        key: 'register',
 	        value: function register(event) {
-	            console.log('register: ' + JSON.stringify(this.state.credentials));
+	            // console.log('register: '+JSON.stringify(this.state.credentials))
+	            this.props.onRegister(this.state.credentials);
 	        }
 	    }, {
 	        key: 'login',
 	        value: function login(event) {
-	            console.log('login: ' + JSON.stringify(this.state.credentials));
+	            // console.log('login: '+JSON.stringify(this.state.credentials))
+	            this.props.onLogin(this.state.credentials);
 	        }
 	
 	        // updateUser(event){
@@ -33070,12 +33072,12 @@
 	
 		_createClass(Account, [{
 			key: 'login',
-			value: function login(credentails) {
+			value: function login(credentials) {
 				console.log('login: ' + JSON.stringify(credentials));
 			}
 		}, {
 			key: 'register',
-			value: function register(credentails) {
+			value: function register(credentials) {
 				console.log('register: ' + JSON.stringify(credentials));
 			}
 		}, {

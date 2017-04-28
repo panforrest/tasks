@@ -6,12 +6,12 @@ import { Authenticate } from '../view'
 
 class Account extends Component {
 
-    login(credentails){
+    login(credentials){
     	console.log('login: '+JSON.stringify(credentials))
 
     }
 
-    register(credentails){
+    register(credentials){
         console.log('register: '+JSON.stringify(credentials))
     }
 
