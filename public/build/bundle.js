@@ -32872,11 +32872,18 @@
 				});
 			}).catch(function (err) {
 				console.log('ERR: ' + JSON.stringify(err));
+				// throw err
 			});
 		};
 	};
 	
 	exports.default = {
+	
+		register: function register(credentials) {
+			return function (dispatch) {
+				return dispatch(postRequest('/api/profile', credentials, _constants2.default.PROFILE_CREATED)); //NOT params here
+			};
+		},
 	
 		fetchTasks: function fetchTasks(params) {
 			return function (dispatch) {
@@ -32923,6 +32930,8 @@
 		value: true
 	});
 	exports.default = {
+		// REGISTER: 'REGISTER',
+		PROFILE_CREATED: 'PROFILE_CREATED',
 		TASKS_RECEIVED: 'TASKS_RECEIVED',
 		TASK_CREATED: 'TASK_CREATED',
 		CATEGORY_SELECTED: 'CATEGORY_SELECTED'
@@ -33079,6 +33088,7 @@
 			key: 'register',
 			value: function register(credentials) {
 				console.log('register: ' + JSON.stringify(credentials));
+				this.props.register(credentials);
 			}
 		}, {
 			key: 'render',
@@ -33101,7 +33111,21 @@
 		return Account;
 	}(_react.Component);
 	
-	exports.default = Account;
+	var stateToProps = function stateToProps(state) {
+		return {
+			user: state.account.user //can be null
+		};
+	};
+	
+	var dispatchToProps = function dispatchToProps(dispatch) {
+		return {
+			register: function register(credentials) {
+				return dispatch(_actions2.default.register(credentials));
+			}
+		};
+	};
+	
+	exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Account);
 
 /***/ }),
 /* 281 */
@@ -33131,7 +33155,8 @@
 	
 	        var reducers = (0, _redux.combineReducers)({ //var reducers = combineReducer(
 	
-	            task: _reducers.taskReducer
+	            task: _reducers.taskReducer,
+	            account: _reducers.accountReducer
 	
 	        });
 	
@@ -33186,15 +33211,20 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.taskReducer = undefined;
+	exports.accountReducer = exports.taskReducer = undefined;
 	
 	var _taskReducer = __webpack_require__(284);
 	
 	var _taskReducer2 = _interopRequireDefault(_taskReducer);
 	
+	var _accountReducer = __webpack_require__(285);
+	
+	var _accountReducer2 = _interopRequireDefault(_accountReducer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.taskReducer = _taskReducer2.default;
+	exports.accountReducer = _accountReducer2.default;
 
 /***/ }),
 /* 284 */
@@ -33252,6 +33282,43 @@
 				// let updated = 
 				// console.log('CATEGORY_SELECTED: '+action.payload) 
 				updated['selectedCategory'] = action.payload; //this triggers re-render of the components
+				return updated;
+	
+			default:
+				return state;
+		}
+	};
+
+/***/ }),
+/* 285 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _constants = __webpack_require__(278);
+	
+	var _constants2 = _interopRequireDefault(_constants);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var initialState = {
+		user: null //BUT WHY USING null?
+	
+	};
+	
+	exports.default = function () {
+		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+		var action = arguments[1];
+	
+		var updated = Object.assign({}, state); //let udpated = Object.assign({}, state) 
+	
+		switch (action.type) {
+			case _constants2.default.PROFILE_CREATED:
+				console.log('PROFILE_CREATED: ' + JSON.stringify(action.payload)); //console.log('PROFILE_CREATED: '+action.profile)
 				return updated;
 	
 			default:

@@ -34,10 +34,17 @@ const postRequest = (path, params, actionType) => {	//const getRequest: (path, p
 		})
 		.catch( err => {
             console.log('ERR: '+JSON.stringify(err))
+            // throw err
 		})	
 }
 
 export default {
+
+	register: (credentials) => {
+        return (dispatch) => {
+        	return dispatch(postRequest('/api/profile', credentials, constants.PROFILE_CREATED))  //NOT params here
+        }
+	},
 
     fetchTasks: (params) => {
         return (dispatch) => {

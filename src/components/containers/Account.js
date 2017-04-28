@@ -13,6 +13,7 @@ class Account extends Component {
 
     register(credentials){
         console.log('register: '+JSON.stringify(credentials))
+        this.props.register(credentials)
     }
 
 	render(){
@@ -28,4 +29,16 @@ class Account extends Component {
 	}
 }
 
-export default Account
+const stateToProps = (state) => {
+	return {
+		user: state.account.user //can be null
+	}
+}
+
+const dispatchToProps = (dispatch) => {
+	return{
+		register: (credentials) => dispatch(actions.register(credentials))
+	}
+}
+
+export default connect(stateToProps, dispatchToProps)(Account)
