@@ -46,6 +46,8 @@ module.exports = {
 
     post: function(params, isRaw){
         return new Promise(function(resolve, reject){
+
+            // console.log('BODY 2: '+JSON.stringify(params))
             Profile.create(params, function(err, profile){
                 if (err) {
                     reject(err)

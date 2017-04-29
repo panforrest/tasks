@@ -32845,7 +32845,7 @@
 		return function (dispatch) {
 			return _utils.APIManager.get(path, params).then(function (response) {
 				// console.log('GET: '+JSON.stringify(response))
-				var payload = response.results || response.result;
+				var payload = response.results || response.result || response.user;
 	
 				dispatch({
 					type: actionType,
@@ -32863,7 +32863,7 @@
 		return function (dispatch) {
 			return _utils.APIManager.post(path, params).then(function (response) {
 				// console.log('POST: '+JSON.stringify(response))
-				var payload = response.results || response.result;
+				var payload = response.results || response.result || response.user;
 	
 				dispatch({
 					type: actionType,
@@ -32872,7 +32872,7 @@
 				});
 			}).catch(function (err) {
 				console.log('ERR: ' + JSON.stringify(err));
-				// throw err
+				throw err;
 			});
 		};
 	};
@@ -32881,7 +32881,8 @@
 	
 		register: function register(credentials) {
 			return function (dispatch) {
-				return dispatch(postRequest('/api/profile', credentials, _constants2.default.PROFILE_CREATED)); //NOT params here
+				// return dispatch(postRequest('/api/profile', credentials, constants.PROFILE_CREATED))  //NOT params here
+				return dispatch(postRequest('/account/register', credentials, _constants2.default.PROFILE_CREATED));
 			};
 		},
 	

@@ -6,7 +6,7 @@ const getRequest = (path, params, actionType) => {	//const getRequest: (path, pa
 		APIManager.get(path, params)
 		.then( response => {
             // console.log('GET: '+JSON.stringify(response))
-            const payload = response.results || response.result
+            const payload = response.results || response.result || response.user
 
 	        dispatch({
 				type: actionType,
@@ -24,7 +24,7 @@ const postRequest = (path, params, actionType) => {	//const getRequest: (path, p
 		APIManager.post(path, params)
 		.then( response => {
             // console.log('POST: '+JSON.stringify(response))
-            const payload = response.results || response.result
+            const payload = response.results || response.result || response.user
 
 	        dispatch({
 				type: actionType,
@@ -34,7 +34,7 @@ const postRequest = (path, params, actionType) => {	//const getRequest: (path, p
 		})
 		.catch( err => {
             console.log('ERR: '+JSON.stringify(err))
-            // throw err
+            throw err
 		})	
 }
 
@@ -42,7 +42,8 @@ export default {
 
 	register: (credentials) => {
         return (dispatch) => {
-        	return dispatch(postRequest('/api/profile', credentials, constants.PROFILE_CREATED))  //NOT params here
+        	// return dispatch(postRequest('/api/profile', credentials, constants.PROFILE_CREATED))  //NOT params here
+            return dispatch(postRequest('/account/register', credentials, constants.PROFILE_CREATED))
         }
 	},
 
