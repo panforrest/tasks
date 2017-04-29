@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 var controllers = require('../controllers')
 var jwt = require('jsonwebtoken')
+var bcrypt = require('bcryptjs')
 
 router.post('/:action', function(req, res, next){
 	var action = req.params.action
@@ -52,14 +53,61 @@ router.get('/:action', function(req, res, next){
             return //DO NOT FORGET
         }
 
-        res.json({
-        	confirmation: 'success',
-        	token: req.session.token   //I FORGOT req.session.user
-        })
+        jwt.verify(req.session.token, process.env.TOKEN_SECRET, function(err, decoded){
+            
+            if (err){
+                res.json({
+                    confirmation: 'fail',
+                    message: 'Access Denied'
+                })
+                return
+            }
+
+            res.json({
+                confirmation: 'success',
+                token: req.session.token,
+                id: decoded.id  // token: req.session.token   //I FORGOT req.session.user
+            })
+        }) 
     }
 
     if (action == 'login'){
+        controllers.profile
+        .get({email: req.body.email}, true)
+        .then(function(results){
+            if (results.length == 0){
+                res.json({
+                    confirmation: 'fail',
+                    message: 'user not found'
+                })
+                return
+            }
 
+            var profile = results[0]
+            // console.log('result.password: '+JSON.stringify(result.password))
+            // console.log('req.body.password: '+req.body.password)
+
+            var isPasswordCorrect = bcrypt.compareSync(req.body.password, profile.password)
+
+            if (isPasswordCorrect == false) {  // if (isPasswordCorrect == null) {
+                res.json({
+                    confirmation: 'fail',
+                    message: 'wrong password'
+                })
+                return
+            }
+            res.json({
+                confirmation: 'success',
+                user: profile.summary()    //user: profile           
+            })
+            return 
+        })
+        .catch(function(err){
+            res.json({
+                confirmation: 'fail',
+                message: err
+            })
+        })
     }
 })
 
