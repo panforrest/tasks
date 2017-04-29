@@ -8,6 +8,7 @@ class Account extends Component {
 
     login(credentials){
     	console.log('login: '+JSON.stringify(credentials))
+    	this.props.login(credentials)
 
     }
 
@@ -37,7 +38,8 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
 	return{
-		register: (credentials) => dispatch(actions.register(credentials))
+		register: (credentials) => dispatch(actions.register(credentials)),
+		login: (credentials) => dispatch(actions.login(credentials))
 	}
 }
 

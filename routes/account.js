@@ -32,6 +32,50 @@ router.post('/:action', function(req, res, next){
         })
     }
 
+    if (action == 'login'){
+        controllers.profile
+        .get({email: req.body.email}, true)
+        .then(function(results){
+            // console.log('TEST 1: '+JSON.stringify(results))
+            if (results.length == 0){
+                res.json({
+                    confirmation: 'fail',
+                    message: 'user not found'
+                })
+                return
+            }
+
+            var profile = results[0]
+            // console.log('result.password: '+JSON.stringify(result.password))
+            // console.log('req.body.password: '+req.body.password)
+
+            var isPasswordCorrect = bcrypt.compareSync(req.body.password, profile.password)
+
+            if (isPasswordCorrect == false) {  // if (isPasswordCorrect == null) {
+                res.json({
+                    confirmation: 'fail',
+                    message: 'wrong password'
+                })
+                return
+            }
+
+            var token = jwt.sign({id:profile._id}, process.env.TOKEN_SECRET, {expiresIn: 4000})  //({id:result.id}
+            req.session.token = token 
+
+            res.json({
+                confirmation: 'success',
+                user: profile.summary()    //user: profile           
+            })
+            return 
+        })
+        .catch(function(err){
+            res.json({
+                confirmation: 'fail',
+                message: err
+            })
+        })
+    }    
+
 })
 
 router.get('/:action', function(req, res, next){
@@ -71,44 +115,7 @@ router.get('/:action', function(req, res, next){
         }) 
     }
 
-    if (action == 'login'){
-        controllers.profile
-        .get({email: req.body.email}, true)
-        .then(function(results){
-            if (results.length == 0){
-                res.json({
-                    confirmation: 'fail',
-                    message: 'user not found'
-                })
-                return
-            }
-
-            var profile = results[0]
-            // console.log('result.password: '+JSON.stringify(result.password))
-            // console.log('req.body.password: '+req.body.password)
-
-            var isPasswordCorrect = bcrypt.compareSync(req.body.password, profile.password)
-
-            if (isPasswordCorrect == false) {  // if (isPasswordCorrect == null) {
-                res.json({
-                    confirmation: 'fail',
-                    message: 'wrong password'
-                })
-                return
-            }
-            res.json({
-                confirmation: 'success',
-                user: profile.summary()    //user: profile           
-            })
-            return 
-        })
-        .catch(function(err){
-            res.json({
-                confirmation: 'fail',
-                message: err
-            })
-        })
-    }
+    
 })
 
 module.exports = router   //module.exports = router()

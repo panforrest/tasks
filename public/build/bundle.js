@@ -30443,7 +30443,7 @@
 	                    null,
 	                    'Login'
 	                ),
-	                _react2.default.createElement('input', { onChange: this.updatedCredentials.bind(this, 'username'), type: 'text', placeholder: 'Username', id: 'username' }),
+	                _react2.default.createElement('input', { onChange: this.updatedCredentials.bind(this, 'email'), type: 'text', placeholder: 'Email', id: 'username' }),
 	                _react2.default.createElement('br', null),
 	                _react2.default.createElement('input', { onChange: this.updatedCredentials.bind(this, 'password'), type: 'text', placeholder: 'Password', id: 'password' }),
 	                _react2.default.createElement('br', null),
@@ -32871,7 +32871,7 @@
 					params: params
 				});
 			}).catch(function (err) {
-				console.log('ERR: ' + JSON.stringify(err));
+				// console.log('ERR: '+JSON.stringify(err))
 				throw err;
 			});
 		};
@@ -32883,6 +32883,12 @@
 			return function (dispatch) {
 				// return dispatch(postRequest('/api/profile', credentials, constants.PROFILE_CREATED))  //NOT params here
 				return dispatch(postRequest('/account/register', credentials, _constants2.default.PROFILE_CREATED));
+			};
+		},
+	
+		login: function login(credentials) {
+			return function (dispatch) {
+				return dispatch(postRequest('/account/login', credentials, _constants2.default.USER_LOGGED_IN)); //getRequest
 			};
 		},
 	
@@ -32933,6 +32939,7 @@
 	exports.default = {
 		// REGISTER: 'REGISTER',
 		PROFILE_CREATED: 'PROFILE_CREATED',
+		USER_LOGGED_IN: 'USER_LOGGED_IN',
 		TASKS_RECEIVED: 'TASKS_RECEIVED',
 		TASK_CREATED: 'TASK_CREATED',
 		CATEGORY_SELECTED: 'CATEGORY_SELECTED'
@@ -33084,6 +33091,7 @@
 			key: 'login',
 			value: function login(credentials) {
 				console.log('login: ' + JSON.stringify(credentials));
+				this.props.login(credentials);
 			}
 		}, {
 			key: 'register',
@@ -33122,6 +33130,9 @@
 		return {
 			register: function register(credentials) {
 				return dispatch(_actions2.default.register(credentials));
+			},
+			login: function login(credentials) {
+				return dispatch(_actions2.default.login(credentials));
 			}
 		};
 	};
@@ -33307,9 +33318,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var initialState = {
-		user: null //BUT WHY USING null?
-	
-	};
+		user: null };
 	
 	exports.default = function () {
 		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -33320,6 +33329,10 @@
 		switch (action.type) {
 			case _constants2.default.PROFILE_CREATED:
 				console.log('PROFILE_CREATED: ' + JSON.stringify(action.payload)); //console.log('PROFILE_CREATED: '+action.profile)
+				return updated;
+	
+			case _constants2.default.USER_LOGGED_IN:
+				console.log('USER_LOGGED_IN: ' + JSON.stringify(action.payload));
 				return updated;
 	
 			default:

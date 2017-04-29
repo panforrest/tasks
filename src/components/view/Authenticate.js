@@ -78,7 +78,7 @@ class Authenticate extends Component {
 
 			    <h3>Login</h3>
 
-			    <input onChange={this.updatedCredentials.bind(this, 'username')} type="text" placeholder="Username" id="username"/><br />
+			    <input onChange={this.updatedCredentials.bind(this, 'email')} type="text" placeholder="Email" id="username"/><br />
 			    <input onChange={this.updatedCredentials.bind(this, 'password')} type="text" placeholder="Password" id="password"/><br />
 
 			    <button onClick={this.login.bind(this)}>Login</button>
