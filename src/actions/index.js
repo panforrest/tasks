@@ -16,6 +16,7 @@ const getRequest = (path, params, actionType) => {	//const getRequest: (path, pa
 		})
 		.catch( err => {
             console.log('ERR: '+JSON.stringify(err.message))
+            throw err
 		})	
 }
 
@@ -34,7 +35,7 @@ const postRequest = (path, params, actionType) => {	//const getRequest: (path, p
 		})
 		.catch( err => {
             console.log('ERR: '+JSON.stringify(err.message))
-            // throw err
+            throw err
 		})	
 }
 
