@@ -109,15 +109,41 @@ router.get('/:action', function(req, res, next){
                 return
             }
 
-            res.json({
-                confirmation: 'success',
-                token: req.session.token,
-                id: decoded.id  // token: req.session.token   //I FORGOT req.session.user
+            // console.log('TEST CURRENTID: '+decoded.id)
+
+            controllers.profile
+            .getById(decoded.id, false)  //.getById(decoded.id)
+            .then(function(result){
+                res.json({
+                    confirmation: 'success',
+                    user: result
+                })
+                return
             })
+            .catch(function(error){
+                res.json({
+                    confirmation: 'fail',
+                    message: error
+                })
+                return
+            })
+
+            // res.json({
+            //     confirmation: 'success',
+            //     token: req.session.token,
+            //     id: decoded.id  // token: req.session.token   //I FORGOT req.session.user
+            // })
         }) 
     }
 
-    
+    if (action == 'logout'){
+        req.session.reset()
+        res.json({
+            confirmation: 'success',
+            user: null
+        })
+        return
+    }
 })
 
 module.exports = router   //module.exports = router()
