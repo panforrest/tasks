@@ -22148,7 +22148,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 	
 	var _superagent = __webpack_require__(188);
@@ -22162,36 +22162,43 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = { //module.exports = {
-		get: function get(url, params) {
-			return new _bluebird2.default(function (resolve, reject) {
-				_superagent2.default.get(url).query(params).set('Accept', 'application/json').end(function (err, response) {
-					if (err) {
-						reject(err);
-						return;
-					}
-					resolve(response.body); //resolve(response)
-				});
-			});
-		},
+	  get: function get(url, params) {
+	    return new _bluebird2.default(function (resolve, reject) {
+	      _superagent2.default.get(url).query(params).set('Accept', 'application/json').end(function (err, response) {
+	        if (err) {
+	          reject(err);
+	          return;
+	        }
 	
-		post: function post(url, params) {
-			return new _bluebird2.default(function (resolve, reject) {
-				_superagent2.default.post(url).send(params).set('Accept', 'application/json').end(function (err, response) {
-					if (err) {
-						reject(err);
-						return;
-					}
+	        if (response.body.confirmation != 'success') {
+	          reject(new Error(response.body.message));
+	          return;
+	        }
 	
-					if (response.body.confirmation != 'success') {
-						//if (response.confirmation.message != 'success'){  
-						reject({ message: response.body.message }); //response.confirmation.message = 
-						return;
-					}
+	        resolve(response.body); //resolve(response)
+	      });
+	    });
+	  },
 	
-					resolve(response.body); //resolve(response)
-				});
-			});
-		}
+	  post: function post(url, params) {
+	    return new _bluebird2.default(function (resolve, reject) {
+	      _superagent2.default.post(url).send(params).set('Accept', 'application/json').end(function (err, response) {
+	        if (err) {
+	          reject(err);
+	          return;
+	        }
+	
+	        if (response.body.confirmation != 'success') {
+	          //if (response.confirmation.message != 'success'){  
+	          reject({ message: response.body.message }); //response.confirmation.message = 
+	          reject(new Error(response.body.message));
+	          return;
+	        }
+	
+	        resolve(response.body); //resolve(response)
+	      });
+	    });
+	  }
 	};
 
 /***/ }),
@@ -32853,7 +32860,7 @@
 					params: params
 				});
 			}).catch(function (err) {
-				console.log('ERR: ' + JSON.stringify(err));
+				console.log('ERR: ' + JSON.stringify(err.message));
 			});
 		};
 	};
@@ -32871,8 +32878,8 @@
 					params: params
 				});
 			}).catch(function (err) {
-				// console.log('ERR: '+JSON.stringify(err))
-				throw err;
+				console.log('ERR: ' + JSON.stringify(err.message));
+				// throw err
 			});
 		};
 	};

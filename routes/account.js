@@ -38,10 +38,11 @@ router.post('/:action', function(req, res, next){
         .then(function(results){
             // console.log('TEST 1: '+JSON.stringify(results))
             if (results.length == 0){
-                res.json({
-                    confirmation: 'fail',
-                    message: 'user not found'
-                })
+                throw new Error('user not found.')   //MORE GRACEFUL WAY TO HANDLE ERROR, BECAUSE IN SUCCESS BLOCK
+                // res.json({
+                //     confirmation: 'fail',
+                //     message: 'user not found'
+                // })
                 return
             }
 
@@ -52,10 +53,11 @@ router.post('/:action', function(req, res, next){
             var isPasswordCorrect = bcrypt.compareSync(req.body.password, profile.password)
 
             if (isPasswordCorrect == false) {  // if (isPasswordCorrect == null) {
-                res.json({
-                    confirmation: 'fail',
-                    message: 'wrong password'
-                })
+                throw new Error('wrong password')
+                // res.json({
+                //     confirmation: 'fail',
+                //     message: 'wrong password'
+                // })
                 return
             }
 
@@ -71,7 +73,7 @@ router.post('/:action', function(req, res, next){
         .catch(function(err){
             res.json({
                 confirmation: 'fail',
-                message: err
+                message: err.message
             })
         })
     }    
