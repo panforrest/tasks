@@ -28,7 +28,7 @@ router.post('/task',function(req, res, next){
 
     controllers.profile.get({phone: from}, false)
     .then(function(profiles){
-        if (profile.length == 0) {
+        if (profiles.length == 0) {
             throw new Error('Go away.')
             return
         }
