@@ -5,6 +5,11 @@ import actions from '../../actions'
 import { Authenticate } from '../view'
 
 class Account extends Component {
+	componentDidMount(){
+		// console.log('componentDidMount: ')  //BUT WHY IT IS NOT CONSOLE LOGGED? MISSPELLING: ComponenetDidMount(){}
+		if (this.props.user == null)
+		    this.props.checkCurrentUser()
+	}
 
     login(credentials){
     	console.log('login: '+JSON.stringify(credentials))
@@ -45,7 +50,8 @@ const stateToProps = (state) => {
 const dispatchToProps = (dispatch) => {
 	return{
 		register: (credentials) => dispatch(actions.register(credentials)),
-		login: (credentials) => dispatch(actions.login(credentials))
+		login: (credentials) => dispatch(actions.login(credentials)),
+		checkCurrentUser: () => dispatch(actions.checkCurrentUser())
 	}
 }
 

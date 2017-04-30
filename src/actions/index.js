@@ -54,6 +54,13 @@ export default {
 		}
 	},
 
+	checkCurrentUser: () => {
+		return(dispatch) => {
+			// return checkCurrentUser(getRequest('account/currentuser', {}, constants.USER_LOGGED_IN))
+			return dispatch(getRequest('account/currentuser', {}, constants.USER_LOGGED_IN))
+		}
+	},
+
     fetchTasks: (params) => {
         return (dispatch) => {
         	return dispatch(getRequest('/api/task', params, constants.TASKS_RECEIVED))
