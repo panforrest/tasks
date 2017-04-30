@@ -22,7 +22,7 @@ router.post('/task',function(req, res, next){
     	description: message
     }
 
-    var from = req.body('From').replace('+1', '') //phone # of sender
+    var from = req.body['From'].replace('+1', '') //phone # of sender
 
     // var profile = null
 
