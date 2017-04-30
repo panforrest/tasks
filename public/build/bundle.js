@@ -33059,7 +33059,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -33087,64 +33087,68 @@
 	
 	
 	var Account = function (_Component) {
-		_inherits(Account, _Component);
+	  _inherits(Account, _Component);
 	
-		function Account() {
-			_classCallCheck(this, Account);
+	  function Account() {
+	    _classCallCheck(this, Account);
 	
-			return _possibleConstructorReturn(this, (Account.__proto__ || Object.getPrototypeOf(Account)).apply(this, arguments));
-		}
+	    return _possibleConstructorReturn(this, (Account.__proto__ || Object.getPrototypeOf(Account)).apply(this, arguments));
+	  }
 	
-		_createClass(Account, [{
-			key: 'login',
-			value: function login(credentials) {
-				console.log('login: ' + JSON.stringify(credentials));
-				this.props.login(credentials).then(function (response) {}).catch(function (err) {
-					alert(err.message);
-				});
-			}
-		}, {
-			key: 'register',
-			value: function register(credentials) {
-				console.log('register: ' + JSON.stringify(credentials));
-				this.props.register(credentials);
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(
-						'h2',
-						null,
-						'Account'
-					),
-					_react2.default.createElement(_view.Authenticate, {
-						onLogin: this.login.bind(this),
-						onRegister: this.register.bind(this) })
-				);
-			}
-		}]);
+	  _createClass(Account, [{
+	    key: 'login',
+	    value: function login(credentials) {
+	      console.log('login: ' + JSON.stringify(credentials));
+	      this.props.login(credentials).then(function (response) {}).catch(function (err) {
+	        alert(err.message);
+	      });
+	    }
+	  }, {
+	    key: 'register',
+	    value: function register(credentials) {
+	      console.log('register: ' + JSON.stringify(credentials));
+	      this.props.register(credentials);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          'Account'
+	        ),
+	        this.props.user == null ? _react2.default.createElement(_view.Authenticate, { onLogin: this.login.bind(this), onRegister: this.register.bind(this) }) : _react2.default.createElement(
+	          'h2',
+	          null,
+	          ' Hello, ',
+	          this.props.user.username,
+	          ' '
+	        )
+	      );
+	    }
+	  }]);
 	
-		return Account;
+	  return Account;
 	}(_react.Component);
 	
 	var stateToProps = function stateToProps(state) {
-		return {
-			user: state.account.user //can be null
-		};
+	  return {
+	    user: state.account.user //can be null
+	  };
 	};
 	
 	var dispatchToProps = function dispatchToProps(dispatch) {
-		return {
-			register: function register(credentials) {
-				return dispatch(_actions2.default.register(credentials));
-			},
-			login: function login(credentials) {
-				return dispatch(_actions2.default.login(credentials));
-			}
-		};
+	  return {
+	    register: function register(credentials) {
+	      return dispatch(_actions2.default.register(credentials));
+	    },
+	    login: function login(credentials) {
+	      return dispatch(_actions2.default.login(credentials));
+	    }
+	  };
 	};
 	
 	exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Account);
@@ -33339,10 +33343,12 @@
 		switch (action.type) {
 			case _constants2.default.PROFILE_CREATED:
 				console.log('PROFILE_CREATED: ' + JSON.stringify(action.payload)); //console.log('PROFILE_CREATED: '+action.profile)
+				updated['user'] = action.payload;
 				return updated;
 	
 			case _constants2.default.USER_LOGGED_IN:
 				console.log('USER_LOGGED_IN: ' + JSON.stringify(action.payload));
+				updated['user'] = action.payload;
 				return updated;
 	
 			default:
