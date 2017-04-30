@@ -22,19 +22,18 @@ router.post('/task',function(req, res, next){
     	description: message
     }
 
-    var from = req.body('From') //phone # of sender
-    from = from.replace('+1', '')
+    var from = req.body('From').replace('+1', '') //phone # of sender
 
     // var profile = null
 
     controllers.profile.get({phone: from}, false)
-    .then(function(profile){
+    .then(function(profiles){
         if (profile.length == 0) {
             throw new Error('Go away.')
             return
         }
 
-        profile = profile[0]
+        profile = profiles[0]
         task['profile'] = {
             id: profile.id,
             username: profile.username
