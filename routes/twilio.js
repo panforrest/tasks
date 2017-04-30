@@ -27,7 +27,7 @@ router.post('/task',function(req, res, next){
 
     // var profile = null
 
-    controllers.get({phone: from}, false)
+    controllers.profile.get({phone: from}, false)
     .then(function(profile){
         if (profile.length == 0) {
             throw new Error('Go away.')
