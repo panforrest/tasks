@@ -38344,6 +38344,12 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactRedux = __webpack_require__(237);
+	
+	var _actions = __webpack_require__(277);
+	
+	var _actions2 = _interopRequireDefault(_actions);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38362,12 +38368,17 @@
 		}
 	
 		_createClass(Task, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				console.log('componentDidMount: ');
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
 					null,
-					'This is Task container.'
+					'Task container.'
 				);
 			}
 		}]);
@@ -38375,7 +38386,13 @@
 		return Task;
 	}(_react.Component);
 	
-	exports.default = Task;
+	var stateToProps = function stateToProps(state) {
+		return {
+			tasks: state.task
+		};
+	};
+	
+	exports.default = (0, _reactRedux.connect)(stateToProps)(Task);
 
 /***/ })
 /******/ ]);
