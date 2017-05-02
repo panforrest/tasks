@@ -33290,7 +33290,7 @@
 		// task: {} ,
 		all: null,
 		selectedCategory: 'dog walking',
-		categories: ['delivery', 'dog walking', 'house cleaning']
+		categories: ['delivery', 'dog walking', 'house cleaning', 'misc']
 	};
 	
 	exports.default = function () {
