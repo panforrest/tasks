@@ -4,7 +4,7 @@ import { CreateTask } from '../view'
 import { connect } from 'react-redux'
 import actions from '../../actions'
 // import { taskReducer } from '../../reducers'
-import { Link } from 'react-router'
+import { Link } from 'react-router'  //import { Line } from 'react-router'
  
 class Tasks extends Component{
     constructor(){
