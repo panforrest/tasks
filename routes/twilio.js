@@ -29,15 +29,8 @@ router.post('/task',function(req, res, next){
 
     if (validCategories.indexOf(category) == -1){
         category = 'misc'
-        description = parts[1].trim()
-
-        if (parts.length > 1){
-            var newArray = parts.slice(1, parts.length)
-            description = newArray.join('.').trim()
-        }
-        else {
-            description = (parts.length < 3) ? '' : parts[2].trim()
-        }
+        var theRest = parts.splice(1)
+        description = theRest.trim()
     }
     else {
         description = (parts.length < 3) ? '' : parts[2].trim()
