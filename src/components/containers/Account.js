@@ -7,8 +7,20 @@ import { Authenticate } from '../view'
 class Account extends Component {
 	componentDidMount(){
 		// console.log('componentDidMount: ')  //BUT WHY IT IS NOT CONSOLE LOGGED? MISSPELLING: ComponenetDidMount(){}
-		if (this.props.user == null)
-		    this.props.checkCurrentUser()
+		// if (this.props.user == null)
+		//     this.props.checkCurrentUser()
+        if (this.props.user != null)
+            return
+
+        this.props.checkCurrentUser()
+        .then(response => {
+
+        }) 
+        .catch(err => {
+        	console.log('ERROR: '+err.message)
+        })
+
+
 	}
 
     login(credentials){
