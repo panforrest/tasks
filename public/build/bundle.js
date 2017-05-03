@@ -38911,16 +38911,26 @@
 		_createClass(Task, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				console.log('componentDidMount: ' + JSON.stringify(this.props.params.id));
+				// console.log('componentDidMount: '+JSON.stringify(this.props.params.id)) 
+	
+				var taskId = this.props.params.id;
+				var task = this.props.tasks[taskId];
+	
+				console.log('componentDidMount: ' + JSON.stringify(task));
+	
+				//garb the task from the store:
 			}
 		}, {
 			key: 'render',
 			value: function render() {
+				var taskId = this.props.params.id;
+				var task = this.props.tasks[taskId];
+	
 				return _react2.default.createElement(
 					'div',
 					null,
-					'Task container.',
-					this.props.params.id
+					'Task: ',
+					task.title
 				);
 			}
 		}]);
@@ -39075,8 +39085,12 @@
 					updated[value] = action.payload;
 				});
 	
+				action.payload.forEach(function (task, i) {
+					updated[task.id] = task;
+				});
+	
 				// updated['delivery'] = action.payload  //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
-				console.log('TASKS_RECEIVED: ' + JSON.stringify(updated));
+				// console.log('TASKS_RECEIVED: '+JSON.stringify(updated))
 				return updated;
 	
 			case _constants2.default.TASK_CREATED:

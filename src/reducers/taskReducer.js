@@ -26,8 +26,12 @@ export default (state=initialState, action) => {
                 updated[value] = action.payload
             })
 
+            action.payload.forEach((task, i) => {
+            	updated[task.id] = task
+            })
+
             // updated['delivery'] = action.payload  //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
-		    console.log('TASKS_RECEIVED: '+JSON.stringify(updated))
+		    // console.log('TASKS_RECEIVED: '+JSON.stringify(updated))
 		    return updated
 
 		case constants.TASK_CREATED:
