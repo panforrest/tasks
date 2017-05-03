@@ -4,7 +4,7 @@ var TaskSchema = new mongoose.Schema({
 	title:{type:String, default:''},
 	category:{type:String, default:''},
 	description:{type:String, default:''},
-	profile:{type:mongoose.Schema.Types.Mixed, default:''},
+	profile:{type:mongoose.Schema.Types.Mixed, default:{}},
 	timestamp:{type:Date, default:Date.now}  //timestamp:{type:String, default:Date.now()}
 })
 

@@ -1,0 +1,63 @@
+var Message = require('../models/Message')
+var Promise = require('bluebird')
+
+module.exports = {
+	get: function(params, isRaw){
+		return new Promise(function(resolve, reject){//return new Promise(params, function(resolve, reject){
+            var filters = {  //var filter = {
+            	sort: {timestamp: -1}    //timestamp: -1
+            }
+
+			Message.find(params, null, filters, function(err, messages){  
+				if (err) {
+                    reject(err)
+                    return
+				}
+
+                if (isRaw == true){
+                	resolve(messages)
+                }
+                else {
+                	var list = []
+                	messages.forEach(function(message, i){  
+                		list.push(message.summary())
+                	})                	
+                	resolve(list)
+                }
+				
+			})
+		})
+	},
+
+	getById: function(id, isRaw){
+		return new Promise(function(resolve, reject){
+			Message.findById(id, function(err, message){
+				if (err) {
+					reject(err)
+					return
+				}
+
+				if (isRaw == true)
+                    resolve(message)
+				else
+				    resolve(message.summary())  			
+			})
+		})
+	},
+ 
+	post: function(params, isRaw){  //post: function(params){
+		return new Promise(function(resolve, reject){
+			Message.create(params, function(err, message){
+				if (err){
+					reject(err)
+					return
+				}
+				
+				if (isRaw == true)
+                    resolve(message)
+				else
+				    resolve(message.summary())  
+			})
+		})
+	}
+}
