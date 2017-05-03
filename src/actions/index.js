@@ -80,6 +80,12 @@ export default {
 		}
 	},
 
+	createMessage: (params) => {
+		return (dispatch) => {
+			return dispatch(postRequest('/api/message', params, constants.MESSAGE_CREATED))
+		}
+	},
+
 	selectCategory: (category) => {
 		return {
 			type: constants.CATEGORY_SELECTED,

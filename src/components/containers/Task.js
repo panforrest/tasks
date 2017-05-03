@@ -11,7 +11,8 @@ class Task extends Component {
     	super()
     	this.state = {
     		message: {
-    			text: ''
+    			text: '',
+    			profile: {}
     		}
     	}
     }
@@ -31,6 +32,14 @@ class Task extends Component {
     submitMessage(event){
     	event.preventDefault()
         console.log('submitMessage: '+JSON.stringify(this.state.message))
+        var message = null
+
+        message = {
+        	profile: this.props.account.user,
+        	text: this.state.message.text
+        }
+
+        this.props.createMessage(message)
     }
 
     updateMessage(event){
@@ -74,6 +83,12 @@ const stateToProps = (state) => {
 	}
 }
 
-export default connect(stateToProps)(Task)
+const dispatchToProps = (dispatch) => {
+	return {
+		createMessage: (params) => dispatch(actions.createMessage(params))
+	}
+}
+
+export default connect(stateToProps, dispatchToProps)(Task)
 
 

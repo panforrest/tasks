@@ -58,7 +58,7 @@
 	
 	var _reactRedux = __webpack_require__(237);
 	
-	var _stores = __webpack_require__(337);
+	var _stores = __webpack_require__(338);
 	
 	var _stores2 = _interopRequireDefault(_stores);
 	
@@ -21836,7 +21836,7 @@
 	
 	var _Home2 = _interopRequireDefault(_Home);
 	
-	var _Split = __webpack_require__(342);
+	var _Split = __webpack_require__(337);
 	
 	var _Split2 = _interopRequireDefault(_Split);
 	
@@ -32961,6 +32961,12 @@
 			};
 		},
 	
+		createMessage: function createMessage(params) {
+			return function (dispatch) {
+				return dispatch(postRequest('/api/message', params, _constants2.default.MESSAGE_CREATED));
+			};
+		},
+	
 		selectCategory: function selectCategory(category) {
 			return {
 				type: _constants2.default.CATEGORY_SELECTED,
@@ -32992,7 +32998,8 @@
 		USER_LOGGED_IN: 'USER_LOGGED_IN',
 		TASKS_RECEIVED: 'TASKS_RECEIVED',
 		TASK_CREATED: 'TASK_CREATED',
-		CATEGORY_SELECTED: 'CATEGORY_SELECTED'
+		CATEGORY_SELECTED: 'CATEGORY_SELECTED',
+		MESSAGE_CREATED: 'MESSAGE_CREATED'
 	};
 
 /***/ }),
@@ -38923,7 +38930,8 @@
 	
 	    _this.state = {
 	      message: {
-	        text: ''
+	        text: '',
+	        profile: {}
 	      }
 	    };
 	    return _this;
@@ -38947,6 +38955,14 @@
 	    value: function submitMessage(event) {
 	      event.preventDefault();
 	      console.log('submitMessage: ' + JSON.stringify(this.state.message));
+	      var message = null;
+	
+	      message = {
+	        profile: this.props.account.user,
+	        text: this.state.message.text
+	      };
+	
+	      this.props.createMessage(message);
 	    }
 	  }, {
 	    key: 'updateMessage',
@@ -39016,10 +39032,69 @@
 	  };
 	};
 	
-	exports.default = (0, _reactRedux.connect)(stateToProps)(Task);
+	var dispatchToProps = function dispatchToProps(dispatch) {
+	  return {
+	    createMessage: function createMessage(params) {
+	      return dispatch(_actions2.default.createMessage(params));
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Task);
 
 /***/ }),
 /* 337 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _containers = __webpack_require__(184);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// class Split extends Component {
+	// 	render(){
+	// 		return(
+	// 			<div>
+	// 			    Split Layout
+	// 			</div>
+	// 		)
+	// 	}
+	// }
+	
+	// export default Split
+	
+	exports.default = function (props) {
+		return _react2.default.createElement(
+			'div',
+			{ className: 'container' },
+			_react2.default.createElement(
+				'div',
+				{ className: 'row' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'col-md-8' },
+					_react2.default.createElement(_containers.Task, props)
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'col-md-4' },
+					_react2.default.createElement(_containers.Account, null)
+				)
+			)
+		);
+	};
+
+/***/ }),
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39030,11 +39105,11 @@
 	
 	var _redux = __webpack_require__(250);
 	
-	var _reduxThunk = __webpack_require__(338);
+	var _reduxThunk = __webpack_require__(339);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
-	var _reducers = __webpack_require__(339);
+	var _reducers = __webpack_require__(340);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -39066,7 +39141,7 @@
 	};
 
 /***/ }),
-/* 338 */
+/* 339 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -39094,7 +39169,7 @@
 	exports['default'] = thunk;
 
 /***/ }),
-/* 339 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39104,11 +39179,11 @@
 	});
 	exports.accountReducer = exports.taskReducer = undefined;
 	
-	var _taskReducer = __webpack_require__(340);
+	var _taskReducer = __webpack_require__(341);
 	
 	var _taskReducer2 = _interopRequireDefault(_taskReducer);
 	
-	var _accountReducer = __webpack_require__(341);
+	var _accountReducer = __webpack_require__(342);
 	
 	var _accountReducer2 = _interopRequireDefault(_accountReducer);
 	
@@ -39118,7 +39193,7 @@
 	exports.accountReducer = _accountReducer2.default;
 
 /***/ }),
-/* 340 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39185,7 +39260,7 @@
 	};
 
 /***/ }),
-/* 341 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39223,57 +39298,6 @@
 			default:
 				return state;
 		}
-	};
-
-/***/ }),
-/* 342 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _containers = __webpack_require__(184);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	// class Split extends Component {
-	// 	render(){
-	// 		return(
-	// 			<div>
-	// 			    Split Layout
-	// 			</div>
-	// 		)
-	// 	}
-	// }
-	
-	// export default Split
-	
-	exports.default = function (props) {
-		return _react2.default.createElement(
-			'div',
-			{ className: 'container' },
-			_react2.default.createElement(
-				'div',
-				{ className: 'row' },
-				_react2.default.createElement(
-					'div',
-					{ className: 'col-md-8' },
-					_react2.default.createElement(_containers.Task, props)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'col-md-4' },
-					_react2.default.createElement(_containers.Account, null)
-				)
-			)
-		);
 	};
 
 /***/ })
