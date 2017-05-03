@@ -56,8 +56,6 @@
 	
 	var _layout = __webpack_require__(182);
 	
-	var _containers = __webpack_require__(184);
-	
 	var _reactRedux = __webpack_require__(237);
 	
 	var _stores = __webpack_require__(337);
@@ -77,6 +75,7 @@
 	// 	</Provider>		
 	// )
 	
+	// import { Task } from './components/containers'
 	var app = _react2.default.createElement(
 	           _reactRedux.Provider,
 	           { store: _stores2.default.configureStore() },
@@ -84,7 +83,7 @@
 	                      _reactRouter.Router,
 	                      { history: _reactRouter.browserHistory },
 	                      _react2.default.createElement(_reactRouter.Route, { path: '/', component: _layout.Home }),
-	                      _react2.default.createElement(_reactRouter.Route, { path: '/task/:id', component: _containers.Task })
+	                      _react2.default.createElement(_reactRouter.Route, { path: '/task/:id', component: _layout.Split })
 	           )
 	); // Provider store=currentStore()>
 	// <Route path="/task/:id" component={Home} />
@@ -21831,15 +21830,20 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.Home = undefined;
+	exports.Split = exports.Home = undefined;
 	
 	var _Home = __webpack_require__(183);
 	
 	var _Home2 = _interopRequireDefault(_Home);
 	
+	var _Split = __webpack_require__(342);
+	
+	var _Split2 = _interopRequireDefault(_Split);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.Home = _Home2.default;
+	exports.Split = _Split2.default;
 
 /***/ }),
 /* 183 */
@@ -38903,7 +38907,11 @@
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //          {task.title} <br />
+	// 		    {task.description} <br />
+	// 		    {task.category} <br />
+	// 		    {task.profile.username} <br />
+	
 	
 	var Task = function (_Component) {
 		_inherits(Task, _Component);
@@ -38917,7 +38925,7 @@
 		_createClass(Task, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				// console.log('componentDidMount: '+JSON.stringify(this.props.params.id)) 
+				console.log('componentDidMount: ' + JSON.stringify(this.props));
 	
 				//    const taskId = this.props.params.id
 				//    const task = this.props.tasks[taskId]
@@ -38925,30 +38933,18 @@
 				// console.log('componentDidMount: '+JSON.stringify(task)) 
 	
 				//garb the task from the store:
-	
 			}
 		}, {
 			key: 'render',
 			value: function render() {
 				//garb the task from the store:
-				var taskId = this.props.params.id;
-				var task = this.props.tasks[taskId];
+				// const taskId = this.props.params.id
+				// const task = this.props.tasks[taskId]
 	
 				return _react2.default.createElement(
 					'div',
 					null,
-					task.title,
-					' ',
-					_react2.default.createElement('br', null),
-					task.description,
-					' ',
-					_react2.default.createElement('br', null),
-					task.category,
-					' ',
-					_react2.default.createElement('br', null),
-					task.profile.username,
-					' ',
-					_react2.default.createElement('br', null)
+					'TASK CONTAINER'
 				);
 			}
 		}]);
@@ -39169,6 +39165,45 @@
 			default:
 				return state;
 		}
+	};
+
+/***/ }),
+/* 342 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _containers = __webpack_require__(184);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// class Split extends Component {
+	// 	render(){
+	// 		return(
+	// 			<div>
+	// 			    Split Layout
+	// 			</div>
+	// 		)
+	// 	}
+	// }
+	
+	// export default Split
+	
+	exports.default = function (props) {
+		return _react2.default.createElement(
+			'div',
+			null,
+			'Split Layout',
+			_react2.default.createElement(_containers.Task, { id: props.params.id })
+		);
 	};
 
 /***/ })

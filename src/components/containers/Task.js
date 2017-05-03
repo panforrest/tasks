@@ -1,10 +1,14 @@
+    //          {task.title} <br />
+	// 		    {task.description} <br />
+	// 		    {task.category} <br />
+	// 		    {task.profile.username} <br />
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import actions from '../../actions'
 
 class Task extends Component {
     componentDidMount(){
-        // console.log('componentDidMount: '+JSON.stringify(this.props.params.id)) 
+        console.log('componentDidMount: '+JSON.stringify(this.props)) 
 
      //    const taskId = this.props.params.id
      //    const task = this.props.tasks[taskId]
@@ -17,15 +21,13 @@ class Task extends Component {
 
 	render(){
 		//garb the task from the store:
-        const taskId = this.props.params.id
-        const task = this.props.tasks[taskId]
+        // const taskId = this.props.params.id
+        // const task = this.props.tasks[taskId]
 
 		return(
 			<div>
-			    {task.title} <br />
-			    {task.description} <br />
-			    {task.category} <br />
-			    {task.profile.username} <br />
+
+			    TASK CONTAINER
 			</div>
 		)
 	}
@@ -39,3 +41,5 @@ const stateToProps = (state) => {
 
 
 export default connect(stateToProps)(Task)
+
+
