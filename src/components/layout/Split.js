@@ -17,7 +17,8 @@ export default (props) => {
 	return (
 		<div>
 		    Split Layout
-		    <Task id={props.params.id} />
+		    
+		    <Task {...props} /> 
 		</div>
 	)
 }

@@ -38937,14 +38937,25 @@
 		}, {
 			key: 'render',
 			value: function render() {
-				//garb the task from the store:
-				// const taskId = this.props.params.id
-				// const task = this.props.tasks[taskId]
+				// garb the task from the store:
+				var taskId = this.props.params.id;
+				var task = this.props.tasks[taskId];
 	
 				return _react2.default.createElement(
 					'div',
 					null,
-					'TASK CONTAINER'
+					task.title,
+					' ',
+					_react2.default.createElement('br', null),
+					task.description,
+					' ',
+					_react2.default.createElement('br', null),
+					task.category,
+					' ',
+					_react2.default.createElement('br', null),
+					task.profile.username,
+					' ',
+					_react2.default.createElement('br', null)
 				);
 			}
 		}]);
@@ -39202,7 +39213,7 @@
 			'div',
 			null,
 			'Split Layout',
-			_react2.default.createElement(_containers.Task, { id: props.params.id })
+			_react2.default.createElement(_containers.Task, props)
 		);
 	};
 

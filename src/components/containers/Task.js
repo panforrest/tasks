@@ -20,14 +20,16 @@ class Task extends Component {
     }
 
 	render(){
-		//garb the task from the store:
-        // const taskId = this.props.params.id
-        // const task = this.props.tasks[taskId]
+		// garb the task from the store:
+        const taskId = this.props.params.id
+        const task = this.props.tasks[taskId]
 
 		return(
 			<div>
-
-			    TASK CONTAINER
+                {task.title} <br />
+			    {task.description} <br />
+			    {task.category} <br />
+			    {task.profile.username} <br />
 			</div>
 		)
 	}
