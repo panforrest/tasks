@@ -31,15 +31,12 @@ class Task extends Component {
 			    {task.category} <br />
 			    {task.profile.username} <br />
                
-                {(this.props.user == null) ? <h2>Please log in.</h2> : <div><h2>Reply</h2>
-			    <textarea placeholder="Enter Message to Respond"></textarea><br />
-			    <button>Submit</button></div>}
-
-                
-                
-                
-
-
+                {(this.props.account.user == null) ? <h3>Please log in or Register to Reply.</h3> : 
+                	<div><h2>Reply</h2>
+					    <textarea placeholder="Enter Message to Respond"></textarea><br />
+					    <button>Submit</button>
+			        </div>
+			    }
 			</div>
 		)
 	}
@@ -48,18 +45,10 @@ class Task extends Component {
 const stateToProps = (state) => {
 	return {
 		tasks: state.task,
-		user: state.account.user
+		account: state.account
 	}
 }
 
-const dispatchToProps = (dispatch) => {
-	return{
-		// register: (credentials) => dispatch(actions.register(credentials)),
-		login: (credentials) => dispatch(actions.login(credentials)),
-		// checkCurrentUser: () => dispatch(actions.checkCurrentUser())
-	}
-}
-
-export default connect(stateToProps, dispatchToProps)(Task)
+export default connect(stateToProps)(Task)
 
 

@@ -38956,10 +38956,10 @@
 					task.profile.username,
 					' ',
 					_react2.default.createElement('br', null),
-					this.props.user == null ? _react2.default.createElement(
-						'h2',
+					this.props.account.user == null ? _react2.default.createElement(
+						'h3',
 						null,
-						'Please log in.'
+						'Please log in or Register to Reply.'
 					) : _react2.default.createElement(
 						'div',
 						null,
@@ -38986,20 +38986,11 @@
 	var stateToProps = function stateToProps(state) {
 		return {
 			tasks: state.task,
-			user: state.account.user
+			account: state.account
 		};
 	};
 	
-	var dispatchToProps = function dispatchToProps(dispatch) {
-		return {
-			// register: (credentials) => dispatch(actions.register(credentials)),
-			login: function login(credentials) {
-				return dispatch(_actions2.default.login(credentials));
-			}
-		};
-	};
-	
-	exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Task);
+	exports.default = (0, _reactRedux.connect)(stateToProps)(Task);
 
 /***/ }),
 /* 337 */
