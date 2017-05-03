@@ -38886,7 +38886,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -38914,80 +38914,106 @@
 	
 	
 	var Task = function (_Component) {
-		_inherits(Task, _Component);
+	  _inherits(Task, _Component);
 	
-		function Task() {
-			_classCallCheck(this, Task);
+	  function Task() {
+	    _classCallCheck(this, Task);
 	
-			return _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).apply(this, arguments));
-		}
+	    var _this = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this));
 	
-		_createClass(Task, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				console.log('componentDidMount: ' + JSON.stringify(this.props.user));
+	    _this.state = {
+	      message: {
+	        text: ''
+	      }
+	    };
+	    return _this;
+	  }
 	
-				//    const taskId = this.props.params.id
-				//    const task = this.props.tasks[taskId]
+	  _createClass(Task, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      // console.log('componentDidMount: '+JSON.stringify(this.props.user)) 
 	
-				// console.log('componentDidMount: '+JSON.stringify(task)) 
+	      //    const taskId = this.props.params.id
+	      //    const task = this.props.tasks[taskId]
 	
-				//garb the task from the store:
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				// garb the task from the store:
-				var taskId = this.props.params.id;
-				var task = this.props.tasks[taskId];
+	      // console.log('componentDidMount: '+JSON.stringify(task)) 
 	
-				return _react2.default.createElement(
-					'div',
-					null,
-					task.title,
-					' ',
-					_react2.default.createElement('br', null),
-					task.description,
-					' ',
-					_react2.default.createElement('br', null),
-					task.category,
-					' ',
-					_react2.default.createElement('br', null),
-					task.profile.username,
-					' ',
-					_react2.default.createElement('br', null),
-					this.props.account.user == null ? _react2.default.createElement(
-						'h3',
-						null,
-						'Please log in or Register to Reply.'
-					) : _react2.default.createElement(
-						'div',
-						null,
-						_react2.default.createElement(
-							'h2',
-							null,
-							'Reply'
-						),
-						_react2.default.createElement('textarea', { placeholder: 'Enter Message to Respond' }),
-						_react2.default.createElement('br', null),
-						_react2.default.createElement(
-							'button',
-							null,
-							'Submit'
-						)
-					)
-				);
-			}
-		}]);
+	      //garb the task from the store:
 	
-		return Task;
+	    }
+	  }, {
+	    key: 'submitMessage',
+	    value: function submitMessage(event) {
+	      event.preventDefault();
+	      console.log('submitMessage: ' + JSON.stringify(this.state.message));
+	    }
+	  }, {
+	    key: 'updateMessage',
+	    value: function updateMessage(event) {
+	      // console.log('updateMessage: '+'event.target.id'+' == '+'event.target.value')
+	      console.log('updateMessage: ' + ' == ' + event.target.value);
+	      var updated = Object.assign({}, this.state.message);
+	      updated['text'] = event.target.value;
+	      // updated = event.target.value
+	      this.setState({
+	        message: updated
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      // garb the task from the store:
+	      var taskId = this.props.params.id;
+	      var task = this.props.tasks[taskId];
+	
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        task.title,
+	        ' ',
+	        _react2.default.createElement('br', null),
+	        task.description,
+	        ' ',
+	        _react2.default.createElement('br', null),
+	        task.category,
+	        ' ',
+	        _react2.default.createElement('br', null),
+	        task.profile.username,
+	        ' ',
+	        _react2.default.createElement('br', null),
+	        this.props.account.user == null ? _react2.default.createElement(
+	          'h3',
+	          null,
+	          'Please log in or Register to Reply.'
+	        ) : _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'h2',
+	            null,
+	            'Reply'
+	          ),
+	          _react2.default.createElement('textarea', { onChange: this.updateMessage.bind(this), placeholder: 'Enter Message to Respond', id: 'text' }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this.submitMessage.bind(this) },
+	            'Submit'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Task;
 	}(_react.Component);
 	
 	var stateToProps = function stateToProps(state) {
-		return {
-			tasks: state.task,
-			account: state.account
-		};
+	  return {
+	    tasks: state.task,
+	    account: state.account
+	  };
 	};
 	
 	exports.default = (0, _reactRedux.connect)(stateToProps)(Task);
