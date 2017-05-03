@@ -4,13 +4,13 @@ import actions from '../../actions'
 
 class Task extends Component {
     componentDidMount(){
-    	console.log('componentDidMount: ')
+    	console.log('componentDidMount: '+JSON.stringify(this.props.params.id))  
     }
 
 	render(){
 		return(
 			<div>
-			    Task container.
+			    Task container.{this.props.params.id}
 			</div>
 		)
 	}
