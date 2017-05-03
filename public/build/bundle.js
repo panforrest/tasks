@@ -38913,24 +38913,36 @@
 			value: function componentDidMount() {
 				// console.log('componentDidMount: '+JSON.stringify(this.props.params.id)) 
 	
-				var taskId = this.props.params.id;
-				var task = this.props.tasks[taskId];
+				//    const taskId = this.props.params.id
+				//    const task = this.props.tasks[taskId]
 	
-				console.log('componentDidMount: ' + JSON.stringify(task));
+				// console.log('componentDidMount: '+JSON.stringify(task)) 
 	
 				//garb the task from the store:
+	
 			}
 		}, {
 			key: 'render',
 			value: function render() {
+				//garb the task from the store:
 				var taskId = this.props.params.id;
 				var task = this.props.tasks[taskId];
 	
 				return _react2.default.createElement(
 					'div',
 					null,
-					'Task: ',
-					task.title
+					task.title,
+					' ',
+					_react2.default.createElement('br', null),
+					task.description,
+					' ',
+					_react2.default.createElement('br', null),
+					task.category,
+					' ',
+					_react2.default.createElement('br', null),
+					task.profile.username,
+					' ',
+					_react2.default.createElement('br', null)
 				);
 			}
 		}]);

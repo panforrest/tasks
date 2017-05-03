@@ -6,22 +6,26 @@ class Task extends Component {
     componentDidMount(){
         // console.log('componentDidMount: '+JSON.stringify(this.props.params.id)) 
 
-        const taskId = this.props.params.id
-        const task = this.props.tasks[taskId]
+     //    const taskId = this.props.params.id
+     //    const task = this.props.tasks[taskId]
 
-    	console.log('componentDidMount: '+JSON.stringify(task)) 
+    	// console.log('componentDidMount: '+JSON.stringify(task)) 
 
     	//garb the task from the store:
 
     }
 
 	render(){
+		//garb the task from the store:
         const taskId = this.props.params.id
         const task = this.props.tasks[taskId]
 
 		return(
 			<div>
-			    Task: {task.title}
+			    {task.title} <br />
+			    {task.description} <br />
+			    {task.category} <br />
+			    {task.profile.username} <br />
 			</div>
 		)
 	}
