@@ -38925,7 +38925,7 @@
 		_createClass(Task, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				console.log('componentDidMount: ' + JSON.stringify(this.props));
+				console.log('componentDidMount: ' + JSON.stringify(this.props.user));
 	
 				//    const taskId = this.props.params.id
 				//    const task = this.props.tasks[taskId]
@@ -38955,7 +38955,27 @@
 					_react2.default.createElement('br', null),
 					task.profile.username,
 					' ',
-					_react2.default.createElement('br', null)
+					_react2.default.createElement('br', null),
+					this.props.user == null ? _react2.default.createElement(
+						'h2',
+						null,
+						'Please log in.'
+					) : _react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(
+							'h2',
+							null,
+							'Reply'
+						),
+						_react2.default.createElement('textarea', { placeholder: 'Enter Message to Respond' }),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement(
+							'button',
+							null,
+							'Submit'
+						)
+					)
 				);
 			}
 		}]);
@@ -38965,11 +38985,21 @@
 	
 	var stateToProps = function stateToProps(state) {
 		return {
-			tasks: state.task
+			tasks: state.task,
+			user: state.account.user
 		};
 	};
 	
-	exports.default = (0, _reactRedux.connect)(stateToProps)(Task);
+	var dispatchToProps = function dispatchToProps(dispatch) {
+		return {
+			// register: (credentials) => dispatch(actions.register(credentials)),
+			login: function login(credentials) {
+				return dispatch(_actions2.default.login(credentials));
+			}
+		};
+	};
+	
+	exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Task);
 
 /***/ }),
 /* 337 */
@@ -39211,9 +39241,21 @@
 	exports.default = function (props) {
 		return _react2.default.createElement(
 			'div',
-			null,
-			'Split Layout',
-			_react2.default.createElement(_containers.Task, props)
+			{ className: 'container' },
+			_react2.default.createElement(
+				'div',
+				{ className: 'row' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'col-md-8' },
+					_react2.default.createElement(_containers.Task, props)
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'col-md-4' },
+					_react2.default.createElement(_containers.Account, null)
+				)
+			)
 		);
 	};
 

@@ -8,7 +8,7 @@ import actions from '../../actions'
 
 class Task extends Component {
     componentDidMount(){
-        console.log('componentDidMount: '+JSON.stringify(this.props)) 
+        console.log('componentDidMount: '+JSON.stringify(this.props.user)) 
 
      //    const taskId = this.props.params.id
      //    const task = this.props.tasks[taskId]
@@ -30,6 +30,16 @@ class Task extends Component {
 			    {task.description} <br />
 			    {task.category} <br />
 			    {task.profile.username} <br />
+               
+                {(this.props.user == null) ? <h2>Please log in.</h2> : <div><h2>Reply</h2>
+			    <textarea placeholder="Enter Message to Respond"></textarea><br />
+			    <button>Submit</button></div>}
+
+                
+                
+                
+
+
 			</div>
 		)
 	}
@@ -37,11 +47,19 @@ class Task extends Component {
 
 const stateToProps = (state) => {
 	return {
-		tasks: state.task
+		tasks: state.task,
+		user: state.account.user
 	}
 }
 
+const dispatchToProps = (dispatch) => {
+	return{
+		// register: (credentials) => dispatch(actions.register(credentials)),
+		login: (credentials) => dispatch(actions.login(credentials)),
+		// checkCurrentUser: () => dispatch(actions.checkCurrentUser())
+	}
+}
 
-export default connect(stateToProps)(Task)
+export default connect(stateToProps, dispatchToProps)(Task)
 
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Task } from '../containers'
+import { Task, Account } from '../containers'
 
 // class Split extends Component {
 // 	render(){
@@ -15,10 +15,19 @@ import { Task } from '../containers'
 
 export default (props) => {
 	return (
-		<div>
-		    Split Layout
+		<div className="container">
+		    <div className="row">
+                <div className="col-md-8">
+                    <Task {...props} /> 
+                </div>
+
+                <div className="col-md-4">
+                    <Account />
+                </div>
+		    </div>
 		    
-		    <Task {...props} /> 
+		    
+		    
 		</div>
 	)
 }
