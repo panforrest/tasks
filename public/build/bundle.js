@@ -32894,6 +32894,7 @@
 					payload: payload,
 					params: params
 				});
+				return response;
 			}).catch(function (err) {
 				console.log('ERR: ' + JSON.stringify(err.message));
 				throw err;
@@ -32913,6 +32914,7 @@
 					payload: payload,
 					params: params
 				});
+				return response;
 			}).catch(function (err) {
 				console.log('ERR: ' + JSON.stringify(err.message));
 				throw err;
@@ -32961,7 +32963,7 @@
 			};
 		},
 	
-		createMessage: function createMessage(params) {
+		submitMessage: function submitMessage(params) {
 			return function (dispatch) {
 				return dispatch(postRequest('/api/message', params, _constants2.default.MESSAGE_CREATED));
 			};
@@ -38955,14 +38957,22 @@
 	    value: function submitMessage(event) {
 	      event.preventDefault();
 	      console.log('submitMessage: ' + JSON.stringify(this.state.message));
-	      var message = null;
-	
-	      message = {
-	        profile: this.props.account.user,
-	        text: this.state.message.text
+	      var updated = Object.assign({}, this.state.message);
+	      var user = this.props.account.user;
+	      updated['profile'] = {
+	        id: user.id,
+	        usernaem: user.username
 	      };
 	
-	      this.props.createMessage(message);
+	      updated['task'] = this.props.params.id;
+	      console.log('submitMessage: ' + JSON.stringify(updated));
+	
+	      this.props.submitMessage(updated).then(function (response) {
+	        // console.log('MESSAGE CREATED: '+JSON.stringify(response))
+	        alert('Thanks for replying! Good luck!');
+	      }).catch(function (err) {
+	        console.log('ERR: ' + JSON.stringify(err));
+	      });
 	    }
 	  }, {
 	    key: 'updateMessage',
@@ -39034,8 +39044,8 @@
 	
 	var dispatchToProps = function dispatchToProps(dispatch) {
 	  return {
-	    createMessage: function createMessage(params) {
-	      return dispatch(_actions2.default.createMessage(params));
+	    submitMessage: function submitMessage(params) {
+	      return dispatch(_actions2.default.submitMessage(params));
 	    }
 	  };
 	};

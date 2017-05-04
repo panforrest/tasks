@@ -32,14 +32,24 @@ class Task extends Component {
     submitMessage(event){
     	event.preventDefault()
         console.log('submitMessage: '+JSON.stringify(this.state.message))
-        var message = null
-
-        message = {
-        	profile: this.props.account.user,
-        	text: this.state.message.text
+        let updated = Object.assign({}, this.state.message)
+        const user = this.props.account.user
+        updated['profile'] = {
+            id: user.id,
+            usernaem: user.username
         }
 
-        this.props.createMessage(message)
+        updated['task'] = this.props.params.id
+        console.log('submitMessage: '+JSON.stringify(updated))
+
+        this.props.submitMessage(updated)
+        .then(response => {
+            // console.log('MESSAGE CREATED: '+JSON.stringify(response))
+            alert('Thanks for replying! Good luck!')
+        })
+        .catch(err => {
+            console.log('ERR: '+JSON.stringify(err))
+        })
     }
 
     updateMessage(event){
@@ -85,7 +95,7 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
 	return {
-		createMessage: (params) => dispatch(actions.createMessage(params))
+		submitMessage: (params) => dispatch(actions.submitMessage(params))
 	}
 }
 

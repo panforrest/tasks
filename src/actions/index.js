@@ -13,6 +13,7 @@ const getRequest = (path, params, actionType) => {	//const getRequest: (path, pa
 				payload: payload,
                 params: params
 			})
+			return response
 		})
 		.catch( err => {
             console.log('ERR: '+JSON.stringify(err.message))
@@ -32,6 +33,7 @@ const postRequest = (path, params, actionType) => {	//const getRequest: (path, p
 				payload: payload,
 				params: params
 			})
+			return response
 		})
 		.catch( err => {
             console.log('ERR: '+JSON.stringify(err.message))
@@ -80,7 +82,7 @@ export default {
 		}
 	},
 
-	createMessage: (params) => {
+	submitMessage: (params) => {
 		return (dispatch) => {
 			return dispatch(postRequest('/api/message', params, constants.MESSAGE_CREATED))
 		}
