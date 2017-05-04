@@ -38970,6 +38970,7 @@
 	      this.props.submitMessage(updated).then(function (response) {
 	        // console.log('MESSAGE CREATED: '+JSON.stringify(response))
 	        alert('Thanks for replying! Good luck!');
+	        // send a notification to the task creator
 	      }).catch(function (err) {
 	        console.log('ERR: ' + JSON.stringify(err));
 	      });

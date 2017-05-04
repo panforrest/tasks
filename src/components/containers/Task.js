@@ -46,6 +46,7 @@ class Task extends Component {
         .then(response => {
             // console.log('MESSAGE CREATED: '+JSON.stringify(response))
             alert('Thanks for replying! Good luck!')
+            // send a notification to the task creator
         })
         .catch(err => {
             console.log('ERR: '+JSON.stringify(err))
