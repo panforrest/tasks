@@ -52,25 +52,26 @@ router.post('/notify',function(req, res, next){
     controllers.profile
     .getById(req.body.recipient, false)   // get profile first
     .then(function(profile){
+        var msg = 'Someone replied to your task, here is the mssage:\n\n'+req.body.text
 
-        // utils.TwilioHelper.sendSMS(req.body.recipient, req.body.text)
         return utils.TwilioHelper.sendSMS(profile.phone, req.body.text)
-        .then(function(message){
-            res.json({
-                confirmation: 'success',
-                message: message
-            })
-
-            return message
-        })
-        .catch(function(err){
-            res.json({
-                confirmation: 'fail',
-                message: err.message
-            })
-        }) 
-
     })
+    .then(function(message){
+        res.json({
+            confirmation: 'success',
+            message: message
+        })
+
+        return message
+    })
+    .catch(function(err){
+        res.json({
+            confirmation: 'fail',
+            message: err.message
+        })
+    }) 
+
+    // })
 
     // utils.TwilioHelper
     // .sendSMS(req.body.recipient, req.body.text)
