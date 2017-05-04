@@ -38975,15 +38975,18 @@
 	            updated['task'] = this.props.params.id;
 	            // console.log('submitMessage: '+JSON.stringify(updated))
 	
+	            var taskId = this.props.params.id;
+	            var task = this.props.tasks[taskId];
+	
 	            this.props.submitMessage(updated).then(function (response) {
 	                // console.log('MESSAGE CREATED: '+JSON.stringify(response))
 	                // alert('Thanks for replying! Good luck!')
 	                // TODO: send a notification to the task creator
 	                var params = {
-	                    recipient: '9089061042',
-	                    text: 'Hello from React'
-	                    // recipient: task.profile.id,  
-	                    // text: updated.text
+	                    // recipient: '9089061042',
+	                    // text: 'Hello from React'
+	                    recipient: task.profile.id,
+	                    text: updated.text
 	                };
 	
 	                return _this2.props.notify(params);
