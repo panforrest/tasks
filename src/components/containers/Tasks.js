@@ -114,32 +114,44 @@ class Tasks extends Component{
     }
 
 	render(){
-        // const list = this.props.tasks.map((task, i) => {
-        //     return(
-        //         <li key={task.id}>{task.title}</li>
-        //     )
-        // })
 
 		return(
-			<div>
-			    <h2>Tasks</h2>
+            <section id="banner">
+              <div className="content">
+
+                <h3>Current Tasks</h3>
+                { (this.props.tasks[this.props.tasks.selectedCategory] == null) ? null:
+                    this.props.tasks[this.props.tasks.selectedCategory].map((task, i) => {
+                        return (
+                            <div key={task.id} className="box">
+                                <Link to ={'/task/'+task.id}>
+                                    {task.title}, {task.category}
+                                </Link>
+                            </div>
+                        )
+                    })                     
+                }
+
+
+              </div>
+
+              <div>
+                <h2>Tasks</h2>
                 
-                    { (this.props.tasks[this.props.tasks.selectedCategory] == null) ? null:
-                        this.props.tasks[this.props.tasks.selectedCategory] .map((task, i) => {
-                            return (
-                                <li key={task.id}>
-                                    <Link to ={'/task/'+task.id}>
-                                        {task.title}, {task.category}
-                                    </Link>
-                                </li>
-                            )
-                        })                     
-                    }
+
                     
-			    <CreateTask onSubmitTask={this.createTask.bind(this)}/>
+                <CreateTask onSubmitTask={this.createTask.bind(this)}/>
                 
                 
-			</div>
+              </div>
+
+            </section>
+
+
+
+
+
+
 		)
 	}
 }
