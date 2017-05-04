@@ -12,44 +12,24 @@ router.get('/task',function(req, res, next){
 	})
 })
 
-router.get('/notify',function(req, res, next){
-    // sendSMS: function(from, recipeint,message, completion){
+router.get('/notify', function(req, res, next) {
 
-    // utils.TwilioHelper.sendSMS('9088458522', '9089061042', 'Does this thing work?', function(err, message){
-    utils.TwilioHelper.sendSMS('9089061042', 'Does this thing work?', function(err, message){
+    utils.TwilioHelper
+    .sendSMS('9089061042', 'Does this thing work 4?')
+    .then(function(message){
+        res.json({
+            confirmation: 'success',
+            message: message
+        })
 
-        if (err) {
-            res.json({
-                confirmation: 'fail',
-                message: err
-            })
-
-            return
-        }
-
-        console.log(message)
-    })        
-    
-
-    // var client = new twilio('AC4b99f76eaaec3adff9b44c733bdc00b6', 'abdedad29ab5a58bc45cb068386abaab')
-
-    // client.messages.create({
-    //     body: 'TWILIO TEST',
-    //     to: '+19089061042',  // Text this number
-    //     from: '+19088458522' // From a valid Twilio number
-    // }, function(err, message){
-
-    //     if (err) {
-    //         res.json({
-    //             confirmation: 'fail',
-    //             message: err
-    //         })
-
-    //         return
-    //     }
-
-    //     console.log(message)
-    // })
+        return message
+    })
+    .catch(function(err){
+        res.json({
+            confirmation: 'fail',
+            message: err.message
+        })
+    })
 })
 
 router.post('/task',function(req, res, next){
