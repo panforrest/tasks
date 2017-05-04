@@ -32974,6 +32974,12 @@
 				type: _constants2.default.CATEGORY_SELECTED,
 				payload: category
 			};
+		},
+	
+		notify: function notify(params) {
+			return function (dispatch) {
+				return dispatch(postRequest('/twilio/notify', params, null));
+			};
 		}
 	
 		// taskCreated: (task) => {
@@ -38895,7 +38901,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -38923,132 +38929,147 @@
 	
 	
 	var Task = function (_Component) {
-	  _inherits(Task, _Component);
+	    _inherits(Task, _Component);
 	
-	  function Task() {
-	    _classCallCheck(this, Task);
+	    function Task() {
+	        _classCallCheck(this, Task);
 	
-	    var _this = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this));
+	        var _this = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this));
 	
-	    _this.state = {
-	      message: {
-	        text: '',
-	        profile: {}
-	      }
-	    };
-	    return _this;
-	  }
-	
-	  _createClass(Task, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      // console.log('componentDidMount: '+JSON.stringify(this.props.user)) 
-	
-	      //    const taskId = this.props.params.id
-	      //    const task = this.props.tasks[taskId]
-	
-	      // console.log('componentDidMount: '+JSON.stringify(task)) 
-	
-	      //garb the task from the store:
-	
+	        _this.state = {
+	            message: {
+	                text: '',
+	                profile: {}
+	            }
+	        };
+	        return _this;
 	    }
-	  }, {
-	    key: 'submitMessage',
-	    value: function submitMessage(event) {
-	      event.preventDefault();
-	      console.log('submitMessage: ' + JSON.stringify(this.state.message));
-	      var updated = Object.assign({}, this.state.message);
-	      var user = this.props.account.user;
-	      updated['profile'] = {
-	        id: user.id,
-	        usernaem: user.username
-	      };
 	
-	      updated['task'] = this.props.params.id;
-	      console.log('submitMessage: ' + JSON.stringify(updated));
+	    _createClass(Task, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            // console.log('componentDidMount: '+JSON.stringify(this.props.user)) 
 	
-	      this.props.submitMessage(updated).then(function (response) {
-	        // console.log('MESSAGE CREATED: '+JSON.stringify(response))
-	        alert('Thanks for replying! Good luck!');
-	        // send a notification to the task creator
-	      }).catch(function (err) {
-	        console.log('ERR: ' + JSON.stringify(err));
-	      });
-	    }
-	  }, {
-	    key: 'updateMessage',
-	    value: function updateMessage(event) {
-	      // console.log('updateMessage: '+'event.target.id'+' == '+'event.target.value')
-	      console.log('updateMessage: ' + ' == ' + event.target.value);
-	      var updated = Object.assign({}, this.state.message);
-	      updated['text'] = event.target.value;
-	      // updated = event.target.value
-	      this.setState({
-	        message: updated
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      // garb the task from the store:
-	      var taskId = this.props.params.id;
-	      var task = this.props.tasks[taskId];
+	            //    const taskId = this.props.params.id
+	            //    const task = this.props.tasks[taskId]
 	
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        task.title,
-	        ' ',
-	        _react2.default.createElement('br', null),
-	        task.description,
-	        ' ',
-	        _react2.default.createElement('br', null),
-	        task.category,
-	        ' ',
-	        _react2.default.createElement('br', null),
-	        task.profile.username,
-	        ' ',
-	        _react2.default.createElement('br', null),
-	        this.props.account.user == null ? _react2.default.createElement(
-	          'h3',
-	          null,
-	          'Please log in or Register to Reply.'
-	        ) : _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(
-	            'h2',
-	            null,
-	            'Reply'
-	          ),
-	          _react2.default.createElement('textarea', { onChange: this.updateMessage.bind(this), placeholder: 'Enter Message to Respond', id: 'text' }),
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.submitMessage.bind(this) },
-	            'Submit'
-	          )
-	        )
-	      );
-	    }
-	  }]);
+	            // console.log('componentDidMount: '+JSON.stringify(task)) 
 	
-	  return Task;
+	            //garb the task from the store:
+	
+	        }
+	    }, {
+	        key: 'submitMessage',
+	        value: function submitMessage(event) {
+	            var _this2 = this;
+	
+	            event.preventDefault();
+	            // console.log('submitMessage: '+JSON.stringify(this.state.message))
+	            var updated = Object.assign({}, this.state.message);
+	            var user = this.props.account.user;
+	            updated['profile'] = {
+	                id: user.id,
+	                usernaem: user.username
+	            };
+	
+	            updated['task'] = this.props.params.id;
+	            // console.log('submitMessage: '+JSON.stringify(updated))
+	
+	            this.props.submitMessage(updated).then(function (response) {
+	                // console.log('MESSAGE CREATED: '+JSON.stringify(response))
+	                // alert('Thanks for replying! Good luck!')
+	                // TODO: send a notification to the task creator
+	                var params = {
+	                    recipient: '9089061042',
+	                    text: 'Hello from React'
+	                    // recipient: task.profile.id,  
+	                    // text: updated.text
+	                };
+	
+	                return _this2.props.notify(params);
+	            }).then(function (result) {
+	                alert('Thanks for replying! Good luck!');
+	            }).catch(function (err) {
+	                console.log('ERR: ' + JSON.stringify(err.message));
+	            });
+	        }
+	    }, {
+	        key: 'updateMessage',
+	        value: function updateMessage(event) {
+	            // console.log('updateMessage: '+'event.target.id'+' == '+'event.target.value')
+	            console.log('updateMessage: ' + ' == ' + event.target.value);
+	            var updated = Object.assign({}, this.state.message);
+	            updated['text'] = event.target.value;
+	            // updated = event.target.value
+	            this.setState({
+	                message: updated
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            // garb the task from the store:
+	            var taskId = this.props.params.id;
+	            var task = this.props.tasks[taskId];
+	
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                task.title,
+	                ' ',
+	                _react2.default.createElement('br', null),
+	                task.description,
+	                ' ',
+	                _react2.default.createElement('br', null),
+	                task.category,
+	                ' ',
+	                _react2.default.createElement('br', null),
+	                task.profile.username,
+	                ' ',
+	                _react2.default.createElement('br', null),
+	                this.props.account.user == null ? _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    'Please log in or Register to Reply.'
+	                ) : _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(
+	                        'h2',
+	                        null,
+	                        'Reply'
+	                    ),
+	                    _react2.default.createElement('textarea', { onChange: this.updateMessage.bind(this), placeholder: 'Enter Message to Respond', id: 'text' }),
+	                    _react2.default.createElement('br', null),
+	                    _react2.default.createElement(
+	                        'button',
+	                        { onClick: this.submitMessage.bind(this) },
+	                        'Submit'
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return Task;
 	}(_react.Component);
 	
 	var stateToProps = function stateToProps(state) {
-	  return {
-	    tasks: state.task,
-	    account: state.account
-	  };
+	    return {
+	        tasks: state.task,
+	        account: state.account
+	    };
 	};
 	
 	var dispatchToProps = function dispatchToProps(dispatch) {
-	  return {
-	    submitMessage: function submitMessage(params) {
-	      return dispatch(_actions2.default.submitMessage(params));
-	    }
-	  };
+	    return {
+	        submitMessage: function submitMessage(params) {
+	            return dispatch(_actions2.default.submitMessage(params));
+	        },
+	        notify: function notify(params) {
+	            return dispatch(_actions2.default.notify(params));
+	        }
+	    };
 	};
 	
 	exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Task);

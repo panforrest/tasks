@@ -31,7 +31,7 @@ class Task extends Component {
 
     submitMessage(event){
     	event.preventDefault()
-        console.log('submitMessage: '+JSON.stringify(this.state.message))
+        // console.log('submitMessage: '+JSON.stringify(this.state.message))
         let updated = Object.assign({}, this.state.message)
         const user = this.props.account.user
         updated['profile'] = {
@@ -40,16 +40,28 @@ class Task extends Component {
         }
 
         updated['task'] = this.props.params.id
-        console.log('submitMessage: '+JSON.stringify(updated))
+        // console.log('submitMessage: '+JSON.stringify(updated))
 
         this.props.submitMessage(updated)
         .then(response => {
             // console.log('MESSAGE CREATED: '+JSON.stringify(response))
-            alert('Thanks for replying! Good luck!')
-            // send a notification to the task creator
+            // alert('Thanks for replying! Good luck!')
+            // TODO: send a notification to the task creator
+            const params = {
+                recipient: '9089061042',
+                text: 'Hello from React'
+                // recipient: task.profile.id,  
+                // text: updated.text
+            }
+
+            return this.props.notify(params) 
+        })
+        .then(result => {
+            alert('Thanks for replying! Good luck!') 
+               
         })
         .catch(err => {
-            console.log('ERR: '+JSON.stringify(err))
+            console.log('ERR: '+JSON.stringify(err.message))
         })
     }
 
@@ -96,7 +108,8 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
 	return {
-		submitMessage: (params) => dispatch(actions.submitMessage(params))
+		submitMessage: (params) => dispatch(actions.submitMessage(params)),
+        notify: (params) => dispatch(actions.notify(params))
 	}
 }
 

@@ -32,6 +32,27 @@ router.get('/notify', function(req, res, next) {
     })
 })
 
+router.post('/notify',function(req, res, next){
+    console.log(JSON.stringify(req.body))
+
+    utils.TwilioHelper
+    .sendSMS(req.body.recipient, req.body.text)
+    .then(function(message){
+        res.json({
+            confirmation: 'success',
+            message: message
+        })
+
+        return message
+    })
+    .catch(function(err){
+        res.json({
+            confirmation: 'fail',
+            message: err.message
+        })
+    })
+})
+
 router.post('/task',function(req, res, next){
 	// res.render('index', {title: 'Express'})  //res.send('')
 	console.log('TWILIO: '+JSON.stringify(req.body))
