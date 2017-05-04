@@ -1,8 +1,9 @@
 var express = require('express')
 var router = express.Router()
 var controllers = require('../controllers')
-var twilio = require('twilio')
-var CircularJSON = require('circular-json')
+// var twilio = require('twilio')
+// var CircularJSON = require('circular-json')
+var utils = require('../utils')
 
 router.get('/task',function(req, res, next){
 	res.json({
@@ -12,17 +13,10 @@ router.get('/task',function(req, res, next){
 })
 
 router.get('/notify',function(req, res, next){
+    // sendSMS: function(from, recipeint,message, completion){
 
-    // var client = new twilio(accountSid, authToken);
-    // var twilio = require('twilio')('AC4b99f76eaaec3adff9b44c733bdc00b6', 'abdedad29ab5a58bc45cb068386abaab')
-    // var client = new twilio.RestClient('AC4b99f76eaaec3adff9b44c733bdc00b6', 'abdedad29ab5a58bc45cb068386abaab')
-    var client = new twilio('AC4b99f76eaaec3adff9b44c733bdc00b6', 'abdedad29ab5a58bc45cb068386abaab')
-
-    client.messages.create({
-        body: 'TWILIO TEST',
-        to: '+19089061042',  // Text this number
-        from: '+19088458522' // From a valid Twilio number
-    }, function(err, message){
+    // utils.TwilioHelper.sendSMS('9088458522', '9089061042', 'Does this thing work?', function(err, message){
+    utils.TwilioHelper.sendSMS('9089061042', 'Does this thing work?', function(err, message){
 
         if (err) {
             res.json({
@@ -33,28 +27,28 @@ router.get('/notify',function(req, res, next){
             return
         }
 
-        // console.log(message.sid)
-        // console.log(JSON.stringify(message))
         console.log(message)
-        // res.json({
-        //     confirmation: 'success',
-        //     message: message
-        // })
+    })        
+    
 
-    })
-    // .then((message) => 
-    //     // console.log(message.sid);
-    //     res.json({
-    //         confirmation: 'success',
-    //         message: message
-    //     })
-    // );
-    // .catch((err) =>
-    //     console.log(err)
-    // )
-    // res.json({
-    //     confirmation: 'success',
-    //     message: 'Send Notification'
+    // var client = new twilio('AC4b99f76eaaec3adff9b44c733bdc00b6', 'abdedad29ab5a58bc45cb068386abaab')
+
+    // client.messages.create({
+    //     body: 'TWILIO TEST',
+    //     to: '+19089061042',  // Text this number
+    //     from: '+19088458522' // From a valid Twilio number
+    // }, function(err, message){
+
+    //     if (err) {
+    //         res.json({
+    //             confirmation: 'fail',
+    //             message: err
+    //         })
+
+    //         return
+    //     }
+
+    //     console.log(message)
     // })
 })
 
