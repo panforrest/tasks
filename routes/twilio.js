@@ -35,11 +35,12 @@ router.get('/notify', function(req, res, next) {
 router.post('/notify',function(req, res, next){
     console.log(JSON.stringify(req.body))
 
-    if (req.body.recipeint == null) {
+    if (req.body.recipient == null) {
         res.json({
             confirmation: 'fail',
             message: 'Please specify a recipient'
         })
+        return
     }
 
     if (req.body.text == null) {
@@ -47,6 +48,7 @@ router.post('/notify',function(req, res, next){
             confirmation: 'fail',
             message: 'Please include a message'
         })
+        return
     }
 
     controllers.profile
@@ -54,7 +56,7 @@ router.post('/notify',function(req, res, next){
     .then(function(profile){
         var msg = 'Someone replied to your task, here is the mssage:\n\n'+req.body.text
 
-        return utils.TwilioHelper.sendSMS(profile.phone, req.body.text)
+        return utils.TwilioHelper.sendSMS(profile.phone, msg)
     })
     .then(function(message){
         res.json({
