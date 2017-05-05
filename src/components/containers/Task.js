@@ -53,7 +53,9 @@ class Task extends Component {
                 // recipient: '9089061042',
                 // text: 'Hello from React'
                 recipient: task.profile.id,  
-                text: updated.text
+                text: updated.text,
+                taskResponder: updated.profile.username
+                // taskResponder: user.username
             }
 
             return this.props.notify(params) 

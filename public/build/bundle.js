@@ -39166,7 +39166,9 @@
 	                    // recipient: '9089061042',
 	                    // text: 'Hello from React'
 	                    recipient: task.profile.id,
-	                    text: updated.text
+	                    text: updated.text,
+	                    taskResponder: updated.profile.username
+	                    // taskResponder: user.username
 	                };
 	
 	                return _this2.props.notify(params);
