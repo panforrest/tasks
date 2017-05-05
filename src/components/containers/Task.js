@@ -1,7 +1,9 @@
+                        // <Time value={task.timestamp} format="MMM DD, YYYY" />
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import actions from '../../actions'
-import { TextUtils } from '../../utils'
+import { TextUtils, DateUtils } from '../../utils'
+import Time from 'react-time'
 
 class Task extends Component {
     constructor(){
@@ -91,8 +93,11 @@ class Task extends Component {
                     <article style={{background: '#f9f9f9', border:'1px solid #ddd', padding: 16}}>
                         <strong>{ TextUtils.capitalize(task.category) }</strong> <br />
                         <strong>{ TextUtils.capitalize(task.profile.username) }</strong> <br />
+
+                        { DateUtils.formattedDate(task.timestamp) }
                         <hr />                        
                         <p>{task.description} </p>
+
 
                     </article>                    
                 </div>
