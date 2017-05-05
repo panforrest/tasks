@@ -66,16 +66,6 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// const app = (
-	// 	<Provider store={ store.configureStore() }>
-	// 		<div>
-	// 		    React entry point.
-	// 		    <Home />
-	// 		</div>
-	// 	</Provider>		
-	// )
-	
-	// import { Task } from './components/containers'
 	var app = _react2.default.createElement(
 	           _reactRedux.Provider,
 	           { store: _stores2.default.configureStore() },
@@ -85,9 +75,7 @@
 	                      _react2.default.createElement(_reactRouter.Route, { path: '/', component: _layout.Home }),
 	                      _react2.default.createElement(_reactRouter.Route, { path: '/task/:id', component: _layout.Split })
 	           )
-	); // Provider store=currentStore()>
-	// <Route path="/task/:id" component={Home} />
-	
+	);
 	
 	_reactDom2.default.render(app, document.getElementById('root'));
 
@@ -33063,14 +33051,6 @@
 				return dispatch(postRequest('/twilio/notify', params, null));
 			};
 		}
-	
-		// taskCreated: (task) => {
-		// 	console.log('TASK_CREATED: '+JSON.stringify(task))
-		// 	return {
-		// 		type: constants.TASK_CREATED,
-		// 		payload: task
-		// 	}
-		// }
 	};
 
 /***/ }),

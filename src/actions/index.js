@@ -100,14 +100,4 @@ export default {
 			return dispatch(postRequest('/twilio/notify', params, null))
 		}
 	}
-
-
-
-	// taskCreated: (task) => {
-	// 	console.log('TASK_CREATED: '+JSON.stringify(task))
-	// 	return {
-	// 		type: constants.TASK_CREATED,
-	// 		payload: task
-	// 	}
-	// }
 }
