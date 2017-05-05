@@ -1,25 +1,7 @@
-    //          {task.title} <br />
-	// 		    {task.description} <br />
-	// 		    {task.category} <br />
-	// 		    {task.profile.username} <br />
-
-            // <div>
-            //     {task.title} <br />
-            //     {task.description} <br />
-            //     {task.category} <br />
-            //     {task.profile.username} <br />
-               
-            //     {(this.props.account.user == null) ? <h3>Please log in or Register to Reply.</h3> : 
-            //         <div><h2>Reply</h2>
-            //             <textarea onChange={this.updateMessage.bind(this)} placeholder="Enter Message to Respond" id="text"></textarea><br />
-            //             <button onClick={this.submitMessage.bind(this)}>Submit</button>
-            //         </div>
-            //     }
-            // </div>
-
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import actions from '../../actions'
+import { TextUtils } from '../../utils'
 
 class Task extends Component {
     constructor(){
@@ -101,14 +83,15 @@ class Task extends Component {
 
 		return(
 
-            <section>
+            <section style={{paddingTop: 24}}>
                 <header className="major">
                     <h2 style={{border:'none', marginBottom:0}}>{task.title}</h2>
                 </header>
                 <div className="posts">
                     <article style={{background: '#f9f9f9', border:'1px solid #ddd', padding: 16}}>
-                        <strong>{task.category}</strong> <br />
-                        <strong>{task.profile.username}</strong> <br />                        
+                        <strong>{ TextUtils.capitalize(task.category) }</strong> <br />
+                        <strong>{ TextUtils.capitalize(task.profile.username) }</strong> <br />
+                        <hr />                        
                         <p>{task.description} </p>
 
                     </article>                    

@@ -22236,15 +22236,20 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.APIManager = undefined;
+	exports.TextUtils = exports.APIManager = undefined;
 	
 	var _APIManager = __webpack_require__(187);
 	
 	var _APIManager2 = _interopRequireDefault(_APIManager);
 	
+	var _TextUtils = __webpack_require__(343);
+	
+	var _TextUtils2 = _interopRequireDefault(_TextUtils);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.APIManager = _APIManager2.default;
+	exports.TextUtils = _TextUtils2.default;
 
 /***/ }),
 /* 187 */
@@ -39024,30 +39029,15 @@
 	
 	var _actions2 = _interopRequireDefault(_actions);
 	
+	var _utils = __webpack_require__(186);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //          {task.title} <br />
-	// 		    {task.description} <br />
-	// 		    {task.category} <br />
-	// 		    {task.profile.username} <br />
-	
-	// <div>
-	//     {task.title} <br />
-	//     {task.description} <br />
-	//     {task.category} <br />
-	//     {task.profile.username} <br />
-	
-	//     {(this.props.account.user == null) ? <h3>Please log in or Register to Reply.</h3> : 
-	//         <div><h2>Reply</h2>
-	//             <textarea onChange={this.updateMessage.bind(this)} placeholder="Enter Message to Respond" id="text"></textarea><br />
-	//             <button onClick={this.submitMessage.bind(this)}>Submit</button>
-	//         </div>
-	//     }
-	// </div>
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var Task = function (_Component) {
 	    _inherits(Task, _Component);
@@ -39138,7 +39128,7 @@
 	
 	            return _react2.default.createElement(
 	                'section',
-	                null,
+	                { style: { paddingTop: 24 } },
 	                _react2.default.createElement(
 	                    'header',
 	                    { className: 'major' },
@@ -39157,17 +39147,18 @@
 	                        _react2.default.createElement(
 	                            'strong',
 	                            null,
-	                            task.category
+	                            _utils.TextUtils.capitalize(task.category)
 	                        ),
 	                        ' ',
 	                        _react2.default.createElement('br', null),
 	                        _react2.default.createElement(
 	                            'strong',
 	                            null,
-	                            task.profile.username
+	                            _utils.TextUtils.capitalize(task.profile.username)
 	                        ),
 	                        ' ',
 	                        _react2.default.createElement('br', null),
+	                        _react2.default.createElement('hr', null),
 	                        _react2.default.createElement(
 	                            'p',
 	                            null,
@@ -39549,6 +39540,29 @@
 	
 			default:
 				return state;
+		}
+	};
+
+/***/ }),
+/* 343 */
+/***/ (function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = {
+		capitalize: function capitalize(string) {
+	
+			if (string == null) return '';
+	
+			if (string.length == 0) return string;
+	
+			if (string.length == 1) return string.toUpperCase();
+	
+			var firstLetter = string.substring(0, 1);
+			return firstLetter.toUpperCase() + string.substring(1, string.length);
 		}
 	};
 
