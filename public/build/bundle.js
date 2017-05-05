@@ -39035,6 +39035,19 @@
 	// 		    {task.category} <br />
 	// 		    {task.profile.username} <br />
 	
+	// <div>
+	//     {task.title} <br />
+	//     {task.description} <br />
+	//     {task.category} <br />
+	//     {task.profile.username} <br />
+	
+	//     {(this.props.account.user == null) ? <h3>Please log in or Register to Reply.</h3> : 
+	//         <div><h2>Reply</h2>
+	//             <textarea onChange={this.updateMessage.bind(this)} placeholder="Enter Message to Respond" id="text"></textarea><br />
+	//             <button onClick={this.submitMessage.bind(this)}>Submit</button>
+	//         </div>
+	//     }
+	// </div>
 	
 	var Task = function (_Component) {
 	    _inherits(Task, _Component);
@@ -39124,20 +39137,45 @@
 	            var task = this.props.tasks[taskId];
 	
 	            return _react2.default.createElement(
-	                'div',
+	                'section',
 	                null,
-	                task.title,
-	                ' ',
-	                _react2.default.createElement('br', null),
-	                task.description,
-	                ' ',
-	                _react2.default.createElement('br', null),
-	                task.category,
-	                ' ',
-	                _react2.default.createElement('br', null),
-	                task.profile.username,
-	                ' ',
-	                _react2.default.createElement('br', null),
+	                _react2.default.createElement(
+	                    'header',
+	                    { className: 'major' },
+	                    _react2.default.createElement(
+	                        'h2',
+	                        { style: { border: 'none', marginBottom: 0 } },
+	                        task.title
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'posts' },
+	                    _react2.default.createElement(
+	                        'article',
+	                        { style: { background: '#f9f9f9', border: '1px solid #ddd', padding: 16 } },
+	                        _react2.default.createElement(
+	                            'strong',
+	                            null,
+	                            task.category
+	                        ),
+	                        ' ',
+	                        _react2.default.createElement('br', null),
+	                        _react2.default.createElement(
+	                            'strong',
+	                            null,
+	                            task.profile.username
+	                        ),
+	                        ' ',
+	                        _react2.default.createElement('br', null),
+	                        _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            task.description,
+	                            ' '
+	                        )
+	                    )
+	                ),
 	                this.props.account.user == null ? _react2.default.createElement(
 	                    'h3',
 	                    null,
@@ -39192,7 +39230,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+																		value: true
 	});
 	
 	var _react = __webpack_require__(1);
@@ -39203,37 +39241,108 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// class Split extends Component {
-	// 	render(){
-	// 		return(
-	// 			<div>
-	// 			    Split Layout
-	// 			</div>
-	// 		)
-	// 	}
-	// }
-	
-	// export default Split
-	
 	exports.default = function (props) {
-		return _react2.default.createElement(
-			'div',
-			{ className: 'container' },
-			_react2.default.createElement(
-				'div',
-				{ className: 'row' },
-				_react2.default.createElement(
-					'div',
-					{ className: 'col-md-8' },
-					_react2.default.createElement(_containers.Task, props)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'col-md-4' },
-					_react2.default.createElement(_containers.Account, null)
-				)
-			)
-		);
+																		return _react2.default.createElement(
+																																			'div',
+																																			{ id: 'wrapper' },
+																																			_react2.default.createElement(
+																																																				'div',
+																																																				{ id: 'main' },
+																																																				_react2.default.createElement(
+																																																																					'div',
+																																																																					{ className: 'inner' },
+																																																																					_react2.default.createElement(
+																																																																																						'header',
+																																																																																						{ id: 'header' },
+																																																																																						_react2.default.createElement(
+																																																																																																							'a',
+																																																																																																							{ href: 'index.html', className: 'logo' },
+																																																																																																							_react2.default.createElement(
+																																																																																																																								'strong',
+																																																																																																																								null,
+																																																																																																																								'Editorial'
+																																																																																																							),
+																																																																																																							' by HTML5 UP'
+																																																																																						),
+																																																																																						_react2.default.createElement(
+																																																																																																							'ul',
+																																																																																																							{ className: 'icons' },
+																																																																																																							_react2.default.createElement(
+																																																																																																																								'li',
+																																																																																																																								null,
+																																																																																																																								_react2.default.createElement(
+																																																																																																																																									'a',
+																																																																																																																																									{ href: '#', className: 'icon fa-twitter' },
+																																																																																																																																									_react2.default.createElement(
+																																																																																																																																																										'span',
+																																																																																																																																																										{ className: 'label' },
+																																																																																																																																																										'Twitter'
+																																																																																																																																									)
+																																																																																																																								)
+																																																																																																							),
+																																																																																																							_react2.default.createElement(
+																																																																																																																								'li',
+																																																																																																																								null,
+																																																																																																																								_react2.default.createElement(
+																																																																																																																																									'a',
+																																																																																																																																									{ href: '#', className: 'icon fa-facebook' },
+																																																																																																																																									_react2.default.createElement(
+																																																																																																																																																										'span',
+																																																																																																																																																										{ className: 'label' },
+																																																																																																																																																										'Facebook'
+																																																																																																																																									)
+																																																																																																																								)
+																																																																																																							),
+																																																																																																							_react2.default.createElement(
+																																																																																																																								'li',
+																																																																																																																								null,
+																																																																																																																								_react2.default.createElement(
+																																																																																																																																									'a',
+																																																																																																																																									{ href: '#', className: 'icon fa-snapchat-ghost' },
+																																																																																																																																									_react2.default.createElement(
+																																																																																																																																																										'span',
+																																																																																																																																																										{ className: 'label' },
+																																																																																																																																																										'Snapchat'
+																																																																																																																																									)
+																																																																																																																								)
+																																																																																																							),
+																																																																																																							_react2.default.createElement(
+																																																																																																																								'li',
+																																																																																																																								null,
+																																																																																																																								_react2.default.createElement(
+																																																																																																																																									'a',
+																																																																																																																																									{ href: '#', className: 'icon fa-instagram' },
+																																																																																																																																									_react2.default.createElement(
+																																																																																																																																																										'span',
+																																																																																																																																																										{ className: 'label' },
+																																																																																																																																																										'Instagram'
+																																																																																																																																									)
+																																																																																																																								)
+																																																																																																							),
+																																																																																																							_react2.default.createElement(
+																																																																																																																								'li',
+																																																																																																																								null,
+																																																																																																																								_react2.default.createElement(
+																																																																																																																																									'a',
+																																																																																																																																									{ href: '#', className: 'icon fa-medium' },
+																																																																																																																																									_react2.default.createElement(
+																																																																																																																																																										'span',
+																																																																																																																																																										{ className: 'label' },
+																																																																																																																																																										'Medium'
+																																																																																																																																									)
+																																																																																																																								)
+																																																																																																							)
+																																																																																						)
+																																																																					),
+																																																																					_react2.default.createElement(_containers.Task, props)
+																																																				)
+																																			),
+																																			_react2.default.createElement(
+																																																				'div',
+																																																				{ id: 'sidebar' },
+																																																				_react2.default.createElement(_containers.Account, null)
+																																			)
+																		);
 	};
 
 /***/ }),
