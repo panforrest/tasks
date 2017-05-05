@@ -1,6 +1,6 @@
                 // <CreateTask onSubmitTask={this.createTask.bind(this)}/>
 import React, { Component } from 'react'
-import { APIManager } from '../../utils'
+import { APIManager, DateUtils } from '../../utils'
 import { Authenticate } from '../view'
 import { connect } from 'react-redux'
 import actions from '../../actions'
@@ -124,39 +124,45 @@ class Tasks extends Component{
                 <h3>Current Tasks</h3>
                 { (taskList == null) ? null:
                     taskList.map((task, i) => {
+                        const username = task.profile.username || 'anonymous'
                         return (
                             <div key={task.id} className="box">
-                                <h3>{task.title}</h3>
+                                
+                                <Link to ={'/task/'+task.id}>
+                                    <h3>{task.title}</h3>
+                                </Link>
+
+                                <span style={localStyle.detailText}>{ DateUtils.formattedDate(task.timestamp) }</span>
+
+                                <span style={localStyle.pipe}>|</span>
+
+                                <span style={localStyle.detailText}>{ username }</span>
+
                                 <Link to ={'/task/'+task.id}>
                                     {task.description}
                                 </Link>
+
+
                             </div>
                         )
                     })                     
                 }
-
-
-              </div>
-
-              <div>
-
-                
-
-                    
-
-                
-                
               </div>
               <Authenticate />
             </section>
-
-
-
-
-
-
 		)
 	}
+}
+
+const localStyle = {
+    detailText: {
+        float:'right'
+    },
+    pipe: {
+        float:'right',
+        marginLeft:12,
+        marginRight:12
+    }
 }
 
 const stateToProps = (state) => {

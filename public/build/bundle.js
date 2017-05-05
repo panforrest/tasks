@@ -22180,13 +22180,33 @@
 	                        'Current Tasks'
 	                    ),
 	                    taskList == null ? null : taskList.map(function (task, i) {
+	                        var username = task.profile.username || 'anonymous';
 	                        return _react2.default.createElement(
 	                            'div',
 	                            { key: task.id, className: 'box' },
 	                            _react2.default.createElement(
-	                                'h3',
-	                                null,
-	                                task.title
+	                                _reactRouter.Link,
+	                                { to: '/task/' + task.id },
+	                                _react2.default.createElement(
+	                                    'h3',
+	                                    null,
+	                                    task.title
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'span',
+	                                { style: localStyle.detailText },
+	                                _utils.DateUtils.formattedDate(task.timestamp)
+	                            ),
+	                            _react2.default.createElement(
+	                                'span',
+	                                { style: localStyle.pipe },
+	                                '|'
+	                            ),
+	                            _react2.default.createElement(
+	                                'span',
+	                                { style: localStyle.detailText },
+	                                username
 	                            ),
 	                            _react2.default.createElement(
 	                                _reactRouter.Link,
@@ -22196,7 +22216,6 @@
 	                        );
 	                    })
 	                ),
-	                _react2.default.createElement('div', null),
 	                _react2.default.createElement(_view.Authenticate, null)
 	            );
 	        }
@@ -22204,6 +22223,17 @@
 	
 	    return Tasks;
 	}(_react.Component);
+	
+	var localStyle = {
+	    detailText: {
+	        float: 'right'
+	    },
+	    pipe: {
+	        float: 'right',
+	        marginLeft: 12,
+	        marginRight: 12
+	    }
+	};
 	
 	var stateToProps = function stateToProps(state) {
 	    return {
@@ -55564,7 +55594,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 	
 	var _react = __webpack_require__(1);
@@ -55579,9 +55609,22 @@
 	
 	exports.default = {
 	
-		formattedDate: function formattedDate(date) {
-			return _react2.default.createElement(_reactTime2.default, { value: date, format: 'MMM DD, YYYY' });
-		}
+	  formattedDate: function formattedDate(date) {
+	
+	    var now = new Date().getTime();
+	
+	    var diff = now - new Date(date).getTime(); // seconds???
+	
+	
+	    var seconds = diff / 1000;
+	    var mins = seconds / 60;
+	    var hours = mins / 60;
+	    console.log('DIFF: ' + hours);
+	
+	    if (hours < 24) return _react2.default.createElement(_reactTime2.default, { value: date, format: 'MMM DD, YYYY', relative: true });
+	
+	    return _react2.default.createElement(_reactTime2.default, { value: date, format: 'MMM DD, YYYY' });
+	  }
 	};
 
 /***/ })
