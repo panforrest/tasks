@@ -30521,12 +30521,41 @@
 	        key: 'register',
 	        value: function register(event) {
 	            // console.log('register: '+JSON.stringify(this.state.credentials))
+	            if (this.state.credentials.username.length == 0) {
+	                swal("Oops...", "You forgot your username!", "error");
+	                return;
+	            }
+	
+	            if (this.state.credentials.password.length == 0) {
+	                swal("Oops...", "You forgot your password!", "error");
+	                return;
+	            }
+	
+	            if (this.state.credentials.phone.length == 0) {
+	                swal("Oops...", "You forgot your phone number!", "error");
+	                return;
+	            }
+	
+	            if (this.state.credentials.email.length == 0) {
+	                swal("Oops...", "You forgot your email!", "error");
+	                return;
+	            }
+	
 	            this.props.onRegister(this.state.credentials);
 	        }
 	    }, {
 	        key: 'login',
 	        value: function login(event) {
-	            // console.log('login: '+JSON.stringify(this.state.credentials))
+	            if (this.state.credentials.email.length == 0) {
+	                swal("Oops...", "You forgot your email!", "error");
+	                return;
+	            }
+	
+	            if (this.state.credentials.password.length == 0) {
+	                swal("Oops...", "You forgot your password!", "error");
+	                return;
+	            }
+	
 	            this.props.onLogin(this.state.credentials);
 	        }
 	

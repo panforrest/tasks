@@ -10,7 +10,8 @@ var path = require('path')
 gulp.task('css', function(){
     return gulp.src(
             [
-                './public/assets/css/main.css'
+                './public/assets/css/main.css',
+                './public/assets/css/sweetalert.css'
             ]
         )
         .pipe(minifyCSS())
@@ -32,7 +33,8 @@ gulp.task('js', function(){
 				'./public/assets/js/jquery.min.js',
 				'./public/assets/js/skel.min.js',
                 './public/assets/js/util.js',
-                './public/assets/js/main.js'
+                './public/assets/js/main.js',
+                './public/assets/js/sweetalert.min.js'
     		]
     	)
         .pipe(gp_concat('gulp-concat.js'))
