@@ -114,18 +114,20 @@ class Tasks extends Component{
     }
 
 	render(){
-
+        const taskList = this.props.tasks[this.props.tasks.selectedCategory]
 		return(
+
             <section id="banner">
               <div className="content">
 
                 <h3>Current Tasks</h3>
-                { (this.props.tasks[this.props.tasks.selectedCategory] == null) ? null:
-                    this.props.tasks[this.props.tasks.selectedCategory].map((task, i) => {
+                { (taskList == null) ? null:
+                    taskList.map((task, i) => {
                         return (
                             <div key={task.id} className="box">
+                                <h3>{task.title}</h3>
                                 <Link to ={'/task/'+task.id}>
-                                    {task.title}, {task.category}
+                                    {task.description}
                                 </Link>
                             </div>
                         )
