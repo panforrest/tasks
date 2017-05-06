@@ -97,6 +97,7 @@ export default {
 
 	notify: (params) => {
 		return (dispatch) => {
+			console.log('actions.notify: '+JSON.stringify(params))
 			return dispatch(postRequest('/twilio/notify', params, null))
 		}
 	}
