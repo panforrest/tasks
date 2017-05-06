@@ -55162,8 +55162,7 @@
 	
 	        _this.state = {
 	            message: {
-	                text: '',
-	                profile: {}
+	                text: ''
 	            }
 	        };
 	        return _this;

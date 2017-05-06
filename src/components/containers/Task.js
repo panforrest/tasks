@@ -11,7 +11,7 @@ class Task extends Component {
     	this.state = {
     		message: {
     			text: '',
-    			profile: {}
+    			// profile: {}
     		}
     	}
     }
