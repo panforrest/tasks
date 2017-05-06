@@ -57,6 +57,7 @@ class Task extends Component {
                 taskResponder: updated.profile.username
                 // taskResponder: user.username
             }
+            console.log('params: '+params.updated.profile.username)
 
             return this.props.notify(params) 
         })
