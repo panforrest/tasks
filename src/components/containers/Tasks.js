@@ -135,8 +135,9 @@ class Tasks extends Component{
                                 <span style={localStyle.detailText}>{ DateUtils.formattedDate(task.timestamp) }</span>
 
                                 <span style={localStyle.pipe}>|</span>
-
-                                <span style={localStyle.detailText}>{ username }</span>
+                                <Link to={'/profile/'+task.profile.id}> 
+                                    <span style={localStyle.detailText}>{ username }</span>
+                                </Link>
 
                                 <Link to ={'/task/'+task.id}>
                                     {task.description}

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { Home } from './components/layout'
-import { Split } from './components/layout'
+import { Home, Split, ProfileLayout } from './components/layout'
+// import { Split } from './components/layout'
+import { Profile } from './components/containers'
 import { Provider } from 'react-redux'
 import store from './stores'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
@@ -11,6 +12,7 @@ const app = (
 	    <Router history={browserHistory}>
             <Route path="/" component={Home} />
             <Route path="/task/:id" component={Split} />
+            <Route path="/profile/:id" component={ProfileLayout} />
 	    </Router>
 	</Provider>    
 )

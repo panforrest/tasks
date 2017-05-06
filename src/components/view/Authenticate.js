@@ -51,15 +51,16 @@ class Authenticate extends Component {
     }
 
     login(event){
-        if (this.state.credentials.email.length == 0){
-            swal("Oops...", "You forgot your email!", "error")
-            return
-        }
+        // if (this.state.credentials.email.length == 0){
+        //     swal("Oops...", "You forgot your email!", "error")
+        //     // console.log("ERROR 1: "+JSON.stringify(this.state.credentials))
+        //     return
+        // }
 
-        if (this.state.credentials.password.length == 0){
-            swal("Oops...", "You forgot your password!", "error")
-            return
-        }
+        // if (this.state.credentials.password.length == 0){
+        //     swal("Oops...", "You forgot your password!", "error")
+        //     return
+        // }
 
         this.props.onLogin(this.state.credentials)
     }

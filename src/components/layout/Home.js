@@ -1,6 +1,7 @@
 // <Categories />
 import React, { Component } from 'react'
-import { Tasks, Categories, Account } from '../containers'
+import { Tasks, Categories, Account, Profile } from '../containers'
+import { ProfileLayout } from '../layout'
 
 class Home extends Component {
 	render(){
@@ -30,7 +31,9 @@ class Home extends Component {
 	          </div>
 
 	          <div id="sidebar">
+	              <ProfileLayout />
                   <Categories />
+
 	          </div>
 
 	        </div>
