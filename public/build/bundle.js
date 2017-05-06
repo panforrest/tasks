@@ -55133,11 +55133,11 @@
 	
 	var _reactRedux = __webpack_require__(361);
 	
-	var _utils = __webpack_require__(186);
-	
 	var _actions = __webpack_require__(398);
 	
 	var _actions2 = _interopRequireDefault(_actions);
+	
+	var _utils = __webpack_require__(186);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -55145,7 +55145,10 @@
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // <Time value={task.timestamp} format="MMM DD, YYYY" />
+	
+	
+	// import Time from 'react-time'
 	
 	var Task = function (_Component) {
 	    _inherits(Task, _Component);
@@ -55158,6 +55161,7 @@
 	        _this.state = {
 	            message: {
 	                text: ''
+	                // profile: {}
 	            }
 	        };
 	        return _this;
@@ -55166,16 +55170,15 @@
 	    _createClass(Task, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            console.log('componentDidMount: ' + JSON.stringify(this.props));
-	        }
-	    }, {
-	        key: 'updateMessage',
-	        value: function updateMessage(event) {
-	            var updated = Object.assign({}, this.state.message);
-	            updated['text'] = event.target.value;
-	            this.setState({
-	                message: updated
-	            });
+	            // console.log('componentDidMount: '+JSON.stringify(this.props.user)) 
+	
+	            //    const taskId = this.props.params.id
+	            //    const task = this.props.tasks[taskId]
+	
+	            // console.log('componentDidMount: '+JSON.stringify(task)) 
+	
+	            //garb the task from the store:
+	
 	        }
 	    }, {
 	        key: 'submitMessage',
@@ -55183,15 +55186,16 @@
 	            var _this2 = this;
 	
 	            event.preventDefault();
+	            // console.log('submitMessage: '+JSON.stringify(this.state.message))
 	            var updated = Object.assign({}, this.state.message);
-	
 	            var user = this.props.account.user;
 	            updated['profile'] = {
 	                id: user.id,
-	                username: user.username
+	                usernaem: user.username
 	            };
 	
 	            updated['task'] = this.props.params.id;
+	            // console.log('submitMessage: '+JSON.stringify(updated))
 	
 	            var taskId = this.props.params.id;
 	            var task = this.props.tasks[taskId];
@@ -55205,15 +55209,27 @@
 	
 	                return _this2.props.notify(params);
 	            }).then(function (response) {
-	                alert('Thanks for replying! Good Luck!');
+	                alert('Thanks for replying! Good luck!');
 	            }).catch(function (err) {
-	                console.log('ERR: ' + JSON.stringify(err));
+	                console.log('ERR: ' + JSON.stringify(err.message));
+	            });
+	        }
+	    }, {
+	        key: 'updateMessage',
+	        value: function updateMessage(event) {
+	            // console.log('updateMessage: '+'event.target.id'+' == '+'event.target.value')
+	            // console.log('updateMessage: '+' == '+event.target.value)
+	            var updated = Object.assign({}, this.state.message);
+	            updated['text'] = event.target.value;
+	            // updated = event.target.value
+	            this.setState({
+	                message: updated
 	            });
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            // grab the task from the store:
+	            // garb the task from the store:
 	            var taskId = this.props.params.id;
 	            var task = this.props.tasks[taskId];
 	
@@ -55240,35 +55256,38 @@
 	                            null,
 	                            _utils.TextUtils.capitalize(task.category)
 	                        ),
+	                        ' ',
 	                        _react2.default.createElement('br', null),
 	                        _react2.default.createElement(
 	                            'strong',
 	                            null,
 	                            _utils.TextUtils.capitalize(task.profile.username)
 	                        ),
+	                        ' ',
 	                        _react2.default.createElement('br', null),
 	                        _utils.DateUtils.formattedDate(task.timestamp),
 	                        _react2.default.createElement('hr', null),
 	                        _react2.default.createElement(
 	                            'p',
 	                            null,
-	                            task.description
+	                            task.description,
+	                            ' '
 	                        )
 	                    )
 	                ),
 	                this.props.account.user == null ? _react2.default.createElement(
 	                    'h3',
 	                    null,
-	                    'Please Log in or Register to Reply'
+	                    'Please log in or Register to Reply.'
 	                ) : _react2.default.createElement(
 	                    'div',
 	                    null,
 	                    _react2.default.createElement(
-	                        'h3',
+	                        'h2',
 	                        null,
 	                        'Reply'
 	                    ),
-	                    _react2.default.createElement('textarea', { onChange: this.updateMessage.bind(this), placeholder: 'Enter Message to Respond' }),
+	                    _react2.default.createElement('textarea', { onChange: this.updateMessage.bind(this), placeholder: 'Enter Message to Respond', id: 'text' }),
 	                    _react2.default.createElement('br', null),
 	                    _react2.default.createElement(
 	                        'button',
