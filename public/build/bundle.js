@@ -55203,21 +55203,14 @@
 	            var task = this.props.tasks[taskId];
 	
 	            this.props.submitMessage(updated).then(function (response) {
-	                // console.log('MESSAGE CREATED: '+JSON.stringify(response))
-	                // alert('Thanks for replying! Good luck!')
-	                // TODO: send a notification to the task creator
 	                var params = {
-	                    // recipient: '9089061042',
-	                    // text: 'Hello from React'
 	                    recipient: task.profile.id,
 	                    text: updated.text,
 	                    taskResponder: updated.profile.username
-	                    // taskResponder: user.username
 	                };
-	                // console.log('params: '+params.updated.profile.username)
 	
 	                return _this2.props.notify(params);
-	            }).then(function (result) {
+	            }).then(function (response) {
 	                alert('Thanks for replying! Good luck!');
 	            }).catch(function (err) {
 	                console.log('ERR: ' + JSON.stringify(err.message));

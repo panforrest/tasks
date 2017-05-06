@@ -46,22 +46,15 @@ class Task extends Component {
 
         this.props.submitMessage(updated)
         .then(response => {
-            // console.log('MESSAGE CREATED: '+JSON.stringify(response))
-            // alert('Thanks for replying! Good luck!')
-            // TODO: send a notification to the task creator
             const params = {
-                // recipient: '9089061042',
-                // text: 'Hello from React'
-                recipient: task.profile.id,  
+                recipient: task.profile.id,
                 text: updated.text,
                 taskResponder: updated.profile.username
-                // taskResponder: user.username
             }
-            // console.log('params: '+params.updated.profile.username)
 
-            return this.props.notify(params) 
+            return this.props.notify(params)
         })
-        .then(result => {
+        .then(response => {
             alert('Thanks for replying! Good luck!') 
                
         })
