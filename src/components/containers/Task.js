@@ -35,7 +35,7 @@ class Task extends Component {
         const user = this.props.account.user
         updated['profile'] = {
             id: user.id,
-            usernaem: user.username
+            username: user.username
         }
 
         updated['task'] = this.props.params.id
