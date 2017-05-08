@@ -1,6 +1,6 @@
 import { combineReducers, applyMiddleware, createStore } from 'redux'
 import thunk from 'redux-thunk'
-import { taskReducer, accountReducer } from '../reducers'
+import { taskReducer, accountReducer, messageReducer } from '../reducers'
 
 var store;
 
@@ -10,8 +10,8 @@ export default {
         const reducers = combineReducers({  //var reducers = combineReducer(
 
             task: taskReducer,
-            account: accountReducer
-
+            account: accountReducer,
+            message: messageReducer
         })
 
         store = createStore(   //createStore({

@@ -126,7 +126,7 @@ const stateToProps = (state) => {
 	return {
 		tasks: state.task,
 		account: state.account,
-        message: state.message
+        messages: state.message
 	}
 }
 

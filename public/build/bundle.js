@@ -55362,7 +55362,7 @@
 	    return {
 	        tasks: state.task,
 	        account: state.account,
-	        message: state.message
+	        messages: state.message
 	    };
 	};
 	
@@ -55665,8 +55665,8 @@
 	        var reducers = (0, _redux.combineReducers)({ //var reducers = combineReducer(
 	
 	            task: _reducers.taskReducer,
-	            account: _reducers.accountReducer
-	
+	            account: _reducers.accountReducer,
+	            message: _reducers.messageReducer
 	        });
 	
 	        store = (0, _redux.createStore)( //createStore({
