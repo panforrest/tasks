@@ -55873,9 +55873,9 @@
 		var updated = Object.assign({}, state);
 	
 		switch (action.type) {
-			case constants.MESSAGES_RECEIVED:
+			case _constants2.default.MESSAGES_RECEIVED:
 				// console.log('MESSAGES_RECEIVED: '+JSON.stringify(action.payload))
-				var taskId = _constants2.default.params.taskId;
+				var taskId = actions.params.taskId;
 				updated[taskId] = action.payload;
 				console.log('MESSAGES_RECEIVED: ' + JSON.stringify(updated));
 				return updated;

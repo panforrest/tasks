@@ -1,4 +1,4 @@
-import actions from '../constants'
+import constants from '../constants'
 
 var initialState = {
 
