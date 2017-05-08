@@ -55868,14 +55868,14 @@
 	
 	exports.default = function () {
 		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-		var actions = arguments[1];
+		var action = arguments[1];
 	
 		var updated = Object.assign({}, state);
 	
 		switch (action.type) {
 			case constants.MESSAGES_RECEIVED:
 				// console.log('MESSAGES_RECEIVED: '+JSON.stringify(action.payload))
-				var taskId = actions.params.taskId;
+				var taskId = _actions2.default.params.taskId;
 				updated[taskId] = action.payload;
 				console.log('MESSAGES_RECEIVED: ' + JSON.stringify(updated));
 				return updated;

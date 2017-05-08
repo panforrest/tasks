@@ -4,7 +4,7 @@ var initialState = {
 
 }
 
-export default (state=initialState, actions) => {
+export default (state=initialState, action) => {
 	let updated = Object.assign({}, state)
 
 	switch (action.type){
