@@ -84,7 +84,7 @@ class Task extends Component {
 
             <section style={{paddingTop: 24}}>
                 <header className="major">
-                    <h2 style={{border:'none', marginBottom:0}}>{task.title} by {message.proifle.username}</h2>
+                    <h2 style={{border:'none', marginBottom:0}}>{task.title}</h2>
                 </header>
                 <div className="posts">
                     <article style={{background: '#f9f9f9', border:'1px solid #ddd', padding: 16}}>
@@ -102,7 +102,7 @@ class Task extends Component {
                 <ol>
                     { (messages == null) ? <p> No Replies </p> :
                         messages.map((message, i) => {
-                            return <li key={message.id}>{message.text}</li>
+                            return <li key={message.id}>{message.text} by {message.profile.username}</li>
                         })
                     }
                 </ol>

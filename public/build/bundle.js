@@ -55276,9 +55276,7 @@
 	                    _react2.default.createElement(
 	                        'h2',
 	                        { style: { border: 'none', marginBottom: 0 } },
-	                        task.title,
-	                        ' by ',
-	                        message.proifle.username
+	                        task.title
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -55326,7 +55324,9 @@
 	                            return _react2.default.createElement(
 	                                'li',
 	                                { key: message.id },
-	                                message.text
+	                                message.text,
+	                                ' by ',
+	                                message.profile.username
 	                            );
 	                        })
 	                    )
@@ -55873,20 +55873,11 @@
 		var updated = Object.assign({}, state);
 	
 		switch (action.type) {
-	
 			case _constants2.default.MESSAGES_RECEIVED:
-	
-				// PAYLOAD: 
-				// [{"profile":{"username":"firstuser",
-				// "id":"587d5d0502980937a4514b22"},
-				// "task":"587a817100b7444e1b6f7f7a","text":"awfeawef",
-				// "timestamp":"2017-01-21T17:32:04.960Z",
-				// "id":"58839b145602362452d6648c"}]
-	
-				var taskId = action.params.task;
+				// console.log('MESSAGES_RECEIVED: '+JSON.stringify(action.payload))
+				var taskId = action.params.task; //let taskId = actions.params.taskId
 				updated[taskId] = action.payload;
 				console.log('MESSAGES_RECEIVED: ' + JSON.stringify(updated));
-	
 				return updated;
 	
 			default:
