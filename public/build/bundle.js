@@ -55875,7 +55875,7 @@
 		switch (action.type) {
 			case _constants2.default.MESSAGES_RECEIVED:
 				// console.log('MESSAGES_RECEIVED: '+JSON.stringify(action.payload))
-				var taskId = actions.params.task; //let taskId = actions.params.taskId
+				var taskId = action.params.task; //let taskId = actions.params.taskId
 				updated[taskId] = action.payload;
 				console.log('MESSAGES_RECEIVED: ' + JSON.stringify(updated));
 				return updated;
