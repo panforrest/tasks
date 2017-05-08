@@ -10,7 +10,7 @@ export default (state=initialState, action) => {
 	switch (action.type){
 		case constants.MESSAGES_RECEIVED:
 		    // console.log('MESSAGES_RECEIVED: '+JSON.stringify(action.payload))
-		    let taskId = actions.params.taskId
+		    let taskId = actions.params.task  //let taskId = actions.params.taskId
 		    updated[taskId] = action.payload
 		    console.log('MESSAGES_RECEIVED: '+JSON.stringify(updated))
 		    return updated
