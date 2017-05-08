@@ -55858,9 +55858,9 @@
 		value: true
 	});
 	
-	var _actions = __webpack_require__(398);
+	var _constants = __webpack_require__(399);
 	
-	var _actions2 = _interopRequireDefault(_actions);
+	var _constants2 = _interopRequireDefault(_constants);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -55875,7 +55875,7 @@
 		switch (action.type) {
 			case constants.MESSAGES_RECEIVED:
 				// console.log('MESSAGES_RECEIVED: '+JSON.stringify(action.payload))
-				var taskId = _actions2.default.params.taskId;
+				var taskId = _constants2.default.params.taskId;
 				updated[taskId] = action.payload;
 				console.log('MESSAGES_RECEIVED: ' + JSON.stringify(updated));
 				return updated;
