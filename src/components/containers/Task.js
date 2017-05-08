@@ -17,7 +17,7 @@ class Task extends Component {
     }
 
     componentDidMount(){
-        // console.log('componentDidMount: '+JSON.stringify(this.props.user)) 
+        console.log('componentDidMount: '+JSON.stringify(this.props.params.id)) 
 
      //    const taskId = this.props.params.id
      //    const task = this.props.tasks[taskId]
@@ -25,7 +25,7 @@ class Task extends Component {
     	// console.log('componentDidMount: '+JSON.stringify(task)) 
 
     	//garb the task from the store:
-
+        this.props.fetchMessages(this.props.params.id)///this.props.fetchMessages(params)
     }
 
     submitMessage(event){
@@ -78,12 +78,13 @@ class Task extends Component {
 		// garb the task from the store:
         const taskId = this.props.params.id
         const task = this.props.tasks[taskId]
+        const message = this.props.messages[taskId]
 
 		return(
 
             <section style={{paddingTop: 24}}>
                 <header className="major">
-                    <h2 style={{border:'none', marginBottom:0}}>{task.title}</h2>
+                    <h2 style={{border:'none', marginBottom:0}}>{task.title} by {message.proifle.username}</h2>
                 </header>
                 <div className="posts">
                     <article style={{background: '#f9f9f9', border:'1px solid #ddd', padding: 16}}>
@@ -95,7 +96,19 @@ class Task extends Component {
                         <p>{task.description} </p>
 
 
-                    </article>                    
+                    </article>  
+
+                <h3>Replies</h3>
+                <ol>
+                    { (messages == null) ? <p> No Replies </p> :
+                        messages.map((message, i) => {
+                            return <li key={message.id}>{message.text}</li>
+                        })
+                    }
+                </ol>
+
+
+                
                 </div>
                     {(this.props.account.user == null) ? <h3>Please log in or Register to Reply.</h3> : 
                         <div><h2>Reply</h2>
@@ -112,14 +125,16 @@ class Task extends Component {
 const stateToProps = (state) => {
 	return {
 		tasks: state.task,
-		account: state.account
+		account: state.account,
+        message: state.message
 	}
 }
 
 const dispatchToProps = (dispatch) => {
 	return {
 		createMessage: (params) => dispatch(actions.submitMessage(params)),
-        notify: (params) => dispatch(actions.notify(params))
+        notify: (params) => dispatch(actions.notify(params)),
+        fetchMessages: (params) => dispatch(actions.fetchMessages(params))
 	}
 }
 

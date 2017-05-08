@@ -49185,6 +49185,13 @@
 				console.log('actions.notify: ' + JSON.stringify(params));
 				return dispatch(postRequest('/twilio/notify', params, null));
 			};
+		},
+	
+		fetchMessages: function fetchMessages(params) {
+			return function (dispatch) {
+				// return checkCurrentUser(getRequest('account/currentuser', {}, constants.USER_LOGGED_IN))
+				return dispatch(getRequest('api/message', params, _constants2.default.MESSAGES_RECEIVED));
+			};
 		}
 	};
 
@@ -49204,7 +49211,8 @@
 		TASKS_RECEIVED: 'TASKS_RECEIVED',
 		TASK_CREATED: 'TASK_CREATED',
 		CATEGORY_SELECTED: 'CATEGORY_SELECTED',
-		MESSAGE_CREATED: 'MESSAGE_CREATED'
+		MESSAGE_CREATED: 'MESSAGE_CREATED',
+		MESSAGES_RECEIVED: 'MESSAGES_RECEIVED'
 	};
 
 /***/ }),
@@ -55195,7 +55203,7 @@
 	    _createClass(Task, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            // console.log('componentDidMount: '+JSON.stringify(this.props.user)) 
+	            console.log('componentDidMount: ' + JSON.stringify(this.props.params.id));
 	
 	            //    const taskId = this.props.params.id
 	            //    const task = this.props.tasks[taskId]
@@ -55203,7 +55211,7 @@
 	            // console.log('componentDidMount: '+JSON.stringify(task)) 
 	
 	            //garb the task from the store:
-	
+	            this.props.fetchMessages(this.props.params.id); ///this.props.fetchMessages(params)
 	        }
 	    }, {
 	        key: 'submitMessage',
@@ -55257,6 +55265,7 @@
 	            // garb the task from the store:
 	            var taskId = this.props.params.id;
 	            var task = this.props.tasks[taskId];
+	            var message = this.props.messages[taskId];
 	
 	            return _react2.default.createElement(
 	                'section',
@@ -55267,7 +55276,9 @@
 	                    _react2.default.createElement(
 	                        'h2',
 	                        { style: { border: 'none', marginBottom: 0 } },
-	                        task.title
+	                        task.title,
+	                        ' by ',
+	                        message.proifle.username
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -55298,6 +55309,26 @@
 	                            task.description,
 	                            ' '
 	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'h3',
+	                        null,
+	                        'Replies'
+	                    ),
+	                    _react2.default.createElement(
+	                        'ol',
+	                        null,
+	                        messages == null ? _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            ' No Replies '
+	                        ) : messages.map(function (message, i) {
+	                            return _react2.default.createElement(
+	                                'li',
+	                                { key: message.id },
+	                                message.text
+	                            );
+	                        })
 	                    )
 	                ),
 	                this.props.account.user == null ? _react2.default.createElement(
@@ -55330,7 +55361,8 @@
 	var stateToProps = function stateToProps(state) {
 	    return {
 	        tasks: state.task,
-	        account: state.account
+	        account: state.account,
+	        message: state.message
 	    };
 	};
 	
@@ -55341,6 +55373,9 @@
 	        },
 	        notify: function notify(params) {
 	            return dispatch(_actions2.default.notify(params));
+	        },
+	        fetchMessages: function fetchMessages(params) {
+	            return dispatch(_actions2.default.fetchMessages(params));
 	        }
 	    };
 	};
@@ -55685,7 +55720,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.accountReducer = exports.taskReducer = undefined;
+	exports.messageReducer = exports.accountReducer = exports.taskReducer = undefined;
 	
 	var _taskReducer = __webpack_require__(464);
 	
@@ -55695,10 +55730,15 @@
 	
 	var _accountReducer2 = _interopRequireDefault(_accountReducer);
 	
+	var _messageReducer = __webpack_require__(466);
+	
+	var _messageReducer2 = _interopRequireDefault(_messageReducer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.taskReducer = _taskReducer2.default;
 	exports.accountReducer = _accountReducer2.default;
+	exports.messageReducer = _messageReducer2.default;
 
 /***/ }),
 /* 464 */
@@ -55805,6 +55845,43 @@
 	
 			default:
 				return state;
+		}
+	};
+
+/***/ }),
+/* 466 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _actions = __webpack_require__(398);
+	
+	var _actions2 = _interopRequireDefault(_actions);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var initialState = {};
+	
+	exports.default = function () {
+		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+		var actions = arguments[1];
+	
+		var updated = Object.assign({}, state);
+	
+		switch (action.type) {
+			case constants.MESSAGES_RECEIVED:
+				// console.log('MESSAGES_RECEIVED: '+JSON.stringify(action.payload))
+				var taskId = actions.params.taskId;
+				updated[taskId] = action.payload;
+				console.log('MESSAGES_RECEIVED: ' + JSON.stringify(updated));
+				return updated;
+	
+			default:
+				return;
 		}
 	};
 

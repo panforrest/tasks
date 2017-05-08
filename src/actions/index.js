@@ -100,5 +100,12 @@ export default {
 			console.log('actions.notify: '+JSON.stringify(params))
 			return dispatch(postRequest('/twilio/notify', params, null))
 		}
+	},
+
+	fetchMessages: (params) => {
+		return(dispatch) => {
+			// return checkCurrentUser(getRequest('account/currentuser', {}, constants.USER_LOGGED_IN))
+			return dispatch(getRequest('api/message', params, constants.MESSAGES_RECEIVED))
+		}		
 	}
 }
