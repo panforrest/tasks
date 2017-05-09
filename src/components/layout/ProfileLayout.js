@@ -6,7 +6,7 @@ class ProfileLayout extends Component {
 		return(
 			<div>
 			    ProfileLayout.
-			    <Profile />
+			    <Profile {...this.props} />
 			</div>
 		)
 	}

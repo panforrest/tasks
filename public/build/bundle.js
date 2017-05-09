@@ -55636,7 +55636,7 @@
 					'div',
 					null,
 					'ProfileLayout.',
-					_react2.default.createElement(_containers.Profile, null)
+					_react2.default.createElement(_containers.Profile, this.props)
 				);
 			}
 		}]);
