@@ -55458,22 +55458,7 @@
 				return _react2.default.createElement(
 					'div',
 					null,
-					'Profile Container // ',
-					_react2.default.createElement('br', null),
-					'// ',
-					_react2.default.createElement(
-						'span',
-						null,
-						this.props.profile.username
-					),
-					'// ',
-					_react2.default.createElement('br', null),
-					'// ',
-					_react2.default.createElement(
-						'span',
-						null,
-						this.props.profile.email
-					)
+					'Profile Container'
 				);
 			}
 		}]);
@@ -55485,7 +55470,7 @@
 		return {
 			message: state.message,
 			// profile: state.account.user,  //alway logged in person, not profile
-			profile: state.profile
+			profiles: state.profile
 		};
 	};
 	
@@ -55953,7 +55938,7 @@
 	
 	    var updated = Object.assign({}, state);
 	    switch (action.type) {
-	        case constant.PROFILE_RECEIVED:
+	        case _constants2.default.PROFILE_RECEIVED:
 	            console.log("PROFILE_RECEIVED: " + JSON.stringify(action.payload));
 	            return updated;
 	
