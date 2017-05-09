@@ -55446,13 +55446,13 @@
 					_react2.default.createElement(
 						'span',
 						null,
-						this.props.profile.id
+						this.props.profile.username
 					),
 					_react2.default.createElement('br', null),
 					_react2.default.createElement(
 						'span',
 						null,
-						this.props.profile.username
+						this.props.profile.email
 					)
 				);
 			}
@@ -55466,7 +55466,7 @@
 			// task: state.task,
 			// account: state.account
 			message: state.message,
-			profile: state.account
+			profile: state.account.user
 		};
 	};
 	

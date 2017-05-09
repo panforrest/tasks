@@ -15,9 +15,9 @@ class Profile extends Component{
 		return(
 			<div>
 			    Profile Container.
-			    <span>{this.props.profile.id}</span>
-			    <br />
 			    <span>{this.props.profile.username}</span>
+			    <br />
+			    <span>{this.props.profile.email}</span>
 			</div>
 		)
 	}
@@ -28,7 +28,7 @@ const stateToProps = (state) => {
         // task: state.task,
         // account: state.account
         message: state.message,
-        profile: state.account
+        profile: state.account.user
 	}
 }
 
