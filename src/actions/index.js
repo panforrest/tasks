@@ -36,12 +36,18 @@ const postRequest = (path, params, actionType) => {	//const getRequest: (path, p
 			return response
 		})
 		.catch( err => {
-            console.log('ERR: '+JSON.stringify(err.message))
+            // console.log('ERR: '+JSON.stringify(err.message))
             throw err
 		})	
 }
 
 export default {
+
+	fetchProfile: (id) => {
+		return(dispatch) => {
+			return dispatch(getRequest('/api/profile/'+id, null, constants.PROFILE_RECEIVED))  //getRequest
+		}
+	},
 
 	register: (credentials) => {
         return (dispatch) => {
@@ -107,5 +113,7 @@ export default {
 			// return checkCurrentUser(getRequest('account/currentuser', {}, constants.USER_LOGGED_IN))
 			return dispatch(getRequest('/api/message', params, constants.MESSAGES_RECEIVED))
 		}		
-	}
+	},
+
+
 }

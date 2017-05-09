@@ -49120,13 +49120,19 @@
 				});
 				return response;
 			}).catch(function (err) {
-				console.log('ERR: ' + JSON.stringify(err.message));
+				// console.log('ERR: '+JSON.stringify(err.message))
 				throw err;
 			});
 		};
 	};
 	
 	exports.default = {
+	
+		fetchProfile: function fetchProfile(id) {
+			return function (dispatch) {
+				return dispatch(getRequest('/api/profile/' + id, null, _constants2.default.PROFILE_RECEIVED)); //getRequest
+			};
+		},
 	
 		register: function register(credentials) {
 			return function (dispatch) {
@@ -49193,6 +49199,7 @@
 				return dispatch(getRequest('/api/message', params, _constants2.default.MESSAGES_RECEIVED));
 			};
 		}
+	
 	};
 
 /***/ }),
@@ -49206,6 +49213,7 @@
 	});
 	exports.default = {
 		// REGISTER: 'REGISTER',
+		PROFILE_RECEIVED: 'PROFILE_RECEIVED',
 		PROFILE_CREATED: 'PROFILE_CREATED',
 		USER_LOGGED_IN: 'USER_LOGGED_IN',
 		TASKS_RECEIVED: 'TASKS_RECEIVED',
@@ -55430,9 +55438,13 @@
 		_createClass(Profile, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				console.log('PROFILE: ' + JSON.stringify(this.props.profile));
-				console.log('MESSAGE: ' + JSON.stringify(this.props.message));
-				console.log('PARAMS: ' + JSON.stringify(this.props.params));
+				var id = this.props.params.id;
+				console.log('ID: ' + id);
+				// let path = '/api/profile'
+				this.props.fetchProfile(id);
+				// console.log('PROFILE: '+JSON.stringify(this.props.profile))
+				// console.log('MESSAGE: '+JSON.stringify(this.props.message))
+				// console.log('PARAMS: '+JSON.stringify(this.props.params))
 	
 				//		console.log(JSON.stringify(this.props.profile))
 			}
@@ -55465,11 +55477,20 @@
 	var stateToProps = function stateToProps(state) {
 		return {
 			message: state.message,
-			profile: state.account.user
+			// profile: state.account.user,  //alway logged in person, not profile
+			profile: state.profile
 		};
 	};
 	
-	exports.default = (0, _reactRedux.connect)(stateToProps)(Profile);
+	var dispatchToProps = function dispatchToProps(dispatch) {
+		return {
+			fetchProfile: function fetchProfile(id) {
+				return dispatch(_actions2.default.fetchProfile(id));
+			}
+		};
+	};
+	
+	exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Profile);
 
 /***/ }),
 /* 459 */
@@ -55676,7 +55697,8 @@
 	
 	            task: _reducers.taskReducer,
 	            account: _reducers.accountReducer,
-	            message: _reducers.messageReducer
+	            message: _reducers.messageReducer,
+	            profile: _reducers.profileReducer
 	        });
 	
 	        store = (0, _redux.createStore)( //createStore({
@@ -55730,7 +55752,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.messageReducer = exports.accountReducer = exports.taskReducer = undefined;
+	exports.profileReducer = exports.messageReducer = exports.accountReducer = exports.taskReducer = undefined;
 	
 	var _taskReducer = __webpack_require__(464);
 	
@@ -55744,11 +55766,16 @@
 	
 	var _messageReducer2 = _interopRequireDefault(_messageReducer);
 	
+	var _profileReducer = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./profileReducer\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	
+	var _profileReducer2 = _interopRequireDefault(_profileReducer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.taskReducer = _taskReducer2.default;
 	exports.accountReducer = _accountReducer2.default;
 	exports.messageReducer = _messageReducer2.default;
+	exports.profileReducer = _profileReducer2.default;
 
 /***/ }),
 /* 464 */
@@ -55844,12 +55871,12 @@
 	
 		switch (action.type) {
 			case _constants2.default.PROFILE_CREATED:
-				console.log('PROFILE_CREATED: ' + JSON.stringify(action.payload)); //console.log('PROFILE_CREATED: '+action.profile)
+				// console.log('PROFILE_CREATED: '+JSON.stringify(action.payload))   //console.log('PROFILE_CREATED: '+action.profile)
 				updated['user'] = action.payload;
 				return updated;
 	
 			case _constants2.default.USER_LOGGED_IN:
-				console.log('USER_LOGGED_IN: ' + JSON.stringify(action.payload));
+				// console.log('USER_LOGGED_IN: '+JSON.stringify(action.payload))
 				updated['user'] = action.payload;
 				return updated;
 	
