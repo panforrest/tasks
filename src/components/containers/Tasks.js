@@ -178,7 +178,7 @@ const dispatchToProps = (dispatch) => {
     return {
         fetchTasks: (params) => dispatch(actions.fetchTasks(params)),
         tasksReceived: (tasks) => dispatch(actions.tasksReceived(tasks)),
-        submitTask: (task) => dispatch(actions.submitTask(task)),
+        submitTask: (params) => dispatch(actions.submitTask(params)),  //submitTask: (task) => dispatch(actions.submitTask(task)),
         // selectCategory: (category) => dispatch(actions.selectCategory(category))
         // taskCreated: (params) => dispatch(actions.taskCreated(params))
     }

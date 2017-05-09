@@ -22270,10 +22270,9 @@
 	        tasksReceived: function tasksReceived(tasks) {
 	            return dispatch(_actions2.default.tasksReceived(tasks));
 	        },
-	        submitTask: function submitTask(task) {
-	            return dispatch(_actions2.default.submitTask(task));
-	        }
-	    };
+	        submitTask: function submitTask(params) {
+	            return dispatch(_actions2.default.submitTask(params));
+	        } };
 	};
 	
 	exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Tasks);
