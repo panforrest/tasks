@@ -25,7 +25,7 @@ class Task extends Component {
     	// console.log('componentDidMount: '+JSON.stringify(task)) 
 
     	//garb the task from the store:
-        this.props.fetchMessages(this.props.params.id)///this.props.fetchMessages(params)
+        this.props.fetchMessages({task: this.props.params.id})///this.props.fetchMessages(params)
     }
 
     submitMessage(event){
