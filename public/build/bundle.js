@@ -49190,7 +49190,7 @@
 		fetchMessages: function fetchMessages(params) {
 			return function (dispatch) {
 				// return checkCurrentUser(getRequest('account/currentuser', {}, constants.USER_LOGGED_IN))
-				return dispatch(getRequest('api/message', params, _constants2.default.MESSAGES_RECEIVED));
+				return dispatch(getRequest('/api/message', params, _constants2.default.MESSAGES_RECEIVED));
 			};
 		}
 	};

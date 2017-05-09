@@ -105,7 +105,7 @@ export default {
 	fetchMessages: (params) => {
 		return(dispatch) => {
 			// return checkCurrentUser(getRequest('account/currentuser', {}, constants.USER_LOGGED_IN))
-			return dispatch(getRequest('api/message', params, constants.MESSAGES_RECEIVED))
+			return dispatch(getRequest('/api/message', params, constants.MESSAGES_RECEIVED))
 		}		
 	}
 }
