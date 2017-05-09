@@ -6,9 +6,9 @@ class Profile extends Component{
     componentDidMount(){
     	// console.log('PROFILE: '+JSON.stringify(this.props.params.id))
     	// console.log('ID: '+JSON.stringify(this.props.profile))
-    	console.log('PROFILE: '+this.props.profile)
-    	console.log('MESSAGE: '+this.props.message)
-    	console.log('PARAMS: '+this.props.params)
+    	console.log('PROFILE: '+JSON.stringify(this.props.profile))
+    	console.log('MESSAGE: '+JSON.stringify(this.props.message))
+    	console.log('PARAMS: '+JSON.stringify(this.props.params))
     }
 
 	render(){
