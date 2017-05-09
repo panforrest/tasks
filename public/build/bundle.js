@@ -55430,11 +55430,11 @@
 		_createClass(Profile, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				// console.log('PROFILE: '+JSON.stringify(this.props.params.id))
-				// console.log('ID: '+JSON.stringify(this.props.profile))
 				console.log('PROFILE: ' + JSON.stringify(this.props.profile));
 				console.log('MESSAGE: ' + JSON.stringify(this.props.message));
 				console.log('PARAMS: ' + JSON.stringify(this.props.params));
+	
+				//		console.log(JSON.stringify(this.props.profile))
 			}
 		}, {
 			key: 'render',
@@ -55442,7 +55442,8 @@
 				return _react2.default.createElement(
 					'div',
 					null,
-					'Profile Container.',
+					'Profile Container',
+					_react2.default.createElement('br', null),
 					_react2.default.createElement(
 						'span',
 						null,
@@ -55463,8 +55464,6 @@
 	
 	var stateToProps = function stateToProps(state) {
 		return {
-			// task: state.task,
-			// account: state.account
 			message: state.message,
 			profile: state.account.user
 		};
@@ -55632,10 +55631,11 @@
 		_createClass(ProfileLayout, [{
 			key: 'render',
 			value: function render() {
+	
 				return _react2.default.createElement(
 					'div',
 					null,
-					'ProfileLayout.',
+					'Hello Profile Layout',
 					_react2.default.createElement(_containers.Profile, this.props)
 				);
 			}

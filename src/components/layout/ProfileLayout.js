@@ -3,10 +3,11 @@ import { Profile } from '../containers'
 
 class ProfileLayout extends Component {
 	render(){
-		return(
+
+		return (
 			<div>
-			    ProfileLayout.
-			    <Profile {...this.props} />
+				Hello Profile Layout
+				<Profile {...this.props} />
 			</div>
 		)
 	}
