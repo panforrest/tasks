@@ -55265,7 +55265,7 @@
 	            // garb the task from the store:
 	            var taskId = this.props.params.id;
 	            var task = this.props.tasks[taskId];
-	            var message = this.props.messages[taskId];
+	            var messages = this.props.messages[taskId];
 	
 	            return _react2.default.createElement(
 	                'section',
@@ -55307,29 +55307,29 @@
 	                            task.description,
 	                            ' '
 	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'h3',
-	                        null,
-	                        'Replies'
-	                    ),
-	                    _react2.default.createElement(
-	                        'ol',
-	                        null,
-	                        messages == null ? _react2.default.createElement(
-	                            'p',
-	                            null,
-	                            ' No Replies '
-	                        ) : messages.map(function (message, i) {
-	                            return _react2.default.createElement(
-	                                'li',
-	                                { key: message.id },
-	                                message.text,
-	                                ' by ',
-	                                message.profile.username
-	                            );
-	                        })
 	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    'Replies'
+	                ),
+	                _react2.default.createElement(
+	                    'ol',
+	                    null,
+	                    messages == null ? _react2.default.createElement(
+	                        'p',
+	                        null,
+	                        ' No Replies '
+	                    ) : messages.map(function (message, i) {
+	                        return _react2.default.createElement(
+	                            'li',
+	                            { key: message.id },
+	                            message.text,
+	                            ' by ',
+	                            message.profile.username
+	                        );
+	                    })
 	                ),
 	                this.props.account.user == null ? _react2.default.createElement(
 	                    'h3',

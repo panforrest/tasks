@@ -78,7 +78,7 @@ class Task extends Component {
 		// garb the task from the store:
         const taskId = this.props.params.id
         const task = this.props.tasks[taskId]
-        const message = this.props.messages[taskId]
+        const messages = this.props.messages[taskId]
 
 		return(
 
@@ -97,7 +97,7 @@ class Task extends Component {
 
 
                     </article>  
-
+                </div>
                 <h3>Replies</h3>
                 <ol>
                     { (messages == null) ? <p> No Replies </p> :
@@ -109,7 +109,7 @@ class Task extends Component {
 
 
                 
-                </div>
+                
                     {(this.props.account.user == null) ? <h3>Please log in or Register to Reply.</h3> : 
                         <div><h2>Reply</h2>
                             <textarea onChange={this.updateMessage.bind(this)} placeholder="Enter Message to Respond" id="text"></textarea><br />
