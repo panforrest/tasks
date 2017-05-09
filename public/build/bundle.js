@@ -55951,7 +55951,7 @@
 	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
 	    var action = arguments[1];
 	
-	    var updated = Object.assing({}, state);
+	    var updated = Object.assign({}, state);
 	    switch (action.type) {
 	        case constant.PROFILE_RECEIVED:
 	            console.log("PROFILE_RECEIVED: " + JSON.stringify(action.payload));
