@@ -21860,8 +21860,6 @@
 	
 	var _containers = __webpack_require__(184);
 	
-	var _layout = __webpack_require__(182);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21870,6 +21868,9 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // <Categories />
 	
+	
+	//Profile should not be imported here
+	// import { ProfileLayout } from '../layout'//ProfileLayout should not be imported to Home.js page here
 	
 	var Home = function (_Component) {
 		_inherits(Home, _Component);
@@ -21981,7 +21982,6 @@
 					_react2.default.createElement(
 						'div',
 						{ id: 'sidebar' },
-						_react2.default.createElement(_layout.ProfileLayout, null),
 						_react2.default.createElement(_containers.Categories, null)
 					)
 				);
@@ -55387,24 +55387,7 @@
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // let profile = this.props.profiles
-	//       if (profile == null)
-	//           return <div>Not Found</div>
-	//       else if (profile[this.props.params.id] == null)
-	//           return <div>Not Found</div> 
-	//       else {
-	//       	profile = profile[this.props.params.id]
-	//        return (
-	//        	<div>
-	//        		Profile Container
-	// 			<br />
-	// 			<span>{profile.username}</span>
-	// 			<br />
-	// 			<span>{profile.email}</span>
-	// 		</div>	
-	//       	)
-	//       }
-	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var Profile = function (_Component) {
 		_inherits(Profile, _Component);

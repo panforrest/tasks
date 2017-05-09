@@ -1,7 +1,7 @@
 // <Categories />
 import React, { Component } from 'react'
-import { Tasks, Categories, Account, Profile } from '../containers'
-import { ProfileLayout } from '../layout'
+import { Tasks, Categories, Account } from '../containers'//Profile should not be imported here
+// import { ProfileLayout } from '../layout'//ProfileLayout should not be imported to Home.js page here
 
 class Home extends Component {
 	render(){
@@ -31,7 +31,7 @@ class Home extends Component {
 	          </div>
 
 	          <div id="sidebar">
-	              <ProfileLayout />
+	            
                   <Categories />
 
 	          </div>
