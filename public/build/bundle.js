@@ -55424,11 +55424,7 @@
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // <br />
-	// <span>{this.props.profile.username}</span>
-	// <br />
-	// <span>{this.props.profile.email}</span>
-	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var Profile = function (_Component) {
 		_inherits(Profile, _Component);
@@ -55455,11 +55451,35 @@
 		}, {
 			key: 'render',
 			value: function render() {
-				return _react2.default.createElement(
+				var profile = this.props.profiles;
+				if (profile == null) return _react2.default.createElement(
 					'div',
 					null,
-					'Profile Container'
-				);
+					'Not Found'
+				);else if (profile[this.props.params.id] == null) return _react2.default.createElement(
+					'div',
+					null,
+					'Not Found'
+				);else {
+					profile = profile[this.props.params.id];
+					return _react2.default.createElement(
+						'div',
+						null,
+						'Profile Container',
+						_react2.default.createElement('br', null),
+						_react2.default.createElement(
+							'span',
+							null,
+							profile.username
+						),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement(
+							'span',
+							null,
+							profile.email
+						)
+					);
+				}
 			}
 		}]);
 	
@@ -55468,7 +55488,7 @@
 	
 	var stateToProps = function stateToProps(state) {
 		return {
-			message: state.message,
+			// message: state.message,
 			// profile: state.account.user,  //alway logged in person, not profile
 			profiles: state.profile
 		};
@@ -55940,6 +55960,8 @@
 	    switch (action.type) {
 	        case _constants2.default.PROFILE_RECEIVED:
 	            console.log("PROFILE_RECEIVED: " + JSON.stringify(action.payload));
+	            var profile = action.payload;
+	            updated[profile.id] = profile; //updated['profile'] = profile
 	            return updated;
 	
 	        default:

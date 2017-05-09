@@ -1,7 +1,3 @@
-				// <br />
-				// <span>{this.props.profile.username}</span>
-				// <br />
-				// <span>{this.props.profile.email}</span>
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import actions from '../../actions'
@@ -21,19 +17,29 @@ class Profile extends Component {
 	}
 
 	render(){
-		return (
-			<div>
-				Profile Container
-
-
-			</div>
-		)
+		let profile = this.props.profiles
+        if (profile == null)
+            return <div>Not Found</div>
+        else if (profile[this.props.params.id] == null)
+            return <div>Not Found</div> 
+        else {
+        	profile = profile[this.props.params.id]
+	        return (
+	        	<div>
+	        		Profile Container
+					<br />
+					<span>{profile.username}</span>
+					<br />
+					<span>{profile.email}</span>
+				</div>	
+        	)
+        }
 	}
 }
 
 const stateToProps = (state) => {
 	return {
-		message: state.message,
+		// message: state.message,
 		// profile: state.account.user,  //alway logged in person, not profile
 		profiles: state.profile
 	}

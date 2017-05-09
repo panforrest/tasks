@@ -9,6 +9,8 @@ export default (state=initialState, action) => {
 	switch(action.type){
         case constants.PROFILE_RECEIVED:
             console.log("PROFILE_RECEIVED: "+JSON.stringify(action.payload))
+            let profile = action.payload
+            updated[profile.id] = profile  //updated['profile'] = profile
             return updated
 
         default:
