@@ -49087,8 +49087,10 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var getRequest = function getRequest(path, params, actionType) {
+		//const getRequest: (path, params) => {	
 		return function (dispatch) {
 			return _utils.APIManager.get(path, params).then(function (response) {
+				// console.log('GET: '+JSON.stringify(response))
 				var payload = response.results || response.result || response.user;
 	
 				dispatch({
@@ -49096,17 +49098,19 @@
 					payload: payload,
 					params: params
 				});
-	
 				return response;
 			}).catch(function (err) {
+				// console.log('ERR: '+JSON.stringify(err.message))
 				throw err;
 			});
 		};
 	};
 	
 	var postRequest = function postRequest(path, params, actionType) {
+		//const getRequest: (path, params) => {	
 		return function (dispatch) {
 			return _utils.APIManager.post(path, params).then(function (response) {
+				// console.log('POST: '+JSON.stringify(response))
 				var payload = response.results || response.result || response.user;
 	
 				dispatch({
@@ -49114,9 +49118,9 @@
 					payload: payload,
 					params: params
 				});
-	
 				return response;
 			}).catch(function (err) {
+				console.log('ERR: ' + JSON.stringify(err.message));
 				throw err;
 			});
 		};
@@ -49126,19 +49130,21 @@
 	
 		register: function register(credentials) {
 			return function (dispatch) {
+				// return dispatch(postRequest('/api/profile', credentials, constants.PROFILE_CREATED))  //NOT params here
 				return dispatch(postRequest('/account/register', credentials, _constants2.default.PROFILE_CREATED));
 			};
 		},
 	
 		login: function login(credentials) {
 			return function (dispatch) {
-				return dispatch(postRequest('/account/login', credentials, _constants2.default.USER_LOGGED_IN));
+				return dispatch(postRequest('/account/login', credentials, _constants2.default.USER_LOGGED_IN)); //getRequest
 			};
 		},
 	
 		checkCurrentUser: function checkCurrentUser() {
 			return function (dispatch) {
-				return dispatch(getRequest('/account/currentuser', {}, _constants2.default.USER_LOGGED_IN));
+				// return checkCurrentUser(getRequest('account/currentuser', {}, constants.USER_LOGGED_IN))
+				return dispatch(getRequest('account/currentuser', {}, _constants2.default.USER_LOGGED_IN));
 			};
 		},
 	
@@ -49176,23 +49182,17 @@
 	
 		notify: function notify(params) {
 			return function (dispatch) {
+				console.log('actions.notify: ' + JSON.stringify(params));
 				return dispatch(postRequest('/twilio/notify', params, null));
 			};
 		},
 	
 		fetchMessages: function fetchMessages(params) {
 			return function (dispatch) {
-				return dispatch(getRequest('/api/message', params, _constants2.default.MESSAGES_RECEIVED));
+				// return checkCurrentUser(getRequest('account/currentuser', {}, constants.USER_LOGGED_IN))
+				return dispatch(getRequest('api/message', params, _constants2.default.MESSAGES_RECEIVED));
 			};
 		}
-	
-		// taskCreated: (task) => {
-		// 	return {
-		// 		type: constants.TASK_CREATED,
-		// 		payload: task
-		// 	}
-		// }
-	
 	};
 
 /***/ }),
