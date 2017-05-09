@@ -11,7 +11,7 @@ export default (state=initialState, action) => {
             console.log("PROFILE_RECEIVED: "+JSON.stringify(action.payload))
             return updated
 
-        case default:
+        default:
             return state
 	}
 }
