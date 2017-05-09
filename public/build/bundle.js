@@ -55172,6 +55172,8 @@
 	
 	var _utils = __webpack_require__(186);
 	
+	var _reactRouter = __webpack_require__(400);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55180,8 +55182,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // <Time value={task.timestamp} format="MMM DD, YYYY" />
 	
-	
 	// import Time from 'react-time'
+	
 	
 	var Task = function (_Component) {
 	    _inherits(Task, _Component);
@@ -55326,8 +55328,12 @@
 	                            'li',
 	                            { key: message.id },
 	                            message.text,
-	                            ' by ',
-	                            message.profile.username
+	                            ' by',
+	                            _react2.default.createElement(
+	                                _reactRouter.Link,
+	                                { to: '/profile/' + message.proifle.id },
+	                                message.profile.username
+	                            )
 	                        );
 	                    })
 	                ),

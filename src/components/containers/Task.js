@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import actions from '../../actions'
 import { TextUtils, DateUtils } from '../../utils'
 // import Time from 'react-time'
+import { Link } from 'react-router'
 
 class Task extends Component {
     constructor(){
@@ -102,7 +103,11 @@ class Task extends Component {
                 <ol>
                     { (messages == null) ? <p> No Replies </p> :
                         messages.map((message, i) => {
-                            return <li key={message.id}>{message.text} by {message.profile.username}</li>
+                            return <li key={message.id}>{message.text} by
+                                <Link to={'/profile/'+message.proifle.id}> 
+                                    {message.profile.username}
+                                </Link>
+                            </li>
                         })
                     }
                 </ol>
