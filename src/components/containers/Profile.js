@@ -4,8 +4,11 @@ import actions from '../../actions'
 
 class Profile extends Component{
     componentDidMount(){
-    	// console.log('ID: '+JSON.stringify(this.props.params.id))
-    	console.log('ID: '+JSON.stringify(this.props.profile))
+    	// console.log('PROFILE: '+JSON.stringify(this.props.params.id))
+    	// console.log('ID: '+JSON.stringify(this.props.profile))
+    	console.log('PROFILE: '+this.props.profile)
+    	console.log('MESSAGE: '+this.props.message)
+    	console.log('PARAMS: '+this.props.params)
     }
 
 	render(){
