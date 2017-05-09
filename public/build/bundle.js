@@ -55431,11 +55431,35 @@
 		}, {
 			key: 'render',
 			value: function render() {
-				return _react2.default.createElement(
+				var profile = this.props.profiles;
+				if (profile == null) return _react2.default.createElement(
 					'div',
 					null,
-					'something'
-				);
+					'Not Found'
+				);else if (profile[this.props.params.id] == null) return _react2.default.createElement(
+					'div',
+					null,
+					'Not Found'
+				);else {
+					profile = profile[this.props.params.id];
+					return _react2.default.createElement(
+						'div',
+						null,
+						'Profile Container',
+						_react2.default.createElement('br', null),
+						_react2.default.createElement(
+							'span',
+							null,
+							profile.username
+						),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement(
+							'span',
+							null,
+							profile.email
+						)
+					);
+				}
 			}
 		}]);
 	
