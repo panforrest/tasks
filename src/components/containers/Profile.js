@@ -24,6 +24,7 @@ const stateToProps = (state) => {
 	return {
         // task: state.task,
         // account: state.account
+        message: state.message,
         profile: state.account
 	}
 }

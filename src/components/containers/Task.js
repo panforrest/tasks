@@ -104,7 +104,7 @@ class Task extends Component {
                     { (messages == null) ? <p> No Replies </p> :
                         messages.map((message, i) => {
                             return <li key={message.id}>{message.text} by
-                                <Link to={'/profile/'+message.proifle.id}> 
+                                <Link to={'/profile/'+message.profile.id}> 
                                     {message.profile.username}
                                 </Link>
                             </li>

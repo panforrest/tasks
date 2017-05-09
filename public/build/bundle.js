@@ -55331,7 +55331,7 @@
 	                            ' by',
 	                            _react2.default.createElement(
 	                                _reactRouter.Link,
-	                                { to: '/profile/' + message.proifle.id },
+	                                { to: '/profile/' + message.profile.id },
 	                                message.profile.username
 	                            )
 	                        );
@@ -55462,6 +55462,7 @@
 		return {
 			// task: state.task,
 			// account: state.account
+			message: state.message,
 			profile: state.account
 		};
 	};
