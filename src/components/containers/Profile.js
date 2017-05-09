@@ -1,3 +1,20 @@
+		// let profile = this.props.profiles
+  //       if (profile == null)
+  //           return <div>Not Found</div>
+  //       else if (profile[this.props.params.id] == null)
+  //           return <div>Not Found</div> 
+  //       else {
+  //       	profile = profile[this.props.params.id]
+	 //        return (
+	 //        	<div>
+	 //        		Profile Container
+		// 			<br />
+		// 			<span>{profile.username}</span>
+		// 			<br />
+		// 			<span>{profile.email}</span>
+		// 		</div>	
+  //       	)
+  //       }
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import actions from '../../actions'
@@ -17,23 +34,8 @@ class Profile extends Component {
 	}
 
 	render(){
-		let profile = this.props.profiles
-        if (profile == null)
-            return <div>Not Found</div>
-        else if (profile[this.props.params.id] == null)
-            return <div>Not Found</div> 
-        else {
-        	profile = profile[this.props.params.id]
-	        return (
-	        	<div>
-	        		Profile Container
-					<br />
-					<span>{profile.username}</span>
-					<br />
-					<span>{profile.email}</span>
-				</div>	
-        	)
-        }
+		return(<div>something</div>)
+
 	}
 }
 
@@ -52,4 +54,5 @@ const dispatchToProps = (dispatch) => {
 }
 
 export default connect(stateToProps, dispatchToProps)(Profile)
+
 

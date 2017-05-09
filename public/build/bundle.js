@@ -22066,12 +22066,7 @@
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // <CreateTask onSubmitTask={this.createTask.bind(this)}/>
-	
-	// import { taskReducer } from '../../reducers'
-	
-	
-	//import { Line } from 'react-router'
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var Tasks = function (_Component) {
 	    _inherits(Tasks, _Component);
@@ -22079,16 +22074,13 @@
 	    function Tasks() {
 	        _classCallCheck(this, Tasks);
 	
-	        var _this = _possibleConstructorReturn(this, (Tasks.__proto__ || Object.getPrototypeOf(Tasks)).call(this));
-	
-	        _this.getTask = _this.getTasks.bind(_this);
-	        return _this;
+	        return _possibleConstructorReturn(this, (Tasks.__proto__ || Object.getPrototypeOf(Tasks)).apply(this, arguments));
 	    }
 	
 	    _createClass(Tasks, [{
 	        key: 'getTasks',
 	        value: function getTasks() {
-	            console.log('getTasks: ' + this.props.tasks.selectedCategory);
+	            //      console.log('getTasks: '+this.props.tasks.selectedCategory)
 	            if (this.props.tasks[this.props.tasks.selectedCategory] != null) return;
 	
 	            this.props.fetchTasks({ category: this.props.tasks.selectedCategory }).then(function (results) {}).catch(function (err) {
@@ -22098,93 +22090,27 @@
 	    }, {
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            // console.log('componentDidUpdate: '+this.props.tasks.selectedCategory)        
-	            this.getTask();
-	            // console.log('componentDidMount: ')
-	            // APIManager.get('/api/task', function(err, results){
-	            //        if (err) {
-	            //        	alert(err)
-	            //        	return
-	            //        }
-	            //        console.log('componentDidMount: '+JSON.stringify(results.body))
-	            // })
-	
-	
-	            // APIManager.get('/api/task', (err, results) => {
-	            // 	.then((results) => {
-	            //            console.log(JSON.stringify(results))
-	            // 	})
-	            // 	.catch((err) => {
-	            //            console.log(JSON.stringify(err))
-	            // 	})
-	            // })
-	            //state loading
-	            // if (this.props.tasks[this.props.tasks.selectedCategory] != null)
-	            //     return
-	
-	            // this.props.fetchTasks({category: this.props.tasks.selectedCategory})
-	            // .then(results => {
-	            //     //stop loading
-	            //     // console.log(JSON.stringify(results))
-	            // })
-	            // .catch(err => {
-	            //     //stop loading
-	            //     alert(err)
-	            // })
-	
-	            // APIManager
-	            // .get('/api/task', null)
-	            // .then( response => {
-	            // 	// console.log(JSON.stringify(response))
-	            //        this.props.tasksReceived(response.results)
-	
-	            // })
-	            // .catch( err => {
-	            // 	console.log('ERROR: '+JSON.stringify(err))
-	            // })
+	            this.getTasks();
 	        }
 	    }, {
 	        key: 'componentDidUpdate',
 	        value: function componentDidUpdate() {
-	            // console.log('componentDidUpdate: '+this.props.tasks.selectedCategory)
-	            this.getTask();
-	
-	            // if (this.props.tasks[this.props.tasks.selectedCategory] != null)
-	            //     return
-	
-	            // this.props.fetchTasks({category: this.props.tasks.selectedCategory})
-	            // .then(results => {
-	            // })            
-	            // .catch(err => {
-	            //     //stop loading
-	            //     alert(err)
-	            // })
+	            this.getTasks();
 	        }
 	    }, {
 	        key: 'createTask',
 	        value: function createTask(task) {
-	            // console.log('CREATE TASK: '+JSON.stringify(task))
 	            this.props.submitTask(task).then(function (result) {
-	                // console.log(JSON.stringify(result))
-	                return;
+	                //          console.log(JSON.stringify(result))
 	            }).catch(function (err) {
 	                console.log('ERROR: ' + JSON.stringify(err));
 	            });
-	            // APIManager
-	            // .post('/api/task', task)
-	            // .then(response => {
-	            //     console.log('CREATE TASK: '+JSON.stringify(response))
-	            //     this.props.taskCreated(response.result)//this.props.taskCreated(JSON.stringify(response.result))
-	
-	            // })
-	            // .catch(err => {
-	            //     console.log('ERROR: '+JSON.stringify(err))
-	            // })
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
 	            var taskList = this.props.tasks[this.props.tasks.selectedCategory];
+	
 	            return _react2.default.createElement(
 	                'section',
 	                { id: 'banner' },
@@ -22236,8 +22162,7 @@
 	                            )
 	                        );
 	                    })
-	                ),
-	                _react2.default.createElement(_view.Authenticate, null)
+	                )
 	            );
 	        }
 	    }]);
@@ -22272,7 +22197,9 @@
 	        },
 	        submitTask: function submitTask(params) {
 	            return dispatch(_actions2.default.submitTask(params));
-	        } };
+	        }
+	        //      taskCreated: (task) => dispatch(actions.taskCreated(task))
+	    };
 	};
 	
 	exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Tasks);
@@ -49086,10 +49013,8 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var getRequest = function getRequest(path, params, actionType) {
-		//const getRequest: (path, params) => {	
 		return function (dispatch) {
 			return _utils.APIManager.get(path, params).then(function (response) {
-				// console.log('GET: '+JSON.stringify(response))
 				var payload = response.results || response.result || response.user;
 	
 				dispatch({
@@ -49097,19 +49022,17 @@
 					payload: payload,
 					params: params
 				});
+	
 				return response;
 			}).catch(function (err) {
-				// console.log('ERR: '+JSON.stringify(err.message))
 				throw err;
 			});
 		};
 	};
 	
 	var postRequest = function postRequest(path, params, actionType) {
-		//const getRequest: (path, params) => {	
 		return function (dispatch) {
 			return _utils.APIManager.post(path, params).then(function (response) {
-				// console.log('POST: '+JSON.stringify(response))
 				var payload = response.results || response.result || response.user;
 	
 				dispatch({
@@ -49117,9 +49040,9 @@
 					payload: payload,
 					params: params
 				});
+	
 				return response;
 			}).catch(function (err) {
-				// console.log('ERR: '+JSON.stringify(err.message))
 				throw err;
 			});
 		};
@@ -49129,27 +49052,25 @@
 	
 		fetchProfile: function fetchProfile(id) {
 			return function (dispatch) {
-				return dispatch(getRequest('/api/profile/' + id, null, _constants2.default.PROFILE_RECEIVED)); //getRequest
+				return dispatch(getRequest('/api/profile/' + id, null, _constants2.default.PROFILE_RECEIVED));
 			};
 		},
 	
 		register: function register(credentials) {
 			return function (dispatch) {
-				// return dispatch(postRequest('/api/profile', credentials, constants.PROFILE_CREATED))  //NOT params here
 				return dispatch(postRequest('/account/register', credentials, _constants2.default.PROFILE_CREATED));
 			};
 		},
 	
 		login: function login(credentials) {
 			return function (dispatch) {
-				return dispatch(postRequest('/account/login', credentials, _constants2.default.USER_LOGGED_IN)); //getRequest
+				return dispatch(postRequest('/account/login', credentials, _constants2.default.USER_LOGGED_IN));
 			};
 		},
 	
 		checkCurrentUser: function checkCurrentUser() {
 			return function (dispatch) {
-				// return checkCurrentUser(getRequest('account/currentuser', {}, constants.USER_LOGGED_IN))
-				return dispatch(getRequest('account/currentuser', {}, _constants2.default.USER_LOGGED_IN));
+				return dispatch(getRequest('/account/currentuser', {}, _constants2.default.USER_LOGGED_IN));
 			};
 		},
 	
@@ -49187,17 +49108,22 @@
 	
 		notify: function notify(params) {
 			return function (dispatch) {
-				console.log('actions.notify: ' + JSON.stringify(params));
 				return dispatch(postRequest('/twilio/notify', params, null));
 			};
 		},
 	
 		fetchMessages: function fetchMessages(params) {
 			return function (dispatch) {
-				// return checkCurrentUser(getRequest('account/currentuser', {}, constants.USER_LOGGED_IN))
 				return dispatch(getRequest('/api/message', params, _constants2.default.MESSAGES_RECEIVED));
 			};
 		}
+	
+		// taskCreated: (task) => {
+		// 	return {
+		// 		type: constants.TASK_CREATED,
+		// 		payload: task
+		// 	}
+		// }
 	
 	};
 
@@ -55173,13 +55099,17 @@
 	
 	var _reactRedux = __webpack_require__(361);
 	
+	var _utils = __webpack_require__(186);
+	
 	var _actions = __webpack_require__(398);
 	
 	var _actions2 = _interopRequireDefault(_actions);
 	
-	var _utils = __webpack_require__(186);
-	
 	var _reactRouter = __webpack_require__(400);
+	
+	var _bluebird = __webpack_require__(196);
+	
+	var _bluebird2 = _interopRequireDefault(_bluebird);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -55187,10 +55117,7 @@
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // <Time value={task.timestamp} format="MMM DD, YYYY" />
-	
-	// import Time from 'react-time'
-	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var Task = function (_Component) {
 	    _inherits(Task, _Component);
@@ -55201,9 +55128,9 @@
 	        var _this = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this));
 	
 	        _this.state = {
+	            fetchData: true,
 	            message: {
 	                text: ''
-	                // profile: {}
 	            }
 	        };
 	        return _this;
@@ -55212,17 +55139,67 @@
 	    _createClass(Task, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            console.log('componentDidMount: ' + JSON.stringify(this.props.params.id));
+	            console.log('componentDidMount: ' + this.props.params.id);
+	            if (this.props.messages[this.props.params.id] != null) return;
 	
-	            //    const taskId = this.props.params.id
-	            //    const task = this.props.tasks[taskId]
+	            this.props.fetchMessages({ task: this.props.params.id });
+	        }
 	
-	            // console.log('componentDidMount: '+JSON.stringify(task)) 
+	        // resetClock(delay){
+	        //     return new Promise((resolve, reject) => {
+	        //         setTimeout((err, success) => {
+	        //             if (err){
+	        //                 reject(err)
+	        //                 return
+	        //             }
 	
-	            //garb the task from the store:
-	            if (this.props.message[this.props.params.id] != null) return;
+	        //             this.setState({
+	        //                 fetchData: true
+	        //             })
 	
-	            this.props.fetchMessages({ task: this.props.params.id }); ///this.props.fetchMessages(params)
+	        //             resolve(success)
+	
+	        //         }, 1000*delay)
+	        //     })
+	        // }
+	
+	        // componentDidUpdate(){
+	        //     if (this.state.fetchData == false)
+	        //         return
+	
+	        //     this.resetClock(5)
+	        //     .then(response => {
+	        //         this.props.fetchMessages({task: this.props.params.id})
+	        //         this.setState({
+	        //             fetchData: false
+	        //         })
+	        //     })
+	        //     .catch(err => {
+	
+	        //     })
+	
+	
+	        // setTimeout(() => {
+	        //  this.props.fetchMessages({task: this.props.params.id})
+	        //  .then(response => {
+	        //      this.setState({
+	        //          fetchData: true
+	        //      })
+	        //  })
+	        //  .catch(err => {
+	
+	        //  })
+	        // }, 5000) // 5 seconds
+	        // }
+	
+	    }, {
+	        key: 'updateMessage',
+	        value: function updateMessage(event) {
+	            var updated = Object.assign({}, this.state.message);
+	            updated['text'] = event.target.value;
+	            this.setState({
+	                message: updated
+	            });
 	        }
 	    }, {
 	        key: 'submitMessage',
@@ -55230,8 +55207,8 @@
 	            var _this2 = this;
 	
 	            event.preventDefault();
-	            // console.log('submitMessage: '+JSON.stringify(this.state.message))
 	            var updated = Object.assign({}, this.state.message);
+	
 	            var user = this.props.account.user;
 	            updated['profile'] = {
 	                id: user.id,
@@ -55239,7 +55216,6 @@
 	            };
 	
 	            updated['task'] = this.props.params.id;
-	            // console.log('submitMessage: '+JSON.stringify(updated))
 	
 	            var taskId = this.props.params.id;
 	            var task = this.props.tasks[taskId];
@@ -55253,29 +55229,18 @@
 	
 	                return _this2.props.notify(params);
 	            }).then(function (response) {
-	                alert('Thanks for replying! Good luck!');
+	                alert('Thanks for replying! Good Luck!');
 	            }).catch(function (err) {
-	                console.log('ERR: ' + JSON.stringify(err.message));
-	            });
-	        }
-	    }, {
-	        key: 'updateMessage',
-	        value: function updateMessage(event) {
-	            // console.log('updateMessage: '+'event.target.id'+' == '+'event.target.value')
-	            // console.log('updateMessage: '+' == '+event.target.value)
-	            var updated = Object.assign({}, this.state.message);
-	            updated['text'] = event.target.value;
-	            // updated = event.target.value
-	            this.setState({
-	                message: updated
+	                console.log('ERR: ' + JSON.stringify(err));
 	            });
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            // garb the task from the store:
+	            // grab the task from the store:
 	            var taskId = this.props.params.id;
 	            var task = this.props.tasks[taskId];
+	
 	            var messages = this.props.messages[taskId];
 	
 	            return _react2.default.createElement(
@@ -55301,22 +55266,19 @@
 	                            null,
 	                            _utils.TextUtils.capitalize(task.category)
 	                        ),
-	                        ' ',
 	                        _react2.default.createElement('br', null),
 	                        _react2.default.createElement(
 	                            'strong',
 	                            null,
 	                            _utils.TextUtils.capitalize(task.profile.username)
 	                        ),
-	                        ' ',
 	                        _react2.default.createElement('br', null),
 	                        _utils.DateUtils.formattedDate(task.timestamp),
 	                        _react2.default.createElement('hr', null),
 	                        _react2.default.createElement(
 	                            'p',
 	                            null,
-	                            task.description,
-	                            ' '
+	                            task.description
 	                        )
 	                    )
 	                ),
@@ -55331,13 +55293,13 @@
 	                    messages == null ? _react2.default.createElement(
 	                        'p',
 	                        null,
-	                        ' No Replies '
+	                        'No Replies'
 	                    ) : messages.map(function (message, i) {
 	                        return _react2.default.createElement(
 	                            'li',
 	                            { key: message.id },
 	                            message.text,
-	                            ' by',
+	                            ' by ',
 	                            _react2.default.createElement(
 	                                _reactRouter.Link,
 	                                { to: '/profile/' + message.profile.id },
@@ -55349,16 +55311,16 @@
 	                this.props.account.user == null ? _react2.default.createElement(
 	                    'h3',
 	                    null,
-	                    'Please log in or Register to Reply.'
+	                    'Please Log in or Register to Reply'
 	                ) : _react2.default.createElement(
 	                    'div',
 	                    null,
 	                    _react2.default.createElement(
-	                        'h2',
+	                        'h3',
 	                        null,
 	                        'Reply'
 	                    ),
-	                    _react2.default.createElement('textarea', { onChange: this.updateMessage.bind(this), placeholder: 'Enter Message to Respond', id: 'text' }),
+	                    _react2.default.createElement('textarea', { onChange: this.updateMessage.bind(this), placeholder: 'Enter Message to Respond' }),
 	                    _react2.default.createElement('br', null),
 	                    _react2.default.createElement(
 	                        'button',
@@ -55425,7 +55387,24 @@
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // let profile = this.props.profiles
+	//       if (profile == null)
+	//           return <div>Not Found</div>
+	//       else if (profile[this.props.params.id] == null)
+	//           return <div>Not Found</div> 
+	//       else {
+	//       	profile = profile[this.props.params.id]
+	//        return (
+	//        	<div>
+	//        		Profile Container
+	// 			<br />
+	// 			<span>{profile.username}</span>
+	// 			<br />
+	// 			<span>{profile.email}</span>
+	// 		</div>	
+	//       	)
+	//       }
+	
 	
 	var Profile = function (_Component) {
 		_inherits(Profile, _Component);
@@ -55452,35 +55431,11 @@
 		}, {
 			key: 'render',
 			value: function render() {
-				var profile = this.props.profiles;
-				if (profile == null) return _react2.default.createElement(
+				return _react2.default.createElement(
 					'div',
 					null,
-					'Not Found'
-				);else if (profile[this.props.params.id] == null) return _react2.default.createElement(
-					'div',
-					null,
-					'Not Found'
-				);else {
-					profile = profile[this.props.params.id];
-					return _react2.default.createElement(
-						'div',
-						null,
-						'Profile Container',
-						_react2.default.createElement('br', null),
-						_react2.default.createElement(
-							'span',
-							null,
-							profile.username
-						),
-						_react2.default.createElement('br', null),
-						_react2.default.createElement(
-							'span',
-							null,
-							profile.email
-						)
-					);
-				}
+					'something'
+				);
 			}
 		}]);
 	
@@ -55807,26 +55762,23 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var initialState = {
-		// list: []  //list: null WILL CAUSE: Uncaught TypeError: Cannot read property 'map' of null
-		// list: {} //WILL CAUSE THE BUG: Uncaught TypeError: this.props.tasks.map is not a function
-		// task: {} ,
-		all: null,
-		selectedCategory: 'dog walking',
-		categories: ['delivery', 'dog walking', 'house cleaning', 'misc']
+		selectedCategory: 'delivery',
+		categories: ['misc', 'delivery', 'dog walking', 'house cleaning']
 	};
 	
 	exports.default = function () {
 		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
 		var action = arguments[1];
 	
+	
 		var updated = Object.assign({}, state);
+	
 		switch (action.type) {
 			case _constants2.default.TASKS_RECEIVED:
-				console.log('TASKS_RECEIVED: ' + JSON.stringify(action.params));
 	
 				var keys = Object.keys(action.params);
 				keys.forEach(function (key, i) {
-					var value = action.params[key]; //delivery, dog walking
+					var value = action.params[key]; // delivery, dog walking...
 					updated[value] = action.payload;
 				});
 	
@@ -55834,26 +55786,24 @@
 					updated[task.id] = task;
 				});
 	
-				// updated['delivery'] = action.payload  //THIS LINE MUST BE INSERTED TO RENDER ON Tasks.js CONTAINER PAGE
-				// console.log('TASKS_RECEIVED: '+JSON.stringify(updated))
+				//			console.log('TASKS_RECEIVED: '+JSON.stringify(updated))
 				return updated;
 	
 			case _constants2.default.TASK_CREATED:
-				// console.log('TASK_CREATED: '+JSON.stringify(action.payload))  
+				//			console.log('TASK_: '+JSON.stringify(action.tasks))
 				var currentTasks = updated[action.payload.category] ? Object.assign([], updated[action.payload.category]) : [];
-				currentTasks.unshift(action.payload); //currentTask.unshift(action.task)
-				updated[action.payload.category] = currentTasks; //updated['all'] = currentTask
-	
+				currentTasks.unshift(action.payload);
+				updated[action.payload.category] = currentTasks;
 				return updated;
 	
 			case _constants2.default.CATEGORY_SELECTED:
-				// let updated = 
-				// console.log('CATEGORY_SELECTED: '+action.payload) 
-				updated['selectedCategory'] = action.payload; //this triggers re-render of the components
+				//			console.log('CATEGORY_SELECTED: '+action.payload)
+				updated['selectedCategory'] = action.payload;
 				return updated;
 	
 			default:
 				return state;
+	
 		}
 	};
 
@@ -55957,7 +55907,7 @@
 	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
 	    var action = arguments[1];
 	
-	    var updated = Object.assign({}, state);
+	    var updated = Object.assign({}, initialState);
 	    switch (action.type) {
 	        case _constants2.default.PROFILE_RECEIVED:
 	            console.log("PROFILE_RECEIVED: " + JSON.stringify(action.payload));

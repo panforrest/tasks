@@ -5,7 +5,7 @@ var initialState = {
 }
 
 export default (state=initialState, action) => {
-    let updated = Object.assign({}, state) 
+    let updated = Object.assign({}, initialState) 
 	switch(action.type){
         case constants.PROFILE_RECEIVED:
             console.log("PROFILE_RECEIVED: "+JSON.stringify(action.payload))
