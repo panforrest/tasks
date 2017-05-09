@@ -1,3 +1,7 @@
+				// <br />
+				// <span>{this.props.profile.username}</span>
+				// <br />
+				// <span>{this.props.profile.email}</span>
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import actions from '../../actions'
@@ -20,10 +24,10 @@ class Profile extends Component {
 		return (
 			<div>
 				Profile Container
-				<br />
-				<span>{this.props.profile.username}</span>
-				<br />
-				<span>{this.props.profile.email}</span>
+				// <br />
+				// <span>{this.props.profile.username}</span>
+				// <br />
+				// <span>{this.props.profile.email}</span>
 
 			</div>
 		)
