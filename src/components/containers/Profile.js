@@ -29,7 +29,7 @@ class Profile extends Component {
 				<br />
 				<span>{profile.email}</span>
 			</div>
-
+        )
 	}
 }
 
