@@ -6,6 +6,9 @@ class Profile extends Component {
 
 	componentDidMount(){
         const id = this.props.params.id
+        if ( this.props.profiles[id] == null )  //if ( this.props.params.id == null )
+        	return
+
 		console.log('ID: '+id)
 		// let path = '/api/profile'
 		this.props.fetchProfile(id)
