@@ -21,48 +21,41 @@ class Task extends Component {
         if (this.props.messages[this.props.params.id] != null)
             return
 
-        // console.log('Hello!')
         this.props.fetchMessages({task: this.props.params.id})
-
-        setTimeout(() => {
-            this.props.fetchMessages({task: this.props.params.id})
-        }, 60*1000)
     }
 
-    // resetClock(delay){
-    //     return new Promise((resolve, reject) => {
-    //         setTimeout((err, success) => {
-    //             if (err){
-    //                 reject(err)
-    //                 return
-    //             }
+    resetClock(delay){
+        return new Promise((resolve, reject) => {
+            setTimeout((err, success) => {
+                if (err){
+                    reject(err)
+                    return
+                }
                 
-    //             this.setState({
-    //                 fetchData: true
-    //             })
+                this.setState({
+                    fetchData: true
+                })
 
-    //             resolve(success)
+                resolve(success)
 
-    //         }, 1000*delay)
-    //     })
-    // }
+            }, 1000*delay)
+        })
+    }
 
     componentDidUpdate(){
-        console.log('Hello!')
-        // this.props.fetchMessages({task: this.props.params.id})
-    //     if (this.state.fetchData == false)
-    //         return
+        if (this.state.fetchData == false)
+            return
 
-    //     this.resetClock(5)
-    //     .then(response => {
-    //         this.props.fetchMessages({task: this.props.params.id})
-    //         this.setState({
-    //             fetchData: false
-    //         })
-    //     })
-    //     .catch(err => {
+        this.resetClock(5)
+        .then(response => {
+            this.props.fetchMessages({task: this.props.params.id})
+            this.setState({
+                fetchData: false
+            })
+        })
+        .catch(err => {
 
-        // })
+        })
 
 
         // setTimeout(() => {

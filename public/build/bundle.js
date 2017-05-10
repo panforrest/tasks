@@ -55139,56 +55139,44 @@
 	    _createClass(Task, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            var _this2 = this;
-	
 	            console.log('componentDidMount: ' + this.props.params.id);
 	            if (this.props.messages[this.props.params.id] != null) return;
 	
-	            // console.log('Hello!')
 	            this.props.fetchMessages({ task: this.props.params.id });
-	
-	            setTimeout(function () {
-	                _this2.props.fetchMessages({ task: _this2.props.params.id });
-	            }, 60 * 1000);
 	        }
+	    }, {
+	        key: 'resetClock',
+	        value: function resetClock(delay) {
+	            var _this2 = this;
 	
-	        // resetClock(delay){
-	        //     return new Promise((resolve, reject) => {
-	        //         setTimeout((err, success) => {
-	        //             if (err){
-	        //                 reject(err)
-	        //                 return
-	        //             }
+	            return new _bluebird2.default(function (resolve, reject) {
+	                setTimeout(function (err, success) {
+	                    if (err) {
+	                        reject(err);
+	                        return;
+	                    }
 	
-	        //             this.setState({
-	        //                 fetchData: true
-	        //             })
+	                    _this2.setState({
+	                        fetchData: true
+	                    });
 	
-	        //             resolve(success)
-	
-	        //         }, 1000*delay)
-	        //     })
-	        // }
-	
+	                    resolve(success);
+	                }, 1000 * delay);
+	            });
+	        }
 	    }, {
 	        key: 'componentDidUpdate',
 	        value: function componentDidUpdate() {
-	            console.log('Hello!');
-	            // this.props.fetchMessages({task: this.props.params.id})
-	            //     if (this.state.fetchData == false)
-	            //         return
+	            var _this3 = this;
 	
-	            //     this.resetClock(5)
-	            //     .then(response => {
-	            //         this.props.fetchMessages({task: this.props.params.id})
-	            //         this.setState({
-	            //             fetchData: false
-	            //         })
-	            //     })
-	            //     .catch(err => {
+	            if (this.state.fetchData == false) return;
 	
-	            // })
-	
+	            this.resetClock(5).then(function (response) {
+	                _this3.props.fetchMessages({ task: _this3.props.params.id });
+	                _this3.setState({
+	                    fetchData: false
+	                });
+	            }).catch(function (err) {});
 	
 	            // setTimeout(() => {
 	            //  this.props.fetchMessages({task: this.props.params.id})
@@ -55214,7 +55202,7 @@
 	    }, {
 	        key: 'submitMessage',
 	        value: function submitMessage(event) {
-	            var _this3 = this;
+	            var _this4 = this;
 	
 	            event.preventDefault();
 	            var updated = Object.assign({}, this.state.message);
@@ -55237,7 +55225,7 @@
 	                    taskResponder: updated.profile.username
 	                };
 	
-	                return _this3.props.notify(params);
+	                return _this4.props.notify(params);
 	            }).then(function (response) {
 	                alert('Thanks for replying! Good Luck!');
 	            }).catch(function (err) {
