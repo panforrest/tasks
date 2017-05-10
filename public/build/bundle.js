@@ -55142,7 +55142,7 @@
 	        value: function componentDidMount() {
 	            console.log('componentDidMount: ' + this.props.params.id);
 	
-	            if (this.props.message[this.props.params.id] != null) return;
+	            if (this.props.messages[this.props.params.id] != null) return;
 	
 	            this.setState({
 	                inLoop: true
