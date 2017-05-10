@@ -22,18 +22,32 @@ class Task extends Component {
         if (this.props.messages[this.props.params.id] != null)
             return
 
+        // this.props.fetchMessages({task: this.props.params.id})
+        this.fetchMessages()
+    }
+
+    fetchMessages(){
         this.props.fetchMessages({task: this.props.params.id})
+        .then(response => {
+            console.log('response: '+JSON.stringify(response))
+            setTimeout(() => {
+                this.fetchMessages()
+            }, 3*1000)
+        })
+        .catch(err => {
+            console.log('ERROR: '+err)
+        })
     }
 
-    fetchMessagesInSeconds(seconds){
-        setTimeout(() => {
-            this.props.fetchMessages({task: this.props.params.id})
-            this.setState({
-                loop: false
-            })
+    // fetchMessagesInSeconds(seconds){
+    //     setTimeout(() => {
+    //         this.props.fetchMessages({task: this.props.params.id})
+    //         this.setState({
+    //             loop: false
+    //         })
 
-        }, 1000*seconds)
-    }
+    //     }, 1000*seconds)
+    // }
 
     // resetClock(delay){
     //     return new Promise((resolve, reject) => {
@@ -57,13 +71,13 @@ class Task extends Component {
         // if (this.state.fetchData == false)
         //     return
 
-        if (this.state.loop == false){
-            this.setState({
-                loop: true
-            })
+        // if (this.state.loop == false){
+        //     this.setState({
+        //         loop: true
+        //     })
 
-            this.fetchMessagesInSeconds(3)
-        } 
+        //     this.fetchMessagesInSeconds(3)
+        // } 
 
         // this.resetClock(5)
         // .then(response => {

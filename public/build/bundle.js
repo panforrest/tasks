@@ -55143,20 +55143,33 @@
 	            console.log('componentDidMount: ' + this.props.params.id);
 	            if (this.props.messages[this.props.params.id] != null) return;
 	
-	            this.props.fetchMessages({ task: this.props.params.id });
+	            // this.props.fetchMessages({task: this.props.params.id})
+	            this.fetchMessages();
 	        }
 	    }, {
-	        key: 'fetchMessagesInSeconds',
-	        value: function fetchMessagesInSeconds(seconds) {
+	        key: 'fetchMessages',
+	        value: function fetchMessages() {
 	            var _this2 = this;
 	
-	            setTimeout(function () {
-	                _this2.props.fetchMessages({ task: _this2.props.params.id });
-	                _this2.setState({
-	                    loop: false
-	                });
-	            }, 1000 * seconds);
+	            this.props.fetchMessages({ task: this.props.params.id }).then(function (response) {
+	                console.log('response: ' + JSON.stringify(response));
+	                setTimeout(function () {
+	                    _this2.fetchMessages();
+	                }, 3 * 1000);
+	            }).catch(function (err) {
+	                console.log('ERROR: ' + err);
+	            });
 	        }
+	
+	        // fetchMessagesInSeconds(seconds){
+	        //     setTimeout(() => {
+	        //         this.props.fetchMessages({task: this.props.params.id})
+	        //         this.setState({
+	        //             loop: false
+	        //         })
+	
+	        //     }, 1000*seconds)
+	        // }
 	
 	        // resetClock(delay){
 	        //     return new Promise((resolve, reject) => {
@@ -55182,13 +55195,13 @@
 	            // if (this.state.fetchData == false)
 	            //     return
 	
-	            if (this.state.loop == false) {
-	                this.setState({
-	                    loop: true
-	                });
+	            // if (this.state.loop == false){
+	            //     this.setState({
+	            //         loop: true
+	            //     })
 	
-	                this.fetchMessagesInSeconds(3);
-	            }
+	            //     this.fetchMessagesInSeconds(3)
+	            // } 
 	
 	            // this.resetClock(5)
 	            // .then(response => {
