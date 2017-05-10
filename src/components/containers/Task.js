@@ -21,6 +21,7 @@ class Task extends Component {
         if (this.props.messages[this.props.params.id] != null)
             return
 
+        // console.log('Hello!')
         this.props.fetchMessages({task: this.props.params.id})
     }
 
@@ -42,7 +43,9 @@ class Task extends Component {
     //     })
     // }
 
-    // componentDidUpdate(){
+    componentDidUpdate(){
+        console.log('Hello!')
+        // this.props.fetchMessages({task: this.props.params.id})
     //     if (this.state.fetchData == false)
     //         return
 
@@ -55,7 +58,7 @@ class Task extends Component {
     //     })
     //     .catch(err => {
 
-    //     })
+        // })
 
 
         // setTimeout(() => {
@@ -69,7 +72,7 @@ class Task extends Component {
 
         //  })
         // }, 5000) // 5 seconds
-    // }
+    }
 
     updateMessage(event){
         let updated = Object.assign({}, this.state.message)

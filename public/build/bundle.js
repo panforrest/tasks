@@ -55142,6 +55142,7 @@
 	            console.log('componentDidMount: ' + this.props.params.id);
 	            if (this.props.messages[this.props.params.id] != null) return;
 	
+	            // console.log('Hello!')
 	            this.props.fetchMessages({ task: this.props.params.id });
 	        }
 	
@@ -55163,35 +55164,38 @@
 	        //     })
 	        // }
 	
-	        // componentDidUpdate(){
-	        //     if (this.state.fetchData == false)
-	        //         return
+	    }, {
+	        key: 'componentDidUpdate',
+	        value: function componentDidUpdate() {
+	            console.log('Hello!');
+	            // this.props.fetchMessages({task: this.props.params.id})
+	            //     if (this.state.fetchData == false)
+	            //         return
 	
-	        //     this.resetClock(5)
-	        //     .then(response => {
-	        //         this.props.fetchMessages({task: this.props.params.id})
-	        //         this.setState({
-	        //             fetchData: false
-	        //         })
-	        //     })
-	        //     .catch(err => {
+	            //     this.resetClock(5)
+	            //     .then(response => {
+	            //         this.props.fetchMessages({task: this.props.params.id})
+	            //         this.setState({
+	            //             fetchData: false
+	            //         })
+	            //     })
+	            //     .catch(err => {
 	
-	        //     })
+	            // })
 	
 	
-	        // setTimeout(() => {
-	        //  this.props.fetchMessages({task: this.props.params.id})
-	        //  .then(response => {
-	        //      this.setState({
-	        //          fetchData: true
-	        //      })
-	        //  })
-	        //  .catch(err => {
+	            // setTimeout(() => {
+	            //  this.props.fetchMessages({task: this.props.params.id})
+	            //  .then(response => {
+	            //      this.setState({
+	            //          fetchData: true
+	            //      })
+	            //  })
+	            //  .catch(err => {
 	
-	        //  })
-	        // }, 5000) // 5 seconds
-	        // }
-	
+	            //  })
+	            // }, 5000) // 5 seconds
+	        }
 	    }, {
 	        key: 'updateMessage',
 	        value: function updateMessage(event) {
