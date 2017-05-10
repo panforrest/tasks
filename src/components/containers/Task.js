@@ -10,7 +10,7 @@ class Task extends Component {
         super()
         this.state = {
             // fetchData: true,
-            loop: false,
+            inLoop: false,
             message: {
                 text: ''
             }
@@ -18,18 +18,33 @@ class Task extends Component {
     }
 
     componentDidMount(){
-        console.log('componentDidMount: ' + this.props.params.id)
-        if (this.props.messages[this.props.params.id] != null)
+        console.log('componentDidMount: '+ this.props.params.id)
+        
+        if (this.props.message[this.props.params.id] != null)
             return
 
+        this.setState({
+            inLoop: true
+        })
         // this.props.fetchMessages({task: this.props.params.id})
         this.fetchMessages()
+
     }
+
+    
 
     fetchMessages(){
         this.props.fetchMessages({task: this.props.params.id})
         .then(response => {
-            console.log('response: '+JSON.stringify(response))
+            console.log('IN LOOP?: '+this.state.inLoop)
+            console.log('LOCATION?: '+JSON.stringify(this.props.router.location))
+            // wrong path, bail out
+            if(this.props.router.location.pathname != '/task/'+this.props.params.id)
+                return
+
+            if(this.state.inLoop == false)
+                return
+
             setTimeout(() => {
                 this.fetchMessages()
             }, 3*1000)
@@ -37,71 +52,6 @@ class Task extends Component {
         .catch(err => {
             console.log('ERROR: '+err)
         })
-    }
-
-    // fetchMessagesInSeconds(seconds){
-    //     setTimeout(() => {
-    //         this.props.fetchMessages({task: this.props.params.id})
-    //         this.setState({
-    //             loop: false
-    //         })
-
-    //     }, 1000*seconds)
-    // }
-
-    // resetClock(delay){
-    //     return new Promise((resolve, reject) => {
-    //         setTimeout((err, success) => {
-    //             if (err){
-    //                 reject(err)
-    //                 return
-    //             }
-                
-    //             this.setState({
-    //                 fetchData: true
-    //             })
-
-    //             resolve(success)
-
-    //         }, 1000*delay)
-    //     })
-    // }
-
-    componentDidUpdate(){
-        // if (this.state.fetchData == false)
-        //     return
-
-        // if (this.state.loop == false){
-        //     this.setState({
-        //         loop: true
-        //     })
-
-        //     this.fetchMessagesInSeconds(3)
-        // } 
-
-        // this.resetClock(5)
-        // .then(response => {
-        //     this.props.fetchMessages({task: this.props.params.id})
-        //     this.setState({
-        //         fetchData: false
-        //     })
-        // })
-        // .catch(err => {
-
-        // })
-
-
-        // setTimeout(() => {
-        //  this.props.fetchMessages({task: this.props.params.id})
-        //  .then(response => {
-        //      this.setState({
-        //          fetchData: true
-        //      })
-        //  })
-        //  .catch(err => {
-
-        //  })
-        // }, 5000) // 5 seconds
     }
 
     updateMessage(event){
