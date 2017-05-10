@@ -23,6 +23,10 @@ class Task extends Component {
 
         // console.log('Hello!')
         this.props.fetchMessages({task: this.props.params.id})
+
+        setTimeout(() => {
+            this.props.fetchMessages({task: this.props.params.id})
+        }, 60*1000)
     }
 
     // resetClock(delay){

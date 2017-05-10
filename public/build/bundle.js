@@ -55139,11 +55139,17 @@
 	    _createClass(Task, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
+	            var _this2 = this;
+	
 	            console.log('componentDidMount: ' + this.props.params.id);
 	            if (this.props.messages[this.props.params.id] != null) return;
 	
 	            // console.log('Hello!')
 	            this.props.fetchMessages({ task: this.props.params.id });
+	
+	            setTimeout(function () {
+	                _this2.props.fetchMessages({ task: _this2.props.params.id });
+	            }, 60 * 1000);
 	        }
 	
 	        // resetClock(delay){
@@ -55208,7 +55214,7 @@
 	    }, {
 	        key: 'submitMessage',
 	        value: function submitMessage(event) {
-	            var _this2 = this;
+	            var _this3 = this;
 	
 	            event.preventDefault();
 	            var updated = Object.assign({}, this.state.message);
@@ -55231,7 +55237,7 @@
 	                    taskResponder: updated.profile.username
 	                };
 	
-	                return _this2.props.notify(params);
+	                return _this3.props.notify(params);
 	            }).then(function (response) {
 	                alert('Thanks for replying! Good Luck!');
 	            }).catch(function (err) {
