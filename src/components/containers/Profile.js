@@ -20,23 +20,15 @@ class Profile extends Component {
 	}
 
 	render(){
-		let profile = this.props.profiles
-        if (profile == null)
-            return <div>Not Found</div>
-        else if (profile[this.props.params.id] == null)
-            return <div>Not Found</div> 
-        else {
-        	profile = profile[this.props.params.id]
-	        return (
-	        	<div>
-	        		Profile Container
-					<br />
-					<span>{profile.username}</span>
-					<br />
-					<span>{profile.email}</span>
-				</div>	
-        	)
-        }
+		const profile = this.props.profiles[this.props.params.id]
+		return (profile == null) ? <div>Not Found</div> : (
+			<div>
+				Profile Container
+				<br />
+				<span>{profile.username}</span>
+				<br />
+				<span>{profile.email}</span>
+			</div>
 
 	}
 }
