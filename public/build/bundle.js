@@ -55129,6 +55129,7 @@
 	
 	        _this.state = {
 	            fetchData: true,
+	            loop: false,
 	            message: {
 	                text: ''
 	            }
@@ -55145,38 +55146,61 @@
 	            this.props.fetchMessages({ task: this.props.params.id });
 	        }
 	    }, {
-	        key: 'resetClock',
-	        value: function resetClock(delay) {
+	        key: 'fetchMessagesInSeconds',
+	        value: function fetchMessagesInSeconds(seconds) {
 	            var _this2 = this;
 	
-	            return new _bluebird2.default(function (resolve, reject) {
-	                setTimeout(function (err, success) {
-	                    if (err) {
-	                        reject(err);
-	                        return;
-	                    }
-	
-	                    _this2.setState({
-	                        fetchData: true
-	                    });
-	
-	                    resolve(success);
-	                }, 1000 * delay);
-	            });
+	            setTimeout(function () {
+	                _this2.props.fetchMessages({ task: _this2.props.params.id });
+	                _this2.setState({
+	                    loop: false
+	                });
+	            }, 1000 * seconds);
 	        }
+	
+	        // resetClock(delay){
+	        //     return new Promise((resolve, reject) => {
+	        //         setTimeout((err, success) => {
+	        //             if (err){
+	        //                 reject(err)
+	        //                 return
+	        //             }
+	
+	        //             this.setState({
+	        //                 fetchData: true
+	        //             })
+	
+	        //             resolve(success)
+	
+	        //         }, 1000*delay)
+	        //     })
+	        // }
+	
 	    }, {
 	        key: 'componentDidUpdate',
 	        value: function componentDidUpdate() {
-	            var _this3 = this;
+	            // if (this.state.fetchData == false)
+	            //     return
 	
-	            if (this.state.fetchData == false) return;
-	
-	            this.resetClock(5).then(function (response) {
-	                _this3.props.fetchMessages({ task: _this3.props.params.id });
-	                _this3.setState({
-	                    fetchData: false
+	            if (this.state.loop == false) {
+	                this.setState({
+	                    loop: true
 	                });
-	            }).catch(function (err) {});
+	
+	                this.fetchMessagesInseconds(3);
+	            }
+	
+	            // this.resetClock(5)
+	            // .then(response => {
+	            //     this.props.fetchMessages({task: this.props.params.id})
+	            //     this.setState({
+	            //         fetchData: false
+	            //     })
+	            // })
+	            // .catch(err => {
+	
+	            // })
+	
 	
 	            // setTimeout(() => {
 	            //  this.props.fetchMessages({task: this.props.params.id})
@@ -55202,7 +55226,7 @@
 	    }, {
 	        key: 'submitMessage',
 	        value: function submitMessage(event) {
-	            var _this4 = this;
+	            var _this3 = this;
 	
 	            event.preventDefault();
 	            var updated = Object.assign({}, this.state.message);
@@ -55225,7 +55249,7 @@
 	                    taskResponder: updated.profile.username
 	                };
 	
-	                return _this4.props.notify(params);
+	                return _this3.props.notify(params);
 	            }).then(function (response) {
 	                alert('Thanks for replying! Good Luck!');
 	            }).catch(function (err) {

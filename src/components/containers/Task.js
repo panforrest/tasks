@@ -10,6 +10,7 @@ class Task extends Component {
         super()
         this.state = {
             fetchData: true,
+            loop: false,
             message: {
                 text: ''
             }
@@ -24,38 +25,56 @@ class Task extends Component {
         this.props.fetchMessages({task: this.props.params.id})
     }
 
-    resetClock(delay){
-        return new Promise((resolve, reject) => {
-            setTimeout((err, success) => {
-                if (err){
-                    reject(err)
-                    return
-                }
-                
-                this.setState({
-                    fetchData: true
-                })
-
-                resolve(success)
-
-            }, 1000*delay)
-        })
-    }
-
-    componentDidUpdate(){
-        if (this.state.fetchData == false)
-            return
-
-        this.resetClock(5)
-        .then(response => {
+    fetchMessagesInSeconds(seconds){
+        setTimeout(() => {
             this.props.fetchMessages({task: this.props.params.id})
             this.setState({
-                fetchData: false
+                loop: false
             })
-        })
-        .catch(err => {
 
-        })
+        }, 1000*seconds)
+    }
+
+    // resetClock(delay){
+    //     return new Promise((resolve, reject) => {
+    //         setTimeout((err, success) => {
+    //             if (err){
+    //                 reject(err)
+    //                 return
+    //             }
+                
+    //             this.setState({
+    //                 fetchData: true
+    //             })
+
+    //             resolve(success)
+
+    //         }, 1000*delay)
+    //     })
+    // }
+
+    componentDidUpdate(){
+        // if (this.state.fetchData == false)
+        //     return
+
+        if (this.state.loop == false){
+            this.setState({
+                loop: true
+            })
+
+            this.fetchMessagesInseconds(3)
+        } 
+
+        // this.resetClock(5)
+        // .then(response => {
+        //     this.props.fetchMessages({task: this.props.params.id})
+        //     this.setState({
+        //         fetchData: false
+        //     })
+        // })
+        // .catch(err => {
+
+        // })
 
 
         // setTimeout(() => {
