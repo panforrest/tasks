@@ -55128,7 +55128,7 @@
 	        var _this = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this));
 	
 	        _this.state = {
-	            fetchData: true,
+	            // fetchData: true,
 	            loop: false,
 	            message: {
 	                text: ''
@@ -55187,7 +55187,7 @@
 	                    loop: true
 	                });
 	
-	                this.fetchMessagesInseconds(3);
+	                this.fetchMessagesInSeconds(3);
 	            }
 	
 	            // this.resetClock(5)

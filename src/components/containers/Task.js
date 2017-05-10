@@ -9,7 +9,7 @@ class Task extends Component {
     constructor(){
         super()
         this.state = {
-            fetchData: true,
+            // fetchData: true,
             loop: false,
             message: {
                 text: ''
@@ -62,7 +62,7 @@ class Task extends Component {
                 loop: true
             })
 
-            this.fetchMessagesInseconds(3)
+            this.fetchMessagesInSeconds(3)
         } 
 
         // this.resetClock(5)
